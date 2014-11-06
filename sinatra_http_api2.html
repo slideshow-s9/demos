@@ -90,7 +90,7 @@
 <pre><code>require 'sinatra'
 
 get '/' do
-  'Hallo Linz! Hallo Pasching!'
+  'Hallo Wien!'
 end
 </code></pre>
 
@@ -112,7 +112,7 @@ end
 <pre><code>require 'sinatra'
 
 get '/' do
-  'Hallo Linz! Hallo Pasching!'
+  'Hallo Wien!'
 end
 </code></pre>
 
@@ -126,7 +126,7 @@ end
 
 <p>Open browser:</p>
 
-<p><img src="i/hallosinatra2.png" alt="" /></p>
+<p><img src="i/hallosinatra.png" alt="" /></p>
 
 
 </div>
@@ -142,7 +142,7 @@ end
 var app = express();
 
 app.get( '/', function( req, res ) {
-  res.send( 'Hallo Linz! Hallo Pasching!' );
+  res.send( 'Hallo Wien!' );
 });
 
 app.listen( 4567 );
@@ -161,7 +161,7 @@ e.g. a monad is just a monoid in the category of endofunctors, what&#8217;s the 
 
 main :: IO ()
 main = scotty 4567 $ do
-    get "/" $ text "Hallo Linz! Hallo Pasching!"
+    get "/" $ text "Hallo Wien!"
 </code></pre>
 
 <ul>
@@ -583,7 +583,7 @@ end
 
 <p>Mimimalistic Rack App</p>
 
-<pre><code>lambda { |env| [200, {'Content-Type' =&gt; 'text/plain'}, ['Hello Linz! Hello Pasching!']] }
+<pre><code>lambda { |env| [200, {'Content-Type' =&gt; 'text/plain'}, ['Hallo Wien!']] }
 </code></pre>
 
 <p>To use Rack, provide an &#8220;app&#8221;: an object that responds to the call method,
@@ -592,7 +592,7 @@ taking the environment hash as a parameter, and returning an Array with three el
 <ul>
   <li>The HTTP response code  e.g. <code>200</code>  </li>
   <li>A Hash of headers e.g. <code>{ 'Content-Type' =&gt; 'text/plain' }</code></li>
-  <li>The response body, which must respond to each e.g. <code>["Hello Linz! Hello Pasching!"]</code></li>
+  <li>The response body, which must respond to each e.g. <code>["Hallo Wien!"]</code></li>
 </ul>
 
 <p><code>hello.rb</code>:</p>
@@ -602,7 +602,7 @@ taking the environment hash as a parameter, and returning an Array with three el
 hello_app =  -&gt;{ |env|
                    [ 200,
                      { 'Content-Type' =&gt; 'text/plain' },
-                     [ 'Hello Linz! Hello Pasching!' ]
+                     [ 'Hallo Wien!' ]
                    ]
                }
 
@@ -656,7 +656,7 @@ end
         puts "Hello, #{Rack::Utils.escape_html name}!"
       end
       on default do
-        puts "Hello Linz! Hello Pasching!"
+        puts "Hallo Wien!"
       end
     end
   }
@@ -921,7 +921,7 @@ run App
 
 <pre><code>hello_app = -&gt;(req, res) {
                  res.write_head( 200, 'Content-Type' =&gt; 'text/plain' )
-                 res.write( "Hello Linz! Hello Pasching!\n" )
+                 res.write( "Hallo Wien!\n" )
                  res.finish
               }
 
@@ -936,7 +936,7 @@ server.listen( 9292, '0.0.0.0' )
 <pre><code>class App
   def call( req, res )
     res.write_head( 200, 'Content-Type' =&gt; 'text/plain' )
-    res.write( "Hello Linz! Hello Pasching!\n" )
+    res.write( "Hallo Wien!\n" )
     res.finish
   end
 end
@@ -961,7 +961,7 @@ and checks it back in when the response is finished:</p>
 class App
   def call( req, res )
     res.write_head( 200, 'Content-Type' =&gt; 'text/plain' )
-    res.write( "Hello Linz! Hello Pasching!\n" )
+    res.write( "Hallo Wien!\n" )
     res.finish
   end
 end
@@ -1063,7 +1063,7 @@ includes garbage collector.</p>
 <pre><code>require 'sinatra'
 
 get '/' do
-  'Hallo Linz! Hallo Pasching!'
+  'Hallo Wien!'
 end
 </code></pre>
 
@@ -1074,7 +1074,7 @@ end
 class App &lt; Sinatra::Base
 
   get '/' do
-    'Hallo Linz! Hallo Pasching!'
+    'Hallo Wien!'
   end
 
 end
