@@ -151,7 +151,7 @@ Use <code>go get github.com/mattn/go-sqlite3</code> to install.</p>
 
 <pre><code>func FetchEvents() []Event {
 
-  db = sql.Open( &quot;sqlite3&quot;, &quot;./football.db&quot; )
+  db, err := sql.Open( &quot;sqlite3&quot;, &quot;./football.db&quot; )
   if err != nil {
     log.Fatal(err)
   }
@@ -195,8 +195,7 @@ exceptions do NOT really work in an (asynchronous) concurrent world.</p>
 <pre><code>func GetEvents() (interface{},error) {
   // step 1: fetch records
   events := FetchEvents()
-  log.Println( events )
-
+ 
   // step 2: map to json structs for serialization/marshalling
   type JsEvent struct {
     Key   string `json:&quot;key&quot;`
