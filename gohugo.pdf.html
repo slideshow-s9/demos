@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Stay Static - Build Static (Web)sites w/ Hugo and Go Templates</title>
+   
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+     
+ul { list-style-type: square; }    
+   
+.center { text-align: center; }   
+     
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+         
+         border: 1px dotted black;
+
+/*      
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+pre {
+  padding: 4px 4px 4px 4px;
+  border-top: #bbb 1px solid;
+  border-bottom: #bbb 1px solid;
+  background: #f3f3f3;
+}
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<div class="presentation">
+
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="agenda">Agenda</h1>
+
+<ul>
+  <li>Hello, Hugo!</li>
+  <li>Hugo Stay Static Sample Site - Posts, Pages, Datafiles</li>
+  <li>Markdown Madness - Markdown Extensions n Goodies</li>
+  <li>HTML Template Options in Go</li>
+  <li>Demo - Go Live - Free (Static) Site Hosting Options</li>
+  <li>Why Static?</li>
+  <li>Best of “Both Worlds”</li>
+  <li>Thanks - Stay Static</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="dynamic-website-generators">Dynamic (Web)Site Generators</h1>
+
+<p><strong>The Biggies</strong> (PHP Rules!)</p>
+
+<ul>
+  <li>WordPress</li>
+  <li>Drupal</li>
+  <li>Joomla!</li>
+</ul>
+
+<p>On your live production site requires</p>
+
+<ul>
+  <li>database (e.g. mysql)</li>
+  <li>application server (e.g. mod_php)</li>
+  <li>web server (e.g. apache)</li>
+</ul>
+
+<p>On every request - (re)builds the page on-the-fly e.g. queries the database, runs scripts,
+merges templates, etc.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="static-website-generators--builders">Static (Web)Site Generators / Builders</h1>
+
+<p>On your live production site requires</p>
+
+<ul>
+  <li>
+    <p>web server (e.g. apache, ngnix, etc.) only</p>
+  </li>
+  <li><strong>NO</strong> database needed</li>
+  <li><strong>NO</strong> application server needed</li>
+</ul>
+
+<p>Note: You can even go “server-less” e.g.
+host your site on a web service e.g. Amazon S3 (Simple Storage Service).</p>
+
+<p>You build the complete site, that is, <strong>all pages</strong> “ahead-of-time”
+on a “build” machine. You will end-up with a bunch of (static) ready-to-use
+HTML, CSS and JS files (*). Upload to production site and you’re live
+w/ a kind of “super cache”.</p>
+
+<p>(*) and media files e.g. graphics, music recordings, etc.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="static-website-generators--builders-1">Static (Web)Site Generators / Builders</h1>
+
+<p><strong>The Biggies</strong> in 1999</p>
+
+<ol>
+  <li>Macromedia Dreamweaver</li>
+  <li>Microsoft FrontPage</li>
+  <li>Netscape Composer</li>
+</ol>
+
+<p>And today?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hello-hugo">Hello, Hugo!</h1>
+
+<p>by Steve Francia, Bjørn Erik Pedersen et al (★10 186) -
+web: <a href="https://gohugo.io"><code>gohugo.io</code></a>,
+github: <a href="https://github.com/spf13/hugo"><code>spf13/hugo</code></a></p>
+
+<p><img src="i/staticgen-hugo.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="news-flash---new-hugo-release-v016-on-june-6th-2016">News Flash - New Hugo Release v0.16 on June 6th, 2016</h1>
+
+<p>Over 550 contributions by over 110 contributors to the main Hugo codebase.
+Since last release (on November 25th, 2015)
+Hugo has gained 3500 stars, 90 contributors and 23 additional themes.</p>
+
+<p>What’s news?</p>
+
+<ul>
+  <li>Partial Builds e.g. now even faster on rebuilds</li>
+  <li>Template Improvements e.g. now w/ blocks and many more
+new template functions (e.g. countwords, jsonify, md5, readFile, etc.);</li>
+  <li>And Much More</li>
+</ul>
+
+<p>See <a href="http://gohugo.io/meta/release-notes">Release Notes</a>.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="getting-started-w-hugo">Getting Started w/ Hugo</h1>
+
+<p>Hugo is an all-in-one single-file binary (e.g. ~15 Megs)
+Download the package (e.g. ~4 Megs) from the <a href="https://github.com/spf13/hugo/releases">release page</a>
+and unpack the Hugo binary. That’s it.</p>
+
+<blockquote>
+  <p>Linux Tip: Hugo has become part of the official Debian and Ubuntu repositories since January 2016!
+If you run the latest version, simply run <code>apt-get install hugo</code> to get started.</p>
+</blockquote>
+
+<p>Try:</p>
+
+<pre><code>$ hugo help
+</code></pre>
+
+<p>prints</p>
+
+<pre><code>hugo is the main command, used to build your Hugo site.
+
+Hugo is a Fast and Flexible Static Site Generator
+built with love by spf13 and friends in Go.
+
+Complete documentation is available at http://gohugo.io/.
+
+Usage:
+  hugo [flags]
+  hugo [command]
+
+Available Commands:
+  server      A high performance webserver
+  version     Print the version number of Hugo
+  config      Print the site configuration
+  check       Check content in the source directory
+  benchmark   Benchmark hugo by building a site a number of times.
+  convert     Convert your content to different formats
+  new         Create new content for your site
+  list        Listing out various types of content
+  undraft     Undraft changes the content's draft status from 'True' to 'False'
+  import      Import your site from others.
+  gen         A collection of several useful generators.
+
+Flags:
+  -b, --baseURL string          hostname (and path) to the root, e.g. http://spf13.com/
+  -D, --buildDrafts             include content marked as draft
+  -F, --buildFuture             include content with publishdate in the future
+      --cacheDir string         filesystem path to cache directory. Defaults: $TMPDIR/hugo_cache/
+      --canonifyURLs            if true, all relative URLs will be canonicalized using baseURL
+      --cleanDestinationDir     Remove files from destination not found in static directories
+      --config string           config file (default is path/config.yaml|json|toml)
+  -c, --contentDir string       filesystem path to content directory
+  -d, --destination string      filesystem path to write files to
+      --disable404              Do not render 404 page
+      --disableRSS              Do not build RSS files
+      --disableSitemap          Do not build Sitemap file
+      --forceSyncStatic         Copy all files when static is changed.
+      --ignoreCache             Ignores the cache directory
+  -l, --layoutDir string        filesystem path to layout directory
+      --log                     Enable Logging
+      --logFile string          Log File path (if set, logging enabled automatically)
+      --noTimes                 Don't sync modification time of files
+      --pluralizeListTitles     Pluralize titles in lists using inflect (default true)
+      --preserveTaxonomyNames   Preserve taxonomy names as written ("Gérard Depardieu" vs "gerard-depardieu")
+      --renderToMemory          render to memory (only useful for benchmark testing)
+  -s, --source string           filesystem path to read files relative from
+      --stepAnalysis            display memory and timing of different steps of the program
+  -t, --theme string            theme to use (located in /themes/THEMENAME/)
+      --uglyURLs                if true, use /filename.html instead of /filename/
+  -v, --verbose                 verbose output
+      --verboseLog              verbose logging
+  -w, --watch                   watch filesystem for changes and recreate as needed
+
+Use "hugo [command] --help" for more information about a command.
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-sample-site">Hugo Stay Static Sample Site</h1>
+
+<p>Shows how-to-use:</p>
+
+<ul>
+  <li>Posts (e.g. Blog News ‘n’ Updates Posts Sorted by Date)</li>
+  <li>Pages  (e.g. About Page)</li>
+  <li>Datafiles (e.g. Links ‘n’ Bookmarks)</li>
+</ul>
+
+<p><img src="i/staystatic-samplesite.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site---file-structure">Hugo Stay Static Site - File Structure</h1>
+
+<pre><code>│   config.toml
+├───content/
+│   │   about.md
+│   └───post/
+│           new-build-system.md
+│           new-repo-maps.md
+│           new-season.md
+├───data/
+│       links.toml
+├───layouts/
+│   │   index.html
+│   ├───partials/
+│   │       footer.html
+│   │       head.html
+│   │       header.html
+│   ├───post/
+│   │       single.html
+│   └───_default/
+│           single.html
+└───static/
+    └───css/
+            style.css
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/hugo"><code>staystatic/hugo</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site---pages-n-posts-with-front-matter">Hugo Stay Static Site - Pages n Posts with Front Matter</h1>
+
+<p>TOML + Markdown</p>
+
+<pre><code>+++
+date  = "2014-11-11T19:47:35+01:00"
+title = "beer.db - New Repo /maps - Free 'Full-Screen' Interactive Beer Maps w/ Brewery Listings"
++++
+
+The beer.db project - offering free public domain beer, brewery
+and brewpubs data - added a new repo, that is, `/maps`
+for hosting 'full-screen' interactive beer maps with brewery listings.
+
+See an example [beer map for Austria](http://openbeer.github.io/maps/at)
+(~200 breweries n brewpubs) live or
+[check the source](https://github.com/openbeer/maps) using the mapbox.js mapping library.
+
+...
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/hugo/blob/master/content/post/new-repo-maps.md"><code>staystatic/hugo/content/post/new-repo-maps.md</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-library-options-in-go">Markdown Madness - Markdown Library Options in Go</h1>
+
+<ul>
+  <li>No (Official) Standard Markdown Library</li>
+</ul>
+
+<ol>
+  <li>Blackfriday ★1 858 by Russ Ross  (github: <a href="https://github.com/russross/blackfriday">russross/blackfriday</a>)</li>
+  <li>Mmark  ★84 by Miek Gieben (github: <a href="https://github.com/miekg/mmark">miekg/mmark</a>)
+    <ul>
+      <li>An extension of Blackfriday; adds (even) more markdown goodies e.g. titleblocks, parts, asides, callouts and much more</li>
+    </ul>
+  </li>
+</ol>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies--extensions">Markdown Madness - Markdown Goodies / Extensions</h1>
+
+<ul>
+  <li>Tables</li>
+  <li>Fenced Code Blocks (“GitHub”-Style)</li>
+  <li>Footnotes</li>
+  <li>Typgraphy
+    <ul>
+      <li>Smart Quotes</li>
+      <li>Smart Fractions</li>
+    </ul>
+  </li>
+  <li>Definition Lists</li>
+  <li>Strikethrough</li>
+  <li>No Intra-Word Emphasis</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies---tables">Markdown Madness - Markdown Goodies - Tables</h1>
+
+<pre><code>Feature                  | Hugo
+------------------------ | ------------
+Settings / Configuration | TOML
+Front Matter / Meta Data | TOML
+Datafiles                | TOML
+HTML Templates           | Go Templates
+HTML "Shortcodes"        | Markdown
+</code></pre>
+
+<p>becomes</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Hugo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Settings / Configuration</td>
+      <td>TOML</td>
+    </tr>
+    <tr>
+      <td>Front Matter / Meta Data</td>
+      <td>TOML</td>
+    </tr>
+    <tr>
+      <td>Datafiles</td>
+      <td>TOML</td>
+    </tr>
+    <tr>
+      <td>HTML Templates</td>
+      <td>Go Templates</td>
+    </tr>
+    <tr>
+      <td>HTML “Shortcodes”</td>
+      <td>Markdown</td>
+    </tr>
+  </tbody>
+</table>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies---fenced-code-blocks">Markdown Madness - Markdown Goodies - Fenced Code Blocks</h1>
+
+<pre><code>```
+func markdownRender(ctx *RenderingContext) []byte {
+    return blackfriday.Markdown(ctx.Content, getHTMLRenderer(0, ctx),
+	         getMarkdownExtensions(ctx))
+}
+```
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies---footnotes">Markdown Madness - Markdown Goodies - Footnotes</h1>
+
+<pre><code>This is a footnote.[^1]
+
+[^1]: the footnote text.
+</code></pre>
+
+<p>becomes</p>
+
+<p>This is a footnote. <sup>1</sup></p>
+
+<ol>
+  <li>the footnote text. ↩</li>
+</ol>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies---typography">Markdown Madness - Markdown Goodies - Typography</h1>
+
+<p><strong>Smart Quotes</strong></p>
+
+<pre><code>Hugo says "Stay Static!"   # e.g  ".." =&gt; “..”
+Hugo says 'Stay Static!'   # e.g. '..' =&gt; ‘..’
+</code></pre>
+
+<p>becomes</p>
+
+<p>Hugo says “Stay Static!” <br />
+Hugo says ‘Stay Static!’</p>
+
+<p><strong>Smart Fractions</strong></p>
+
+<p>4/5 =&gt; <sup>4</sup>⁄<sub>5</sub> <br />
+1/1000 =&gt;  <sup>1</sup>⁄<sub>1000</sub></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies---definition-lists">Markdown Madness - Markdown Goodies - Definition Lists</h1>
+
+<pre><code>Markup
+: the difference between the cost price and the selling price
+
+Markdown
+: a reduction in price, usually to encourage buying
+: the amount by which a price is reduced
+</code></pre>
+
+<p>becomes</p>
+
+<dl>
+  <dt>Markup</dt>
+  <dd>the difference between the cost price and the selling price</dd>
+  <dt>Markdown</dt>
+  <dd>a reduction in price, usually to encourage buying</dd>
+  <dd>the amount by which a price is reduced</dd>
+</dl>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-goodies">Markdown Madness - Markdown Goodies</h1>
+
+<p><strong>Strikethrough</strong></p>
+
+<pre><code>Markdown Madness 50% Off Now Only €199 Was ~~€399~~ Buy Now!!!
+</code></pre>
+
+<p>becomes</p>
+
+<p>Markdown Madness 50% Off Now Only €199 Was <del>€399</del> Buy Now!!!</p>
+
+<p><strong>No Intra-Word Emphasis</strong></p>
+
+<pre><code>This is _emphasized_.
+And this say_stay_static method is not.
+</code></pre>
+
+<p>becomes</p>
+
+<p>This is <em>emphasized</em>.<br />
+And this say_stay_static method is not.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site---datafiles">Hugo Stay Static Site - Datafiles</h1>
+
+<p><strong>Datafile</strong> - TOML (Tom’s Obvious, Minimal Language)</p>
+
+<pre><code>############################
+#  Links 'n' Bookmarks
+#
+
+[[links]]
+title = "football.db - Open Football Data"
+url   = "https://github.com/openfootball"
+
+[[links]]
+title = "beer.db - Open Beer, Brewery 'n' Brewpub Data"
+url   = "https://github.com/openbeer"
+
+[[links]]
+title = "world.db - Open World Data"
+url   = "https://github.com/openmundi"
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/hugo/blob/master/data/links.toml"><code>staystatic/hugo/data/links.toml</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site----html-templates---loops">Hugo Stay Static Site  - HTML Templates - Loops</h1>
+
+<p><strong>Template</strong> - Go Template Language</p>
+
+<pre><code>&lt;div&gt;
+  &lt;b&gt;Links 'n' Bookmarks&lt;/b&gt;
+    &lt;ul&gt;
+        {{ range .Site.Data.links.links }}
+          &lt;li&gt;&lt;a href="{{ .url }}"&gt;{{ .title }}&lt;/a&gt;&lt;/li&gt;
+        {{ end }}
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+<pre><code>&lt;div&gt;
+  &lt;b&gt;News 'n' Updates&lt;/b&gt;
+    &lt;ul&gt;
+        {{ range .Site.Pages }}
+        {{ if eq .Type "post" }}
+            &lt;li&gt;&lt;a href="{{ .Permalink }}"&gt;{{ .Title }}&lt;/a&gt;&lt;/li&gt;
+        {{ end }}
+        {{ end }}
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/hugo/blob/master/layouts/index.html"><code>staystatic/hugo/layouts/index.html</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site---html-templates---includes">Hugo Stay Static Site - HTML Templates - Includes</h1>
+
+<p><strong>Template</strong> - Go Template Language</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  {{ partial "head.html" . }}
+  &lt;body&gt;
+
+    {{ partial "header.html" . }}
+
+    &lt;div class="page"&gt;
+      &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+      {{ .Content }}
+    &lt;/div&gt;
+
+    {{ partial "footer.html" . }}
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/hugo/blob/master/layouts/_default/single.html"><code>staystatic/hugo/layouts/_default/single.html</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="html-template-options-in-go">HTML Template Options in Go</h1>
+
+<p>Standard Go Template Language</p>
+
+<ul>
+  <li><a href="https://golang.org/pkg/text/template">Text Template Package</a> e.g. <code>import "text/template"</code></li>
+  <li><a href="https://golang.org/pkg/html/template">HTML Template Package</a> e.g. <code>import "html/template"</code>
+    <ul>
+      <li>same interface as text/template package but automatically
+secures HTML output against certain attacks
+(e.g. knows HTML, CSS, JavaScript, and URIs.)</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="html-standard-go-template">HTML Standard Go Template</h1>
+
+<p>New in Go 1.6 - Blocks, Blocks, Blocks</p>
+
+<p><code>base.html</code>:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;{{ block "title" . }}
+      &lt;!-- Blocks may include default content. --&gt;
+      {{ .Site.Title }}
+    {{ end }}&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Code that all your templates share, like a header --&gt;
+
+    {{ block "main" . }}
+      &lt;!-- The part of the page that begins to differ between templates --&gt;
+    {{ end }}
+
+    &lt;!-- More shared code, perhaps a footer --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>list.html</code>:</p>
+
+<pre><code>&lt;!-- Note the lack of Go's context "dot" when defining blocks --&gt;
+{{ define "main" }}
+  &lt;h1&gt;Posts&lt;/h1&gt;
+  {{ range .Data.Pages }}
+    &lt;article&gt;
+      &lt;h2&gt;{{ .Title }}&lt;/h2&gt;
+      {{ .Content }}
+    &lt;/article&gt;
+  {{ end }}
+{{ end }}
+</code></pre>
+
+<p><code>single.html</code>:</p>
+
+<pre><code>{{ define "title" }}
+  {{ .Title }} &amp;ndash; {{ .Site.Title }}
+{{ end }}
+{{ define "main" }}
+  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  {{ .Content }}
+{{ end }}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="html-shortcodes">HTML Shortcodes</h1>
+
+<p>Usage:</p>
+
+<pre><code>{{&lt; youtube 09jf3ow9jfw &gt;}}
+</code></pre>
+
+<p>“Macro”:</p>
+
+<pre><code>&lt;div class="embed video-player"&gt;
+&lt;iframe class="youtube-player" type="text/html" width="640" height="385"
+        src="http://www.youtube.com/embed/{{ index .Params 0 }}"
+        allowfullscreen frameborder="0"&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>becomes</p>
+
+<pre><code>&lt;div class="embed video-player"&gt;
+&lt;iframe class="youtube-player" type="text/html" width="640" height="385"
+        src="http://www.youtube.com/embed/09jf3ow9jfw"
+        allowfullscreen frameborder="0"&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="html-shortcodes----figure-image-w-caption">HTML Shortcodes  - Figure (Image w/ Caption)</h1>
+
+<pre><code>&lt;figure {{ with .Get "class" }}class="{{.}}"{{ end }}&gt;
+    {{ with .Get "link"}}&lt;a href="{{.}}"&gt;{{ end }}
+        &lt;img src="{{ .Get "src" }}" {{ if or (.Get "alt") (.Get "caption") }}alt="{{ with .Get "alt"}}{{.}}{{else}}{{ .Get "caption" }}{{ end }}"{{ end }} /&gt;
+    {{ if .Get "link"}}&lt;/a&gt;{{ end }}
+    {{ if or (or (.Get "title") (.Get "caption")) (.Get "attr")}}
+    &lt;figcaption&gt;{{ if isset .Params "title" }}
+        &lt;h4&gt;{{ .Get "title" }}&lt;/h4&gt;{{ end }}
+        {{ if or (.Get "caption") (.Get "attr")}}&lt;p&gt;
+        {{ .Get "caption" }}
+        {{ with .Get "attrlink"}}&lt;a href="{{.}}"&gt; {{ end }}
+            {{ .Get "attr" }}
+        {{ if .Get "attrlink"}}&lt;/a&gt; {{ end }}
+        &lt;/p&gt; {{ end }}
+    &lt;/figcaption&gt;
+    {{ end }}
+&lt;/figure&gt;
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="html-template-options-in-go---alternatives">HTML Template Options in Go - Alternatives</h1>
+
+<p>Inspired by Haml, Slim, Jade and Friends</p>
+
+<ul>
+  <li><strong>Amber</strong> ★612 (github: <a href="https://github.com/eknkc/amber">eknkc/amber</a>) by Ekin Koc et al</li>
+  <li><strong>Ace</strong> ★474 (github: <a href="https://github.com/yosssi/ace">yosssi/ace</a>) by Keiji Yoshida et al</li>
+</ul>
+
+<pre><code>html
+    head
+        title Page Title
+    body
+        div#content
+            p
+                | This is a long page content
+                | These lines are all part of the parent p
+
+                a[href="/"] Go To Main Page
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site---configuration--settings">Hugo Stay Static Site - Configuration / Settings</h1>
+
+<p>TOML</p>
+
+<pre><code>title = "Hugo Stay Static Site Sample"
+
+baseurl = "http://staystatic.github.io/sites/hugo/"
+languageCode = "en-us"
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/hugo/blob/master/config.toml"><code>staystatic/hugo/config.toml</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo---summary">Hugo - Summary</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>-</th>
+      <th>Hugo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub Stars (+1s)</td>
+      <td>★10 186</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>Settings / Configuration</td>
+      <td>TOML</td>
+    </tr>
+    <tr>
+      <td>HTML Templates</td>
+      <td>Go Templates</td>
+    </tr>
+    <tr>
+      <td>. Layouts</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>. Includes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Front Matter / Meta Data</td>
+      <td>TOML</td>
+    </tr>
+    <tr>
+      <td>Datafiles</td>
+      <td>TOML</td>
+    </tr>
+    <tr>
+      <td>CSS Preprocessing</td>
+      <td>No (*)</td>
+    </tr>
+    <tr>
+      <td>HTML “Shortcodes”</td>
+      <td>Markdown</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(*) Use “External” Pipeline e.g. Preprocessor in JavaScript etc.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site-demo">Hugo Stay Static Site Demo</h1>
+
+<pre><code>$ hugo
+</code></pre>
+
+<p>results in</p>
+
+<pre><code>0 draft content
+0 future content
+4 pages created
+0 paginator pages created
+0 tags created
+0 categories created
+in 466 ms
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hugo-stay-static-site-demo-cont">Hugo Stay Static Site Demo (Cont.)</h1>
+
+<p>File Structure in <code>/public</code>:</p>
+
+<pre><code>│   404.html
+│   index.html
+│   index.xml
+│   sitemap.xml
+├───about/
+│       index.html
+├───css/
+│       style.css
+└───post/
+    │   index.html
+    │   index.xml
+    ├───new-build-system/
+    │       index.html
+    ├───new-repo-maps/
+    │       index.html
+    └───new-season/
+            index.html
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="going-live---free-static-site-hosting-options">Going Live - Free (Static) Site Hosting Options</h1>
+
+<ul>
+  <li>GitHub Pages      – use git push</li>
+  <li>GitLab Pages      – use git push</li>
+  <li>Surge.sh  – go live with six keystrokes - s u r g e [ENTER]</li>
+  <li>Google Firebase (Free Tier)</li>
+  <li>And Many More</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="options-for-adding-comments">Options for Adding Comments</h1>
+
+<ul>
+  <li>Disqus</li>
+  <li>Facebook Comments</li>
+  <li>Google Plus Comments</li>
+  <li>GitHub Issues</li>
+  <li>Comment on Hacker News</li>
+  <li>etc.</li>
+</ul>
+
+<p>Do-it-yourself (DIY) “Server-less” Example - <a href="https://jimpick.com/2016/05/05/introducing-lambda-comments/">Lambda Comments</a> by Jim Pick</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-static---static-is-the-new-dynamic">Why Static? - Static is the New Dynamic</h1>
+
+<ul>
+  <li>
+    <p>Fast, Faster, Fastest</p>
+  </li>
+  <li>
+    <p>Simple, Simpler, Simplest</p>
+  </li>
+  <li>
+    <p>Pretty, Prettier, Prettiest</p>
+    <ul>
+      <li>e.g. designer nirvana - do-it-yourself - full control over your design; use Bootstrap, Material, or what not.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Bonus: Secure e.g. just a bunch of (static) files on your server.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-static---static-is-the-new-dynamic-cont">Why Static? - Static is the New Dynamic (Cont.)</h1>
+
+<p>Some Articles:</p>
+
+<ul>
+  <li><a href="https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing"><strong>Why Static Website Generators Are The Next Big Thing</strong></a> by Mathias Biilmann Christensen, Nov 2015; Smashing Magazine</li>
+  <li><a href="https://www.sitepoint.com/7-reasons-use-static-site-generator"><strong>Seven Reasons to Use a Static Site Generator</strong></a> by Craig Buckler, March 2016; Site Point</li>
+  <li><a href="https://www.netlify.com/blog/2016/05/18/9-reasons-your-site-should-be-static"><strong>Nine Reasons Your Site Should Be Static</strong></a> by Aaron Autrand, May 2016; Netlify</li>
+  <li><a href="https://www.netlify.com/blog/2016/05/24/5-bullst-reasons-not-to-use-a-static-generator"><strong>Five Bullshit Reasons Not to Use a Static Generator</strong></a>
+by Aaron Autrand, May 2016; Netlify
+    <ul>
+      <li>I want good SEO!</li>
+      <li>Updating content is too hard! I can’t use a CMS!</li>
+      <li>There’s no way for users to interact with my content!</li>
+      <li>There are too many choices!</li>
+      <li>It takes too long to set up!</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="best-of-both-worlds">Best of “Both Worlds”</h1>
+
+<p>Example: Let’s use WordPress and Hugo. How?</p>
+
+<p><a href="https://github.com/mAAdhaTTah/wordpress-github-sync"><strong>WordPress &lt;–&gt; GitHub Sync</strong></a> ★312 by James DiGioia, Ben Balter et al</p>
+
+<p>A WordPress plugin to sync content with a GitHub repository.</p>
+
+<p><a href="https://github.com/SchumacherFM/wordpress-to-hugo-exporter"><strong>Wordpress to Hugo Exporter</strong></a> ★89 by Cyrill Schumacher et al</p>
+
+<p>One-click WordPress plugin that converts all posts, pages, taxonomies, metadata,
+and settings to Markdown and YAML which can be dropped into Hugo.</p>
+
+<p><a href="https://github.com/hiproz/hugo-sync"><strong>Hugo Sync</strong></a> ★8</p>
+
+<p>Synchronize your WordPress or GitHub to Hugo website automatically</p>
+
+<p>And some more.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="thanks---stay-static">Thanks - Stay Static</h1>
+
+<p><strong>Stay Static Sample Sites (Showcase)</strong></p>
+
+<ul>
+  <li><a href="http://staystatic.github.io">Stay Static</a>
+    <ul>
+      <li><a href="https://github.com/staystatic/hugo"><code>/hugo</code></a></li>
+      <li><a href="https://github.com/staystatic/jekyll"><code>/jekyll</code></a></li>
+      <li><a href="https://github.com/staystatic/middleman"><code>/middleman</code></a></li>
+      <li><a href="https://github.com/staystatic/webgen"><code>/webgen</code></a></li>
+      <li><a href="https://github.com/staystatic/metalsmith-handlebars"><code>/metalsmith-handlebars</code></a></li>
+      <li><a href="https://github.com/staystatic/metalsmith-nunjucks"><code>/metalsmith-nunjucks</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Stay Up-To-Date - Follow Along</strong></p>
+
+<ul>
+  <li>For Vienna.html News =&gt; Follow <a href="https://twitter.com/viennahtml">@viennahtml</a></li>
+  <li>For Static Site News =&gt; Follow <a href="https://twitter.com/statictimes">@statictimes</a></li>
+  <li>For Writing in Plain Text w/ Markdown News =&gt; Follow <a href="https://twitter.com/manuscriptsnews">@manuscriptsnews</a></li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="appendix-spread-the-jam---a-new-tla-three-letter-acronym">Appendix: Spread the JAM! - A New TLA (Three-Letter Acronym)</h1>
+
+<p>Rebranding “Static”? Why not?</p>
+
+<p>What’s the JAM Stack?</p>
+
+<ul>
+  <li><strong>J</strong>avaScript</li>
+  <li><strong>A</strong>PIs and</li>
+  <li><strong>M</strong>arkup.</li>
+</ul>
+
+<p>More <a href="http://jamstack.org"><code>jamstack.org</code></a></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="appendix-static-site-builders--generators">Appendix: Static Site Builders / Generators</h1>
+
+<p>StaticGen.com</p>
+
+<p><img src="i/site-staticgen-com.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="appendix-viennahtml---join-us---no-database-required">Appendix: Vienna.html - Join Us - No Database Required</h1>
+
+<p>Next meetup (last before the summer). Free. Everyone Welcome.</p>
+
+<p>Tuesday, <strong>June 28th</strong> starting at 18.30 @ sektor5 Coworking Café+Lobby</p>
+
+<p>Talks include:</p>
+
+<ul>
+  <li>Using PostCSS with Static Site Builders by Max Stoiber</li>
+  <li>Real World Static Site Showcase I - Inside ColorSnapper - Changelog Generation w/ Metalsmith.js and a Custom Plugin by Andrey Okonetchnikov</li>
+  <li>Real World Static Site Showcase II - Inside Contentful - Turn Your Blog Posts into Facebook Instant Articles w/ Middleman by Rouven Weßling (Contentful)</li>
+  <li>Real World Static Site Showcase III - Inside Chip Shop - Build Your Silicon Empire - Build A Cards Game w/ Jekyll (n Markdown) by Chris Ward</li>
+</ul>
+
+<p>More info <a href="http://viennahtml.github.io"><code>viennahtml.github.io »</code></a></p>
+</div>
+
+
+  </div> <!-- presentation -->
+</body>
+</html> 
+
