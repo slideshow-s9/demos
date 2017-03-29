@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>factbook.json - Turn the World Factbook into Open (Structured) Data</title>
+   
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+     
+ul { list-style-type: square; }    
+   
+.center { text-align: center; }   
+     
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+         
+         border: 1px dotted black;
+
+/*      
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+pre {
+  padding: 4px 4px 4px 4px;
+  border-top: #bbb 1px solid;
+  border-bottom: #bbb 1px solid;
+  background: #f3f3f3;
+}
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<div class="presentation">
+
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="agenda">Agenda</h1>
+
+<ul>
+  <li>What’s the World Factbook?</li>
+  <li>Country Profile Example - Austria (au) :: Europe</li>
+  <li>Country Trivia (Taxonomy)</li>
+  <li>Countries - Politics Trivia</li>
+  <li>Divide n Conquer - Continents n Regions Trivia (Taxonomy)</li>
+  <li>Europe Trivia (Taxonomy)</li>
+  <li>Facts - Did You Know?</li>
+  <li>History - Milestones</li>
+  <li>History - Let’s welcome factbook.json!</li>
+  <li>factbook.json - Example</li>
+  <li>Country Profiles - What’s Included?</li>
+  <li>Inside factbook.json - How it works
+    <ul>
+      <li>Step 1: Beautiful HTML</li>
+      <li>Step 2: Convert HTML to JSON</li>
+    </ul>
+  </li>
+  <li>factbook.json - Philosophy</li>
+  <li>Case Study - How to use?
+    <ul>
+      <li>World Alamanc</li>
+      <li>factbook.sql</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-the-world-factbook">What’s the World Factbook?</h1>
+
+<p>The World Factbook [1][2] published by the Central Intelligence Agency (CIA)
+offers free country profiles in the public domain
+(that is, no copyright(s), no rights reserved).</p>
+
+<ul>
+  <li>[1] <a href="https://www.cia.gov/library/publications/the-world-factbook/">The World Factbook</a></li>
+  <li>[2] <a href="http://en.wikipedia.org/wiki/The_World_Factbook">Wikipedia Article: The World Factbook</a></li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---country-profile-example---austria-au--europe">World Factbook - Country Profile Example - Austria (au) :: Europe</h1>
+
+<blockquote>
+  <p>Note: All country profiles use the “official” two-letter GEC (formerly FIPS) codes and NOT the ISO codes (you
+might be used to) e.g. <code>au</code> for Austria (and not <code>at</code>), <code>gm</code> for Germany (and not <code>de</code>), and so on.</p>
+</blockquote>
+
+<p><img src="i/factbook-au.png" alt="" /></p>
+
+<p>(Source: <a href="https://www.cia.gov/library/publications/the-world-factbook/geos/au.html">www.cia.gov/library/publications/the-world-factbook/geos/au.html</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---country-trivia-taxonomy">World Factbook - Country Trivia (Taxonomy)</h1>
+
+<p>Q: How many “countries” in the world?</p>
+
+<p>A: 261</p>
+
+<ul>
+  <li>195 sovereign countries</li>
+  <li>52 territories n dependencies</li>
+  <li>6 miscellaneous</li>
+  <li>2 others</li>
+  <li>5 oceans</li>
+  <li>1 world</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---countries---politics-trivia">World Factbook - Countries - Politics Trivia</h1>
+
+<p>Palestine NOT included; includes two entries: Gaza Strip (gz), West Bank (we) -
+NOT recognized as a sovereign country by the US.</p>
+
+<p>Tawain (tw) categorized in others - US acknowledges Beijing’s One-China policy e.g. Tawain is part of China (and NOT a sovereign country).</p>
+
+<p>Burma (bm) not renamed to Myanmar - new name NOT recognized by the US.</p>
+
+<p>European Union (ee) included in others.</p>
+
+<p>And much more.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---divide-n-conquer---continents-n-regions-trivia-taxonomy">World Factbook - Divide n Conquer - Continents n Regions Trivia (Taxonomy)</h1>
+
+<p>Q: How many “continents/regions” in the world?</p>
+
+<p>A: 11</p>
+
+<ul>
+  <li>North America (7)</li>
+  <li>Central America &amp; Caribbean (33)</li>
+  <li>South America (14)</li>
+  <li>Europe (55)</li>
+  <li>Africa (56)</li>
+  <li>Middle East (19)</li>
+  <li>South Asia (9)</li>
+  <li>Central Asia (6)</li>
+  <li>East &amp; Southeast Asia (22)</li>
+  <li>Australia/Oceania (30)</li>
+  <li>Antartica (4)</li>
+</ul>
+
+<p><img src="i/factbook-regions.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---europe-trivia-taxonomy">World Factbook - Europe Trivia (Taxonomy)</h1>
+
+<p>Q: How many “countries” in Europe?</p>
+
+<p>A: 55</p>
+
+<ul>
+  <li>Greenland - Part of Europe? (no, in North America)</li>
+  <li>Cyprus - Part of Europe? (yes)</li>
+  <li>Turkey - Part of Europe? (no, in Middle East)</li>
+  <li>Russia - Part of Europe? (no, in Central Asia)</li>
+  <li>Uzbekistan - Part of Europe? (no, in Central Asia)</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---facts---did-you-know">World Factbook - Facts - Did You Know?</h1>
+
+<p>The World Factbook is one of the US Government’s most accessed publications.</p>
+
+<blockquote>
+  <p>The World Factbook, produced for US policymakers and coordinated throughout the US Intelligence Community,
+presents the basic realities about the world in which we live. We share these facts with the people of
+all nations in the belief that knowledge of the truth underpins the functioning of free societies.</p>
+</blockquote>
+
+<p>Who uses The World Factbook?</p>
+
+<blockquote>
+  <p>A wide variety of folks including US Government officials, researchers, news organizations, corporations,
+geographers, teachers, professors, librarians, and students. In short, anyone looking for an expansive
+body of international data on a recently updated Web site.</p>
+</blockquote>
+
+<p>The World Factbook is a unique reference in that it is updated continuously - on average, every week.</p>
+
+<blockquote>
+  <p>Information in The Factbook is collected from - and coordinated with - a wide variety of US Government
+agencies, as well as from hundreds of published sources.</p>
+</blockquote>
+
+<p>(Source: <a href="https://www.cia.gov/library/publications/the-world-factbook/docs/didyouknow.html">the-world-factbook/docs/didyouknow.html</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---history---milestones-iii">World Factbook - History - Milestones I/II</h1>
+
+<p>The United States has carried on foreign intelligence activities since the days of George Washington but only since World War II have they been coordinated on a government-wide basis. Three programs have highlighted the development of coordinated basic intelligence since that time: (1) the Joint Army Navy Intelligence Studies (JANIS), (2) the National Intelligence Survey (NIS), and (3) The World Factbook.</p>
+
+<p>During World War II, intelligence consumers realized that the production of basic intelligence by different components of the US Government resulted in a great duplication of effort and conflicting information. The Japanese attack on Pearl Harbor in 1941 brought home to leaders in Congress and the executive branch the need for integrating departmental reports to national policymakers. Detailed and coordinated information was needed not only on such major powers as Germany and Japan, but also on places of little previous interest. In the Pacific Theater, for example, the Navy and Marines had to launch amphibious operations against many islands about which information was unconfirmed or nonexistent. Intelligence authorities resolved that the United States should never again be caught unprepared.</p>
+
+<p>In 1943, Gen. George B. Strong (G-2), Adm. H. C. Train (Office of Naval Intelligence - ONI), and Gen. William J. Donovan (Director of the Office of Strategic Services - OSS) decided that a joint effort should be initiated. A steering committee was appointed on 27 April 1943 that recommended the formation of a Joint Intelligence Study Publishing Board to assemble, edit, coordinate, and publish the Joint Army Navy Intelligence Studies (JANIS). JANIS was the first interdepartmental basic intelligence program to fulfill the needs of the US Government for an authoritative and coordinated appraisal of strategic basic intelligence. Between April 1943 and July 1947, the board published 34 JANIS studies. JANIS performed well in the war effort, and numerous letters of commendation were received, including a statement from Adm. Forrest Sherman, Chief of Staff, Pacific Ocean Areas, which said, “JANIS has become the indispensable reference work for the shore-based planners.”</p>
+
+<p>The need for more comprehensive basic intelligence in the postwar world was well expressed in 1946 by George S. Pettee, a noted author on national security. He wrote in The Future of American Secret Intelligence (Infantry Journal Press, 1946, page 46) that world leadership in peace requires even more elaborate intelligence than in war. “The conduct of peace involves all countries, all human activities - not just the enemy and his war production.”</p>
+
+<p>(Source: <a href="https://www.cia.gov/library/publications/the-world-factbook/docs/history.html">the-world-factbook/docs/history.html</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---history---milestones-iiii">World Factbook - History - Milestones II/II</h1>
+
+<p><strong>1962</strong>
+The first classified Factbook was published in August 1962.</p>
+
+<p><strong>1971</strong>
+The first unclassified version was published in June 1971.</p>
+
+<p><strong>1981</strong>
+Publication becomes an annual product and is renamed The World Factbook. A total of 165 nations are
+covered on 225 pages.</p>
+
+<p><strong>1992</strong>
+Twenty new successor state entries replace those of the Soviet Union and Yugoslavia. New countries are
+respectively: Armenia, Azerbaijan, Belarus, Estonia, Georgia, Kazakhstan, Kyrgyzstan, Latvia, Lithuania,
+Moldova, Russia, Tajikistan, Turkmenistan, Ukraine, Uzbekistan; and Bosnia and Hercegovina, Croatia,
+Macedonia, Serbia and Montenegro, Slovenia. Number of nations in the Factbook rises to 188.</p>
+
+<p><strong>1994</strong>
+The World Factbook is first produced on CD-ROM.</p>
+
+<p><strong>1997</strong>
+The World Factbook introduced onto the Internet. A special printed edition prepared for the CIA’s 50th anniversary.</p>
+
+<p><strong>1998</strong>
+Last year for the production of CD-ROM versions of the Factbook.</p>
+
+<p><strong>2012</strong>
+Size of the printed Factbook’s 50th anniversary edition reaches 847 pages.</p>
+
+<p>(Source: <a href="https://www.cia.gov/library/publications/the-world-factbook/docs/history.html">the-world-factbook/docs/history.html</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---history---lets-welcome-factbookjson">World Factbook - History - Let’s welcome factbook.json!</h1>
+
+<p><strong>2015</strong></p>
+
+<p>A nobody in Austria (au) introduces the World Factbook
+to the free world and open structured data. Let’s welcome factbook.json
+(and the factbook page parser)!</p>
+
+<p>See <a href="https://github.com/factbook/factbook"><code>/factbook/factbook</code></a>
+and <a href="https://github.com/opendatajson/factbook.json"><code>/opendatajson/factbook.json</code></a> on GitHub.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---factbookjson---example">World Factbook - factbook.json - Example</h1>
+
+<p>Example - Austria - au.json:</p>
+
+<pre><code>{
+  "Introduction": {
+    "Background": {
+      "text": "Once the center of power for the large Austro-Hungarian Empire,
+               Austria was reduced to a small republic after its defeat in World War..."
+    }
+  },
+  "Geography": {
+    "Location": {
+      "text": "Central Europe, north of Italy and Slovenia"
+    },
+    "Geographic coordinates": {
+      "text": "47 20 N, 13 20 E"
+    },
+    "Map references": {
+      "text": "Europe"
+    },
+    "Area": {
+      "total": {
+        "text": "83,871 sq km"
+      },
+      "land": {
+        "text": "82,445 sq km"
+      },
+      "water": {
+        "text": "1,426 sq km"
+      }
+    },
+    "Area - comparative": {
+      "text": "about the size of South Carolina...",
+    },
+    "Land boundaries": {
+      "total": {
+        "text": "2,524 km"
+      },
+      "border countries": {
+        "text": "Czech Republic 402 km, Germany 801 km, Hungary 321 km, Italy 404 km,
+                 Liechtenstein 34 km, Slovakia 105 km, Slovenia 299 km, Switzerland 158 km"
+      }
+    },
+    "Climate": {
+      "text": "temperate; continental, cloudy; cold winters with frequent rain and
+               some snow in lowlands and snow in mountains;
+               moderate summers with occasional showers"
+    },
+    "Elevation extremes": {
+      "lowest point": {
+        "text": "Neusiedler See 115 m"
+      },
+      "highest point": {
+        "text": "Grossglockner 3,798 m"
+      }
+    },
+    "Natural resources": {
+      "text": "oil, coal, lignite, timber, iron ore, copper, zinc, antimony,
+               magnesite, tungsten, graphite, salt, hydropower"
+    },
+    ...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="world-factbook---country-profiles---whats-included">World Factbook - Country Profiles - What’s Included?</h1>
+
+<p>Example Sections and Subsections for Austria (au):</p>
+
+<ol>
+  <li>Introduction
+    <ol>
+      <li>Background</li>
+    </ol>
+  </li>
+  <li>Geography
+    <ol>
+      <li>Location</li>
+      <li>Geographic coordinates</li>
+      <li>Map references</li>
+      <li>Area</li>
+      <li>Area - comparative</li>
+      <li>Land boundaries</li>
+      <li>Coastline</li>
+      <li>Maritime claims</li>
+      <li>Climate</li>
+      <li>Terrain</li>
+      <li>Elevation</li>
+      <li>Natural resources</li>
+      <li>Land use</li>
+      <li>Irrigated land</li>
+      <li>Population - distribution</li>
+      <li>Natural hazards</li>
+      <li>Environment - current issues</li>
+      <li>Environment - international agreements</li>
+      <li>Geography - note</li>
+    </ol>
+  </li>
+  <li>People and Society
+    <ol>
+      <li>Population</li>
+      <li>Nationality</li>
+      <li>Ethnic groups</li>
+      <li>Languages</li>
+      <li>Religions</li>
+      <li>Age structure</li>
+      <li>Dependency ratios</li>
+      <li>Median age</li>
+      <li>Population growth rate</li>
+      <li>Birth rate</li>
+      <li>Death rate</li>
+      <li>Net migration rate</li>
+      <li>Population distribution</li>
+      <li>Urbanization</li>
+      <li>Major urban areas - population</li>
+      <li>Sex ratio</li>
+      <li>Mother’s mean age at first birth</li>
+      <li>Maternal mortality rate</li>
+      <li>Infant mortality rate</li>
+      <li>Life expectancy at birth</li>
+      <li>Total fertility rate</li>
+      <li>Contraceptive prevalence rate</li>
+      <li>Health expenditures</li>
+      <li>Physicians density</li>
+      <li>Hospital bed density</li>
+      <li>Drinking water source</li>
+      <li>Sanitation facility access</li>
+      <li>HIV/AIDS - adult prevalence rate</li>
+      <li>HIV/AIDS - people living with HIV/AIDS</li>
+      <li>HIV/AIDS - deaths</li>
+      <li>Obesity - adult prevalence rate</li>
+      <li>Education expenditures</li>
+      <li>School life expectancy (primary to tertiary education)</li>
+      <li>Unemployment, youth ages 15-24</li>
+    </ol>
+  </li>
+  <li>Government
+    <ol>
+      <li>Country name</li>
+      <li>Government type</li>
+      <li>Capital</li>
+      <li>Administrative divisions</li>
+      <li>Independence</li>
+      <li>National holiday</li>
+      <li>Constitution</li>
+      <li>Legal system</li>
+      <li>International law organization participation</li>
+      <li>Citizenship</li>
+      <li>Suffrage</li>
+      <li>Executive branch</li>
+      <li>Legislative branch</li>
+      <li>Judicial branch</li>
+      <li>Political parties and leaders</li>
+      <li>Political pressure groups and leaders</li>
+      <li>International organization participation</li>
+      <li>Diplomatic representation in the US</li>
+      <li>Diplomatic representation from the US</li>
+      <li>Flag description</li>
+      <li>National symbol(s)</li>
+      <li>National anthem</li>
+    </ol>
+  </li>
+  <li>Economy
+    <ol>
+      <li>Economy - overview</li>
+      <li>GDP (purchasing power parity)</li>
+      <li>GDP (official exchange rate)</li>
+      <li>GDP - real growth rate</li>
+      <li>GDP - per capita (PPP)</li>
+      <li>Gross national saving</li>
+      <li>GDP - composition, by end use</li>
+      <li>GDP - composition, by sector of origin</li>
+      <li>Agriculture - products</li>
+      <li>Industries</li>
+      <li>Industrial production growth rate</li>
+      <li>Labor force</li>
+      <li>Labor force - by occupation</li>
+      <li>Unemployment rate</li>
+      <li>Population below poverty line</li>
+      <li>Household income or consumption by percentage share</li>
+      <li>Distribution of family income - Gini index</li>
+      <li>Budget</li>
+      <li>Taxes and other revenues</li>
+      <li>Budget surplus (+) or deficit (-)</li>
+      <li>Public debt</li>
+      <li>Fiscal year</li>
+      <li>Inflation rate (consumer prices)</li>
+      <li>Commercial bank prime lending rate</li>
+      <li>Stock of narrow money</li>
+      <li>Stock of broad money</li>
+      <li>Stock of domestic credit</li>
+      <li>Market value of publicly traded shares</li>
+      <li>Current account balance</li>
+      <li>Exports</li>
+      <li>Exports - commodities</li>
+      <li>Exports - partners</li>
+      <li>Imports</li>
+      <li>Imports - commodities</li>
+      <li>Imports - partners</li>
+      <li>Reserves of foreign exchange and gold</li>
+      <li>Debt - external</li>
+      <li>Stock of direct foreign investment - at home</li>
+      <li>Stock of direct foreign investment - abroad</li>
+      <li>Exchange rates</li>
+    </ol>
+  </li>
+  <li>Energy
+    <ol>
+      <li>Electricity access</li>
+      <li>Electricity - production</li>
+      <li>Electricity - consumption</li>
+      <li>Electricity - exports</li>
+      <li>Electricity - imports</li>
+      <li>Electricity - installed generating capacity</li>
+      <li>Electricity - from fossil fuels</li>
+      <li>Electricity - from nuclear fuels</li>
+      <li>Electricity - from hydroelectric plants</li>
+      <li>Electricity - from other renewable sources</li>
+      <li>Crude oil - production</li>
+      <li>Crude oil - exports</li>
+      <li>Crude oil - imports</li>
+      <li>Crude oil - proved reserves</li>
+      <li>Refined petroleum products - production</li>
+      <li>Refined petroleum products - consumption</li>
+      <li>Refined petroleum products - exports</li>
+      <li>Refined petroleum products - imports</li>
+      <li>Natural gas - production</li>
+      <li>Natural gas - consumption</li>
+      <li>Natural gas - exports</li>
+      <li>Natural gas - imports</li>
+      <li>Natural gas - proved reserves</li>
+      <li>Carbon dioxide emissions from consumption of energy</li>
+    </ol>
+  </li>
+  <li>Communications
+    <ol>
+      <li>Telephones - fixed lines</li>
+      <li>Telephones - mobile cellular</li>
+      <li>Telephone system</li>
+      <li>Broadcast media</li>
+      <li>Internet country code</li>
+      <li>Internet users</li>
+    </ol>
+  </li>
+  <li>Transportation
+    <ol>
+      <li>National air transport system</li>
+      <li>Civil aircraft registration country code prefix</li>
+      <li>Airports</li>
+      <li>Airports - with paved runways</li>
+      <li>Airports - with unpaved runways</li>
+      <li>Heliports</li>
+      <li>Pipelines</li>
+      <li>Railways</li>
+      <li>Roadways</li>
+      <li>Waterways</li>
+      <li>Merchant marine</li>
+      <li>Ports and terminals</li>
+    </ol>
+  </li>
+  <li>Military and Security
+    <ol>
+      <li>Military branches</li>
+      <li>Military service age and obligation</li>
+      <li>Military expenditures</li>
+    </ol>
+  </li>
+  <li>Transnational Issues
+    <ol>
+      <li>Disputes - international</li>
+      <li>Refugees and internally displaced persons</li>
+      <li>Illicit drugs</li>
+    </ol>
+  </li>
+</ol>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="inside-factbookjson---how-it-works---step-1-beautiful-html-iii">Inside factbook.json - How it works - Step 1: Beautiful HTML I/II</h1>
+
+<p>Step 1: Fetch Country Profile Page (in HTML)</p>
+
+<p>Step 2: Remove “Chrome” - all headers, footers, scripts, etc. - keep the “raw” profile data (in HTML)</p>
+
+<p>Step 3: Cleanup the profile data (in HTML) e.g.</p>
+
+<p>All (style) classes get stripped except <code>category</code>, <code>category_data</code>.
+All country comparison links get stripped. All field reference links
+and images get stripped. The audio player (for the national anthem) gets stripped.
+All gallery photos gets stripped and so on and so forth.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="inside-factbookjson---how-it-works---step-1-beautiful-html-iiii">Inside factbook.json - How it works - Step 1: Beautiful HTML II/II</h1>
+
+<p>Resulting in:</p>
+
+<pre><code>&lt;h2&gt;Introduction&lt;/h2&gt;
+
+&lt;h3&gt;Background:&lt;/h3&gt;
+&lt;div class=category_data&gt;Once the center of power for the large Austro-Hungarian Empire,
+Austria was reduced to a small republic after its defeat ...
+A prosperous, democratic country, Austria entered the EU Economic and Monetary Union in 1999.&lt;/div&gt;
+
+&lt;h2&gt;Geography&lt;/h2&gt;
+
+&lt;h3&gt;Location:&lt;/h3&gt;
+&lt;div class=category_data&gt;Central Europe, north of Italy and Slovenia&lt;/div&gt;
+
+&lt;h3&gt;Geographic coordinates:&lt;/h3&gt;
+&lt;div class=category_data&gt;47 20 N, 13 20 E&lt;/div&gt;
+
+&lt;h3&gt;Map references:&lt;/h3&gt;
+&lt;div class=category_data&gt;Europe&lt;/div&gt;
+
+&lt;h3&gt;Area:&lt;/h3&gt;
+&lt;div&gt;&lt;span class=category&gt;total: &lt;/span&gt;&lt;span class=category_data&gt;83,871 sq km&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;span class=category&gt;land: &lt;/span&gt;&lt;span class=category_data&gt;82,445 sq km&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;span class=category&gt;water: &lt;/span&gt;&lt;span class=category_data&gt;1,426 sq km&lt;/span&gt;&lt;/div&gt;
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="inside-factbookjson---how-it-works---step-2--convert-html-to-json">Inside factbook.json - How it works - Step 2:  Convert HTML to JSON</h1>
+
+<ul>
+  <li>Heading 2 (<code>h2</code>) gets converted to a section.</li>
+  <li>Heading 3 (<code>h3</code>) gets converted to a subsection.</li>
+  <li>Here be dragons. Now the unknown - everythig is possible part ;-)
+    <ul>
+      <li>Data entry might be a simple entry or an entry with a note or nested entry
+or nested entry with a note or a sequence of simple entries and so on.</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="factbookjson---philosophy">factbook.json - Philosophy</h1>
+
+<p>Don’t be “smarter” than the CIA - is it possible? ;-)</p>
+
+<ul>
+  <li>Use the same country code as the CIA.</li>
+  <li>Use the same region for countries as the CIA.</li>
+  <li>Use the same section names as the CIA.</li>
+  <li>Use the same subsection names as the CIA (including “inconsistencies”).</li>
+  <li>Use the same data as the CIA (including “known” typos /errors).</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="case-study---how-to-use---world-alamanc-iii">Case Study - How to use? - World Alamanc I/II</h1>
+
+<p>Build yourself your very own World Alamanc in 20 Lines of Script</p>
+
+<pre><code>require 'factbook'
+
+TEMPLATE = &lt;&lt;EOS
+
+### &lt;%= names %&gt;
+
+&lt;%= page.name_long=='none' ? '\-' : page.name_long %&gt; › &lt;%= page.map %&gt; -- &lt;%= page.location %&gt; &lt;br&gt;
+&lt;%= page.capital %&gt; • &lt;%= page.area %&gt; • pop. &lt;%= page.population %&gt;
+
+**Languages:** &lt;%= page.languages %&gt;
+**Major cities:** &lt;%= page.major_cities %&gt;
+**Ethnic groups:** &lt;%= page.ethnic_groups %&gt;
+**Religions:** &lt;%= page.religions %&gt;
+**Independence:** &lt;%= page.independence %&gt;
+
+**Internet:** `&lt;%= page.internet %&gt;` • &lt;%= page.internet_users %&gt; • &lt;%= page.internet_users_rate %&gt;
+**Telephones - mobile:** &lt;%= page.telephones_mobile %&gt; • &lt;%= page.telephones_mobile_subscriptions %&gt; subs./100
+
+EOS
+
+
+## step 1: read all countries; using local json (dump) files
+
+json_dir = '../../opendatajson/factbook.json'
+
+codes  = Factbook.codes.countries
+pages  = Factbook::JsonPageReader.new( json_dir ).read_pages( codes )
+
+almanac = Factbook::Almanac.new( pages )
+
+## step 2: save to disk
+
+File.open( './ALMANAC.md', 'w' ) do |f|
+  f.write almanac.render( TEMPLATE )
+end
+
+puts "Done."
+</code></pre>
+
+<p>(Source: <a href="https://github.com/factbook/factbook/blob/master/script/almanac.rb">factbook/script/almanac.rb</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="case-study---how-to-use---world-alamanc-iiii">Case Study - How to use? - World Alamanc II/II</h1>
+
+<h3 id="afghanistan">Afghanistan</h3>
+
+<p>Islamic Republic of Afghanistan › Asia – Southern Asia, north and west of Pakistan, east of Iran <br />
+Kabul • 652,230 sq km • pop. 32,564,342 (July 2015 est.)</p>
+
+<p><strong>Languages</strong> Afghan Persian or Dari (official) 50%, Pashto (official) 35%, Turkic languages (primarily Uzbek and Turkmen) 11%, 30 minor languages (primarily Balochi and Pashai) 4%, much bilingualism, but Dari functions as the lingua franca
+<strong>Major cities</strong> KABUL (capital) 4.635 million (2015)
+<strong>Ethnic groups</strong> Pashtun, Tajik, Hazara, Uzbek, other (includes smaller numbers of Baloch, Turkmen, Nuristani, Pamiri, Arab, Gujar, Brahui, Qizilbash, Aimaq, Pashai, and Kyrghyz)
+<strong>Religions</strong> Sunni Muslim 80%, Shia Muslim 19%, other 1%
+<strong>Independence</strong> 19 August 1919 (from UK control over Afghan foreign affairs)</p>
+
+<p><strong>Internet</strong> <code>.af</code> • 1.9 million • 5.9% (2014 est.)
+<strong>Telephones - mobile</strong> 23.4 million • 74 (2014 est.) subs./100</p>
+
+<h3 id="albania--shqiperia">Albania • Shqiperia</h3>
+
+<p>Republic of Albania › Europe – Southeastern Europe, bordering the Adriatic Sea and Ionian Sea, between Greece to the south and Montenegro and Kosovo to the north <br />
+Tirana (Tirane) • 28,748 sq km • pop. 3,029,278 (July 2015 est.)</p>
+
+<p><strong>Languages</strong> Albanian 98.8% (official - derived from Tosk dialect), Greek 0.5%, other 0.6% (including Macedonian, Roma, Vlach, Turkish, Italian, and Serbo-Croatian), unspecified 0.1% (2011 est.)
+<strong>Major cities</strong> TIRANA (capital) 454,000 (2015)
+<strong>Ethnic groups</strong> Albanian 82.6%, Greek 0.9%, other 1% (including Vlach, Roma (Gypsy), Macedonian, Montenegrin, and Egyptian), unspecified 15.5% (2011 est.)
+<strong>Religions</strong> Muslim 56.7%, Roman Catholic 10%, Orthodox 6.8%, atheist 2.5%, Bektashi (a Sufi order) 2.1%, other 5.7%, unspecified 16.2%
+<strong>Independence</strong> 28 November 1912 (from the Ottoman Empire)</p>
+
+<p><strong>Internet</strong> <code>.al</code> • 1.7 million • 56.5% (2014 est.)
+<strong>Telephones - mobile</strong> 3.4 million • 111 (2014 est.) subs./100</p>
+
+<h3 id="algeria--al-jazair">Algeria • Al Jaza’ir</h3>
+
+<p>People’s Democratic Republic of Algeria › Africa – Northern Africa, bordering the Mediterranean Sea, between Morocco and Tunisia <br />
+Algiers • 2,381,741 sq km • pop. 39,542,166 (July 2015 est.)</p>
+
+<p><strong>Languages</strong> Arabic (official), French (lingua franca), Berber dialects: Kabylie Berber (Tamazight), Chaouia Berber (Tachawit), Mzab Berber, Tuareg Berber (Tamahaq)
+<strong>Major cities</strong> ALGIERS (capital) 2.594 million; Oran 858,000 (2015)
+<strong>Ethnic groups</strong> Arab-Berber 99%, European less than 1%
+<strong>Religions</strong> Muslim (official; predominantly Sunni) 99%, other (includes Christian and Jewish)</p>
+
+<p><strong>Independence</strong> 5 July 1962 (from France)</p>
+
+<p><strong>Internet</strong> <code>.dz</code> • 6.5 million • 16.7% (2014 est.)
+<strong>Telephones - mobile</strong> 37.3 million • 96 (2014 est.) subs./100</p>
+
+<p>…</p>
+
+<p>(Source: <a href="https://github.com/opendatajson/factbook.json/blob/master/ALMANAC.md">opendatajson/factbook.json/ALMANAC.md</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="case-study---how-to-use---factbooksql---iii">Case Study - How to use? - factbook.sql - I/II</h1>
+
+<p>How about a single-file SQLite database for all factbook data?</p>
+
+<p>Step 1: Create a database schema (tables and columns). Example:</p>
+
+<pre><code>CREATE TABLE "facts" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "code" varchar(255) NOT NULL,
+  "name" varchar(255) NOT NULL,
+
+  ---------------------------------------
+  -- Geography
+  "area"       integer,
+  "area_land"  integer,
+  "area_water" integer,
+
+  ----------------------------------------
+  -- People and Society
+  "population"        integer,
+  "population_growth" float,
+  "birth_rate"        float,
+  "death_rate"        float,
+  "migration_rate"    float
+  ...
+)
+</code></pre>
+
+<p>Step 2: Import the data</p>
+
+<pre><code>require 'factbook'
+
+DB_CONFIG = {
+  adapter:  'sqlite3',
+  database: './factbook.db'
+}
+
+ActiveRecord::Base.logger = Logger.new( STDOUT )
+ActiveRecord::Base.establish_connection( DB_CONFIG )
+
+Factbook::CreateDb.new.up    ## create tables
+
+importer = Factbook::Importer.new
+
+Factbook.codes.each do |code|
+  puts "Fetching #{code.code}- #{code.name}..."
+  page = Factbook::Page.new( code.code )
+
+  puts "Adding #{code.code}- #{code.name}..."
+  importer.import( page )
+end
+
+puts "Done."
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="case-study---how-to-use---factbooksql---iiii">Case Study - How to use? - factbook.sql - II/II</h1>
+
+<p>Find the ten largest countries by area:</p>
+
+<pre><code>  SELECT name, area FROM facts ORDER BY area DESC LIMIT 10;
+</code></pre>
+
+<p>Resulting in:</p>
+
+<pre><code>Russia         | 17_098_242
+Canada         |  9_984_670
+United States  |  9_826_675
+China          |  9_596_960
+Brazil         |  8_515_770
+Australia      |  7_741_220
+European Union |  4_324_782
+India          |  3_287_263
+Argentina      |  2_780_400
+Kazakhstan     |  2_724_900
+</code></pre>
+
+<p>Find the ten largest countries by population:</p>
+
+<pre><code>SELECT name, population FROM facts ORDER BY population DESC LIMIT 10;
+</code></pre>
+
+<p>Resulting in:</p>
+
+<pre><code>World          | 7_256_490_011
+China          | 1_367_485_388
+India          | 1_251_695_584
+European Union |   513_949_445
+United States  |   321_368_864
+Indonesia      |   255_993_674
+Brazil         |   204_259_812
+Pakistan       |   199_085_847
+Nigeria        |   181_562_056
+Bangladesh     |   168_957_745
+</code></pre>
+
+<p>And so on.</p>
+</div>
+
+
+  </div> <!-- presentation -->
+</body>
+</html> 
+
