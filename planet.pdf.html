@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>New Horizons - Build Your Own (Static) Planet News Site w/ Pluto (and Ruby)</title>
+   
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+     
+ul { list-style-type: square; }    
+   
+.center { text-align: center; }   
+     
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+         
+         border: 1px dotted black;
+
+/*      
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+pre {
+  padding: 4px 4px 4px 4px;
+  border-top: #bbb 1px solid;
+  border-bottom: #bbb 1px solid;
+  background: #f3f3f3;
+}
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<div class="presentation">
+
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="agenda">Agenda</h1>
+
+<ul>
+  <li>Lets Build a Planet News Site in Ruby
+    <ul>
+      <li>What’s a Web Feed?</li>
+    </ul>
+  </li>
+  <li>Reading Web Feeds in Ruby - Options
+    <ul>
+      <li>Module RSS - Standard (Built-In) Web Feed Reader &amp; Writer Library</li>
+      <li>Hello, feedparser gem!</li>
+    </ul>
+  </li>
+  <li>Planet Feed Reader in 20 Lines of Ruby</li>
+  <li>What’s Planet Pluto?
+    <ul>
+      <li>Planet Ruby - Step 1 - Add Your Web Feeds</li>
+      <li>Planet Ruby - Step 2 - Build Your Planet News Site</li>
+    </ul>
+  </li>
+  <li>OpenStreetMap Blogs (blogs.openstreetmap.org)
+    <ul>
+      <li>Step 1 - Add Your Web Feeds</li>
+      <li>Step 2 - Build Planet News Site</li>
+      <li>How-to Auto-Update Planet News Site Every Hour</li>
+      <li>Design Your Own Templates</li>
+    </ul>
+  </li>
+  <li>Design Your Own Planet Pluto Templates / Themes</li>
+  <li>Planet Pluto - Stay Static or Go Dynamic?</li>
+  <li>Jekyll Planet Pluto Addon / Importer</li>
+  <li>Bonus
+    <ul>
+      <li>Planet Ruby - What’s Happening in the Ruby Universe?</li>
+      <li>Planet Pluto - What’s Next? Plans &amp; Ideas</li>
+      <li>Tip - Add Profile Pics (Hacker Gotchis)</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="lets-build-a-planet-news-site-in-ruby">Lets Build a Planet News Site in Ruby</h1>
+
+<p>What’s a web feed?</p>
+
+<p>Example: <a href="https://xkcd.com/atom.xml">xkcd.com/atom.xml</a></p>
+
+<pre><code>&lt;feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"&gt;
+  &lt;title&gt;xkcd.com&lt;/title&gt;
+  &lt;link href="https://xkcd.com/" rel="alternate"/&gt;
+  &lt;id&gt;https://xkcd.com/&lt;/id&gt;
+  &lt;updated&gt;2017-04-05T00:00:00Z&lt;/updated&gt;
+  &lt;entry&gt;
+    &lt;title&gt;Security Advice&lt;/title&gt;
+    &lt;link href="https://xkcd.com/1820/" rel="alternate"/&gt;
+    &lt;updated&gt;2017-04-05T00:00:00Z&lt;/updated&gt;
+    &lt;id&gt;https://xkcd.com/1820/&lt;/id&gt;
+    &lt;summary type="html"&gt;
+      &lt;img src="https://imgs.xkcd.com/comics/security_advice.png"
+           title="Never give your password or bank account number..." /&gt;
+    &lt;/summary&gt;
+  &lt;/entry&gt;
+  ...
+&lt;/feed&gt;
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="lets-welcome-the-microservices-vienna-meetup">Let’s Welcome the Microservices Vienna Meetup</h1>
+
+<p>What’s a web feed?  - Architecture Astronauts Edition ;-)</p>
+
+<p>The Facebook news feed is a centralized monolith!</p>
+
+<p>A planet news feed is a distributed (micro)service architecture!</p>
+
+<ul>
+  <li>Uses publish &amp; subscribe (PubSub) channels</li>
+  <li>Uses open formats with hypermedia as the engine of application state (HATEOS)</li>
+  <li>Uses evolutionary future forward design</li>
+  <li>Runs on Amazon S3 or other “server-less” storage (micro)services</li>
+  <li>100 % certified representational state transfer (REST) style e.g. works with the web e.g. HTTP, proxies, caches, etc. not yet another abstraction layer or strategy factory</li>
+  <li>Free vendor-neutral royalty-free industry standard</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="reading-web-feeds-in-ruby---options">Reading Web Feeds in Ruby - Options</h1>
+
+<p>Module RSS - Standard (built-In) web feed reader &amp; writer library.
+The doc reads:</p>
+
+<blockquote>
+  <p>RSS reading and writing</p>
+</blockquote>
+
+<blockquote>
+  <p>Really Simple Syndication (RSS) is a family of formats that describe ‘feeds,’
+specially constructed XML documents that allow an interested person
+to subscribe and receive updates from a particular web service.
+This portion of the standard library provides tooling to read and create these feeds.</p>
+
+  <p>The standard library supports RSS 0.91, 1.0, 2.0, and Atom, a related format.
+Here are some links to the standards documents for these formats:</p>
+
+  <ul>
+    <li>RSS
+      <ul>
+        <li>0.9.1</li>
+        <li>1.0</li>
+        <li>2.0</li>
+      </ul>
+    </li>
+    <li>Atom</li>
+  </ul>
+</blockquote>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="module-rss---standard-built-in-web-feed-reader--writer-library">Module RSS - Standard (Built-In) Web Feed Reader &amp; Writer Library</h1>
+
+<pre><code class="language-ruby">require 'rss'
+require 'open-uri'
+
+xml = open( 'https://xkcd.com/atom.xml' ).read
+
+feed = RSS::Parser.parse( xml )
+
+puts "feed.class.name: #{feed.class.name}"
+
+puts "== #{feed.title.content} =="
+
+feed.entries.each do |entry|
+  puts "- #{entry.title.content}"
+  puts "  (#{entry.link.href})"
+  puts
+end
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="module-rss---standard-built-in-web-feed-reader--writer-library-cont">Module RSS - Standard (Built-In) Web Feed Reader &amp; Writer Library (Cont.)</h1>
+
+<p>Prints:</p>
+
+<pre><code>feed.class.name: RSS::Atom::Feed
+
+== xkcd.com ==
+
+- Security Advice
+  (https://xkcd.com/1820/)
+
+- Sweet 16
+  (https://xkcd.com/1819/)
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="reading-web-feeds-in-ruby---more-options---why">Reading Web Feeds in Ruby - More Options - Why?</h1>
+
+<p>What’s the difference?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>RSS</th>
+      <th>ATOM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>feed.channel.title</code></td>
+      <td><code>feed.title.content</code></td>
+    </tr>
+    <tr>
+      <td><code>item.title</code></td>
+      <td><code>entry.title.content</code></td>
+    </tr>
+    <tr>
+      <td><code>item.link</code></td>
+      <td><code>entry.link.href</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Let’s built a “universal” uniform reader</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>RSS or ATOM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>feed.title</code></td>
+    </tr>
+    <tr>
+      <td><code>item.title</code></td>
+    </tr>
+    <tr>
+      <td><code>item.url</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>and so on.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hello-feedparser-gem">Hello, feedparser gem!</h1>
+
+<p>A “universal” web feed parser and normalizer (Atom, RSS 2.0, etc.)
+library in ruby.</p>
+
+<p>by Gerald Bauer et al (★32) -
+gem: <a href="https://rubygems.org/gems/feedparser"><code>feedparser</code></a>,
+github: <a href="https://github.com/feedparser/feedparser"><code>feedparser/feedparser</code></a></p>
+
+<p><img src="i/feed-models.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="reading-web-feeds-in-ruby">Reading Web Feeds in Ruby</h1>
+
+<pre><code class="language-ruby">require 'feedparser'
+require 'open-uri'
+
+xml = open( 'https://xkcd.com/rss.xml' ).read
+# xml = open( 'https://xkcd.com/atom.xml' ).read
+
+feed = FeedParser::Parser.parse( xml )
+
+puts "feed.class.name: #{feed.class.name}"
+
+puts "== #{feed.title} =="
+
+feed.items.each do |item|
+  puts "- #{item.title}"
+  puts "  (#{item.url})"
+  puts
+end
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="reading-web-feeds-in-ruby-cont">Reading Web Feeds in Ruby (Cont.)</h1>
+
+<p>Prints:</p>
+
+<pre><code>feed.class.name: FeedParser::Feed
+
+== xkcd.com ==
+
+- Security Advice
+  (https://xkcd.com/1820/)
+
+- Sweet 16
+  (https://xkcd.com/1819/)
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-feed-reader-in-20-lines-of-ruby">Planet Feed Reader in 20 Lines of Ruby</h1>
+
+<p><code>planet.rb</code>:</p>
+
+<pre><code class="language-ruby">require 'open-uri'
+require 'feedparser'
+require 'erb'
+
+# step 1) read a list of web feeds
+
+FEED_URLS = [
+  'http://vienna-rb.at/atom.xml',
+  'http://weblog.rubyonrails.org/feed/atom.xml',
+  'http://www.ruby-lang.org/en/feeds/news.rss'
+]
+
+items = []
+
+FEED_URLS.each do |url|
+  feed = FeedParser::Parser.parse( open( url ).read )
+  items += feed.items
+end
+
+# step 2) mix up all postings in a new page
+
+FEED_ITEM_TEMPLATE = &lt;&lt;EOS
+&lt;% items.each do |item| %&gt;
+  &lt;div class="item"&gt;
+    &lt;h2&gt;&lt;a href="&lt;%= item.url %&gt;"&gt;&lt;%= item.title %&gt;&lt;/a&gt;&lt;/h2&gt;
+    &lt;div&gt;&lt;%= item.content %&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+EOS
+
+puts ERB.new( FEED_ITEM_TEMPLATE ).result
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-feed-reader-in-20-lines-of-ruby-cont">Planet Feed Reader in 20 Lines of Ruby (Cont.)</h1>
+
+<p>Run the script:</p>
+
+<pre><code>$ ruby ./planet.rb      
+</code></pre>
+
+<p>Prints:</p>
+
+<pre><code>&lt;div class="item"&gt;
+  &lt;h2&gt;&lt;a href="http://vienna-rb.at/blog/2016/11/06/picks/"&gt;Picks / what the vienna.rb team thinks is worth sharing this week&lt;/a&gt;&lt;/h2&gt;
+  &lt;div&gt;
+   &lt;h3&gt;6/11 Picks!!&lt;/h3&gt;
+   &lt;p&gt;In a series on this website we'll entertain YOU with our picks...
+ ...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="production-ready-real-world-planet-feed-reader-almost">Production-Ready? Real-World Planet Feed Reader? Almost</h1>
+
+<p>(1) Cache (Store) Feed Items in Database</p>
+
+<p>e.g. lets you use <code>items.latest.limit(24)</code> and so on (SQL queries)</p>
+
+<p>(2) Use Conditional GETs When Fetching Feeds</p>
+
+<p>e.g. use HTTP Header <code>If-Modified-Since</code> for last modified dates and <code>If-None-Match</code> for etags</p>
+
+<p>(3) Schedule Feed Auto Update Every Hour</p>
+
+<p>e.g. use <code>rake update</code>  w/ cron job, for example</p>
+
+<p>And so on. All goodies (and much more) ready for (re)use in pluto gem.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-planet-pluto">What’s Planet Pluto?</h1>
+
+<p>A <a href="http://feedreader.github.io">free planet site generator</a> in ruby (Yes!)
+that lets you build web pages from published web feeds.</p>
+
+<p>by Gerald Bauer et al (★47) -
+gem: <a href="https://rubygems.org/gems/pluto"><code>pluto</code></a>,
+github: <a href="https://github.com/feedreader/pluto"><code>feedreader/pluto</code></a></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto-trivia-quiz-i">Planet Pluto Trivia Quiz I</h1>
+
+<p>Q: The Mass of (Former) Planet Pluto is … ?</p>
+
+<ul>
+  <li>(A) 7 Earths</li>
+  <li>(B) 1 Earth</li>
+  <li>(C) 0.01 (1/100) Earth</li>
+  <li>(D) 0.002 (1/500) Earth</li>
+</ul>
+
+<p>Pluto Facts - Did you know?</p>
+
+<p>Pluto was discovered in 1930 and the named after the god of the underworld
+proposed by a eleven-year-old schoolgirl in Oxford, England,
+who was interested in classical mythology.
+Thanks Venetia Burney!</p>
+
+<p><img src="i/plutoplanet.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-ruby---step-1---add-your-web-feeds">Planet Ruby - Step 1 - Add Your Web Feeds</h1>
+
+<p>Example - <code>planet.ini</code>:</p>
+
+<pre><code>title = Planet Ruby
+
+[rubylang]
+  title = Ruby Lang News
+  link  = http://www.ruby-lang.org/en/news
+  feed  = http://www.ruby-lang.org/en/feeds/news.rss
+
+[rubyonrails]
+  title = Ruby on Rails News
+  link  = http://weblog.rubyonrails.org
+  feed  = http://weblog.rubyonrails.org/feed/atom.xml
+
+[viennarb]
+  title = Vienna.rb News
+  link  = http://vienna-rb.at
+  feed  = http://vienna-rb.at/atom.xml
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-ruby---step-2---build-your-planet-news-site">Planet Ruby - Step 2 - Build Your Planet News Site</h1>
+
+<p>Use the <code>pluto</code> command line tool and pass in the planet configuration file.
+Example:</p>
+
+<pre><code>$ pluto build planet.ini
+</code></pre>
+
+<p>This will</p>
+
+<p>1) fetch all feeds listed in <code>planet.ini</code> and</p>
+
+<p>2) store all entries in a local database, that is, <code>planet.db</code> in your working folder and</p>
+
+<p>3) generate a planet web page, that is, <code>planet.html</code> using the blank template pack in your working folder using all feed entries from the local database.</p>
+
+<p>Open up <code>planet.html</code> to see your planet web page. Voila!</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto-trivia-quiz-ii">Planet Pluto Trivia Quiz II</h1>
+
+<p>Q: How big is the (former) planet Pluto
+in km (circumference, that is, 2pi × r)?</p>
+
+<ul>
+  <li>(A) 150 000 km</li>
+  <li>(B) 40 000 km</li>
+  <li>(C) 11 000 km</li>
+  <li>(D) 7 000 km</li>
+</ul>
+
+<p>See <a href="https://solarsystem.nasa.gov/planets/">Planets @ NASA Solar System</a></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="openstreetmap-blogs-blogsopenstreetmaporg">OpenStreetMap Blogs (<code>blogs.openstreetmap.org</code>)</h1>
+
+<p><a href="https://blogs.openstreetmap.org"><code>blogs.openstreetmap.org</code></a></p>
+
+<p><img src="i/osmblogs1.png" alt="" /></p>
+
+<p>or</p>
+
+<p><img src="i/osmblogs2.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="openstreetmap-blogs---step-1---add-your-web-feeds">OpenStreetMap Blogs - Step 1 - Add Your Web Feeds</h1>
+
+<p>Example - <code>planet.ini</code></p>
+
+<pre><code>title = OpenStreetMap Blogs
+
+[shaun_mcdonald]
+  title = Shaun McDonald
+  link = http://blog.shaunmcdonald.me.uk/
+  feed = http://blog.shaunmcdonald.me.uk/feed/
+  twitter = smsm1
+[mapbox]
+  title = Mapbox Blog
+  link = https://www.mapbox.com/blog/
+  feed = https://www.mapbox.com/blog/blog.rss
+  twitter = mapbox
+[osm_diaries]
+  title = OpenStreetMap User's Diaries
+  link = http://www.openstreetmap.org/diary/
+  feed = http://www.openstreetmap.org/diary/rss
+...
+</code></pre>
+
+<p>(Source: <a href="https://github.com/gravitystorm/blogs.osm.org/blob/master/planet.ini">gravitystorm/blogs.osm.org/planet.ini</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="openstreetmap-blogs---step-2---build-planet-news-site">OpenStreetMap Blogs - Step 2 - Build Planet News Site</h1>
+
+<p>Again use the <code>pluto</code> command line tool and pass in the planet configuration file.
+Example:</p>
+
+<pre><code>$ pluto build planet.ini -t osm -o build
+</code></pre>
+
+<p>What’s news?</p>
+
+<p>The <code>-t/--template</code> option lets you use your own templates / theme
+e.g. use the <code>osm</code> template pack.</p>
+
+<p>The <code>-o/--output</code> option lets you define the output folder (default to <code>./</code>)
+and now uses the <code>./build</code> folder.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="openstreetmap-blogs---how-to-auto-update-planet-news-site-every-hour">OpenStreetMap Blogs - How-to Auto-Update Planet News Site Every Hour</h1>
+
+<p>Rerun the command:</p>
+
+<pre><code>$ pluto build planet.ini -t osm -o build
+</code></pre>
+
+<p>That’s it ;-)  The pluto feed fetcher will
+use conditional HTTP get requests and content hash checks for web feeds
+etc.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="pluto-trivia-quiz-iii">Pluto Trivia Quiz III</h1>
+
+<p>Q: Pluto the Pup is the pet of …?</p>
+
+<ul>
+  <li>(A) Donald Duck</li>
+  <li>(B) Daisy Duck</li>
+  <li>(C) Mickey Mouse</li>
+  <li>(D) Minnie Mouse</li>
+</ul>
+
+<p><img src="i/plutothepup.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="openstreetmap-blogs---design-your-own-templates">OpenStreetMap Blogs - Design Your Own Templates</h1>
+
+<p>Let’s welcome embedded ruby (ERB).</p>
+
+<p>Example - <code>opml.xml.erb</code>:</p>
+
+<pre><code>&lt;opml version="1.1"&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;%= site.title %&gt;&lt;/title&gt;
+    &lt;dateModified&gt;&lt;%= site.updated %&gt;&lt;/dateModified&gt;
+    &lt;ownerName&gt;OpenStreetMap&lt;/ownerName&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;% site.feeds.each do |feed| %&gt;
+    &lt;outline type="rss" text="&lt;%= feed.title %&gt;"
+                        xmlUrl="&lt;%= feed.url %&gt;"
+                        title="&lt;%= feed.title %&gt;"/&gt;
+    &lt;% end %&gt;
+  &lt;/body&gt;
+&lt;/opml&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/gravitystorm/blogs.osm.org/blob/master/theme/opml.xml.erb">gravitystorm/blogs.osm.org/theme/opml.xml.erb</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto-trivia-quiz-iv">Planet Pluto Trivia Quiz IV</h1>
+
+<p>Q: Cosmographia Trivia Quiz - How many planets in our system?</p>
+
+<ul>
+  <li>(A) Planet 7 w/ Moon &amp; Sun
+    <ul>
+      <li>Moon Mercury Venus Sun Mars Jupiter Saturn</li>
+    </ul>
+  </li>
+  <li>(B) Planet 9 (I) w/ Pluto
+    <ul>
+      <li>Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune Pluto</li>
+    </ul>
+  </li>
+  <li>(C) Planet 8 w/o Pluto
+    <ul>
+      <li>Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune</li>
+    </ul>
+  </li>
+  <li>(D) Planet 9 (II) w/ Hypothetical Planet X
+    <ul>
+      <li>Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune Planet X</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Planet Nine Facts - A New Planet?</p>
+
+<blockquote>
+  <p>Astronomers used mathematics to predict the existence of the object
+they nicknamed “Planet Nine.”</p>
+
+  <p>“Planet Nine,” could have a mass about 10 times that of Earth and
+orbit about 20 times farther from the sun on average than Neptune. It may take between 10,000 and
+20,000 Earth years to make one full orbit around the sun.</p>
+</blockquote>
+
+<p>(Source: <a href="https://solarsystem.nasa.gov/planets/">Planets @ NASA Solar System</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="design-your-own-planet-pluto-templates--themes">Design Your Own Planet Pluto Templates / Themes</h1>
+
+<p><img src="i/pluto-models.png" alt="" /></p>
+
+<p>A bunch of planet starter templates / themes @ <a href="https://github.com/planet-templates"><code>planet-themes</code></a> org.</p>
+
+<ul>
+  <li>Digest</li>
+  <li>Hacker</li>
+  <li>Forty</li>
+  <li>News</li>
+  <li>Paper</li>
+  <li>Top</li>
+  <li>and more</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto---stay-static-or-go-dynamic">Planet Pluto - Stay Static or Go Dynamic?</h1>
+
+<p>What’s Pluto Live?</p>
+
+<p>A collection of (dynamic) web apps (e.g. sinatra, rails, etc.)
+using the pluto machinery @ <a href="https://github.com/plutolive"><code>plutolive</code></a>
+incl. live, live.starter, and admin.</p>
+
+<p><code>planet.rb</code>:</p>
+
+<pre><code>class Planet &lt; Sinatra::Base
+
+  include Pluto::Models   # Models e.g. Feed, Item, Site, etc.
+
+  get '/' do
+    erb :index
+  end
+
+end
+</code></pre>
+
+<p><code>index.erb</code>:</p>
+
+<pre><code>&lt;% site.items.latest.limit(24).each do |item| %&gt;
+
+  &lt;div class='item'&gt;
+
+    &lt;h2 class='item-title'&gt;
+     &lt;%= link_to item.title, item.url %&gt;
+    &lt;/h2&gt;
+
+    &lt;div class='item-content'&gt;
+     &lt;%= item.content %&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;% end %&gt;
+</code></pre>
+
+<p>See the <a href="https://github.com/plutolive/pluto.live.starter">pluto.live.starter</a> repo for more.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto-trivia-quiz-v">Planet Pluto Trivia Quiz V</h1>
+
+<p>Q: What planet scripts do NOT run on ruby?</p>
+
+<ul>
+  <li>(A) Planet Mars – by Sam Ruby et al</li>
+  <li>(B) Planet Venus – by Sam Ruby et al</li>
+  <li>(C) Planet Pluto – by Gerald Bauer et al</li>
+  <li>(D) Planet Uranus – by Marvin Gülker et al</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="one-more-thing-----jekyll-planet-pluto-addon--importer">One More Thing ;-) - Jekyll Planet Pluto Addon / Importer</h1>
+
+<p>Let’s you (auto-)add articles / blog posts to your
+(static) website. Example:</p>
+
+<pre><code>&lt;p&gt;Happy Friday everyone!&lt;/p&gt;
+
+&lt;p&gt;The Rails team has just released &lt;a href="http://rubygems.org/gems/rails/versions/5.2.0.rc3"&gt;
+the third Release Candidate of Rails 5.2.0&lt;/a&gt;
+today. For an overview of all the major changes in the 5.2 series, please refer
+to the &lt;a href="http://edgeguides.rubyonrails.org/5_2_release_notes.html"&gt;release notes&lt;/a&gt;.&lt;/p&gt;
+...
+</code></pre>
+
+<p>becomes <code>_posts/2017-06-13-ann_rails_520rc3_has_been_released.html</code>:</p>
+
+<pre><code>---
+title:      "[ANN] Rails 5.2.0.rc3 has been released!"
+created_at: 2017-06-13 03:00:00 UTC
+autor:      Ruby on Rails Blog
+layout:     post
+---
+&lt;p&gt;Happy Friday everyone!&lt;/p&gt;
+
+&lt;p&gt;The Rails team has just released &lt;a href="http://rubygems.org/gems/rails/versions/5.2.0.rc3"&gt;
+the third Release Candidate of Rails 5.2.0&lt;/a&gt;
+today. For an overview of all the major changes in the 5.2 series, please refer
+to the &lt;a href="http://edgeguides.rubyonrails.org/5_2_release_notes.html"&gt;release notes&lt;/a&gt;.&lt;/p&gt;
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="thanks">Thanks</h1>
+
+<p>Questions? Comments?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto-trivia-quiz-vi">Planet Pluto Trivia Quiz VI</h1>
+
+<p>Q:  How many moons / natural satellites has Pluto?</p>
+
+<ul>
+  <li>(A) 0 - Zero</li>
+  <li>(B) 1 - One</li>
+  <li>(C) 3 - Three</li>
+  <li>(D) 5 - Five</li>
+</ul>
+
+<p>Pluto Facts - Did you know?  Identity Crisis</p>
+
+<blockquote>
+  <p>Pluto has five known moons: Charon (the largest, with a diameter just over half that of Pluto),
+Styx, Nix, Kerberos, and Hydra.
+Pluto and Charon are sometimes considered a binary system because the barycenter of their orbits
+does not lie within either body. The  International Astronomical Union (IAU) has not formalized
+a definition for binary dwarf planets,
+and Charon is officially classified as a moon of Pluto.</p>
+</blockquote>
+
+<p>(Source: <a href="https://en.wikipedia.org/wiki/Pluto">Pluto - Wikipedia</a>)</p>
+
+<p><img src="i/plutomoons.jpg" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus--planet-ruby---whats-news">Bonus:  Planet Ruby - What’s News?</h1>
+
+<ul>
+  <li>Planet Ruby
+    <ul>
+      <li>150+ Sources; see <a href="http://planetruby.herokuapp.com/sources"><code>planetruby/sources</code></a></li>
+    </ul>
+  </li>
+  <li>Planet Vienna.rb / Austria  – Relaunch / Update - Why? Why not?</li>
+</ul>
+
+<!-- -->
+<ul>
+  <li>Rubyland News                  - by Jonathan Rochkind (runs on rubyland.news rails app)</li>
+  <li>Planet Ruby (Deutsch/German)   - by Marvin Gülker (runs on planet uranus script)</li>
+</ul>
+
+<!-- -->
+<ul>
+  <li>Ruby Flow  (link blog)</li>
+  <li>Ruby Weekly  (newsletter)</li>
+  <li>Green Ruby News  (newsletter)</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-planet-pluto---whats-next-plans--ideas">Bonus: Planet Pluto - What’s Next? Plans &amp; Ideas</h1>
+
+<p>Some ideas:</p>
+
+<ul>
+  <li>Use Liquid for (Jekyll-Compatible) Templates</li>
+  <li>Bundle Pluto Admin into a gem and command line tool (starts a local server e.g. $ <code>plutoweb</code>)</li>
+  <li>New Planet Config Format - use Awesome Blogs pages in markdown</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-tip---add-profile-pics-hacker-gotchis">Bonus: Tip - Add Profile Pics (Hacker Gotchis)</h1>
+
+<p>Lesson from Facebook (Social Networks)?
+Add Profile Pics. Example:</p>
+
+<p>Planet Gnome (<a href="http://planet.gnome.org"><code>planet.gnome.org</code></a>) - First Planet Planet Still Running Today</p>
+
+<p>See <a href="http://planet.gnome.org/heads/">Hackergotchis</a>:</p>
+
+<p><img src="i/hackergotchis.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="planet-pluto-trivia-quiz-vii">Planet Pluto Trivia Quiz VII</h1>
+
+<p>Q: What is NOT a classification of Pluto?</p>
+
+<ul>
+  <li>(A) King of the Kuiper Belt</li>
+  <li>(B) Outer Solar System Object</li>
+  <li>(C) Trans-Neptunian Object</li>
+  <li>(D) Planet</li>
+</ul>
+
+<blockquote>
+  <p>I think the whole Solar System joins me in saying,”Good riddance!” to that whiney little ball of ice.
+That trespasser better stop spewing nonsense from those cryovolcanoes of his,
+or I’ll kick his night side all the way to Alpha Centauri.</p>
+
+  <p>– Neptune, Pluto Nemesis</p>
+</blockquote>
+
+<p>(Source: <a href="http://www.theplutodiaries.com">The Pluto Diaries - confessions of a former ninth planet</a>)</p>
+</div>
+
+
+  </div> <!-- presentation -->
+</body>
+</html> 
+
