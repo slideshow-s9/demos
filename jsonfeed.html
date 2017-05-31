@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=utf-8"> 
+   <title></title>
+
+<meta name="generator" content="">
+<meta name="author"    content="" >
+
+
+<!-- S6 style sheet links -->
+<link rel="stylesheet" href="jsonfeed.css"  media="projection" id="styleProjection">
+<link rel="stylesheet" href="s6/screen.css"    media="screen"     id="styleScreen">
+<link rel="stylesheet" href="s6/print.css"     media="print">
+
+<!-- S6 JS -->
+<script src="s6/jquery.js"></script>
+<script src="s6/jquery.slideshow.js"></script>
+<script>
+  $(document).ready( function() {
+    Slideshow.init();
+  } );
+
+  
+</script>
+
+<!-- Better Browser Banner for Microsoft Internet Explorer (IE) -->
+<!--[if IE]>
+<script src="s6/jquery.microsoft.js"></script>
+<![endif]-->
+
+
+
+</head>
+<body>
+
+<div class="layout"> 
+  <div id="header"></div>
+  <div id="footer">
+    <h1></h1>
+    <h2></h2>
+  </div>
+</div>
+
+<div class="presentation">
+   
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="the-future-of-online-news---the-future-of-facebook--co">The Future of Online News - The Future of Facebook &amp; Co</h1>
+
+<ul>
+  <li>How do you read your news?
+    <ul>
+      <li>On your computer?</li>
+      <li>On your mobile phone?</li>
+      <li>In your browser?</li>
+      <li>In an app?</li>
+    </ul>
+  </li>
+  <li>How many websites do you read?
+    <ul>
+      <li>One (just Facebook ;-) or Krone)</li>
+      <li>Two or three</li>
+      <li>More than ten</li>
+      <li>More than a hundred</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="triva-quiz---whats-rss">Triva Quiz - What’s RSS?</h1>
+
+<p>Q: What’s RSS?</p>
+
+<ul>
+  <li>(A) RDF Site Summary</li>
+  <li>(B) Rich Site Summary</li>
+  <li>(C) Really Simple Syndication</li>
+</ul>
+
+<p>RDF = Resource Description Framework</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="content-modeling-is-easy---jason-fried-i-know-that-guy">Content Modeling is Easy - Jason Fried? I know that guy.</h1>
+
+<p><img src="i/jsonfried.png" alt="" /></p>
+
+<p>(<a href="https://twitter.com/jasonfried/status/865767227416612864">Source: twitter.com/jasonfried/status/865767227416612864</a>)</p>
+
+<p>in JSON</p>
+
+<pre><code>{
+  "author":         { "name": "Jason Fried" },
+  "content_text:    "JSON Feed? I know that guy.",
+  "date_published": "2017-05-19T20:12:00-00:00",
+  "url":            "https://twitter.com/jasonfried/status/865767227416612864"
+}
+</code></pre>
+
+<ul>
+  <li>No title.</li>
+  <li>No hypertext (markup language) - just plain (vanilla) text.</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="content-modeling-is-easy---league-quick-starter-sample---mauritius-premier-league">Content Modeling is Easy - League Quick Starter Sample - Mauritius Premier League</h1>
+
+<pre><code>---
+title:  "football.db - League Quick Starter Sample - Mauritius Premier League - Create Your Own Repo/League(s) from Scratch"
+---
+
+Added a new [quick starter sample](https://github.com/sportkit/mu-mauritius)
+using the Mauritius Premier League to get you started creating
+your own leagues/cups/etc. from scratch.
+
+You can test drive the quick starter sample with a single command e.g.:
+
+    $ sportdb build
+
+
+To start from scratch follow these six steps:
+
+- Step 1: Add all leagues
+- Step 2: Add all clubs
+- Step 3: Add all match fixtures and results
+- Step 4: Add the league season "front matter" settings
+- Step 5: Add a setups file list (also known as manifest)
+- Step 6: Add a datafile build script - That's it. Done.
+
+Using a file structure like:
+...
+</code></pre>
+
+<p>(<a href="http://openfootball.github.io/2015/08/30/league-quick-starter">Source: openfootball.github.io/2015/08/30/league-quick-starter </a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="content-modeling-is-easy---league-quick-starter-sample---mauritius-premier-league-cont">Content Modeling is Easy - League Quick Starter Sample - Mauritius Premier League (Cont.)</h1>
+
+<p>in JSON</p>
+<pre><code>{
+  "title": "football.db - League Quick Starter Sample - Mauritius Premier League - Create Your Own Repo/League(s) from Scratch",
+  "content_html": "&lt;p&gt;Added a new &lt;a href=\"https://github.com/sportkit/mu-mauritius\"&gt;quick starter sample&lt;/a&gt; \nusing the Mauritius Premier League to get you started creating \nyour own leagues/cups/etc. from scratch.&lt;/p&gt;\n\n&lt;p&gt;You can test drive the quick starter sample with a single command e.g.:&lt;/p&gt;\n\n&lt;pre class=\"highlight\"&gt;&lt;code&gt;$ sportdb build \n&lt;/code&gt;&lt;/pre&gt;\n\n&lt;p&gt;To start from scratch follow these six steps:&lt;/p&gt;\n\n&lt;ul&gt;\n  &lt;li&gt;Step 1: Add all leagues&lt;/li&gt;\n...",
+  "url": "http://openfootball.github.io/2015/08/30/league-quick-starter.html",
+  "date_published": "2015-08-30T00:00:00+00:00"
+}
+</code></pre>
+
+<p>See <a href="http://openfootball.github.io/feed.json">openfootball.github.io/feed.json</a></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="content-modeling-is-hard">Content Modeling is Hard</h1>
+
+<ul>
+  <li>What about summary vs full content?
+    <ul>
+      <li>Is the content a summary or full content?</li>
+    </ul>
+  </li>
+  <li>What about plain (vanilla) text vs hypertext (markup language)?
+    <ul>
+      <li>How about hypertext in the title or in the summary?</li>
+      <li>How can you tell if the content is plain (vanilla) text or hypertext?</li>
+    </ul>
+  </li>
+  <li>What about more than one author?
+    <ul>
+      <li>How to add the author’s email or website or avatar?</li>
+      <li>What about contributors? Is a contributor an author?</li>
+    </ul>
+  </li>
+  <li>What about ids?
+    <ul>
+      <li>Is the url the id?</li>
+      <li>What about global unique ids (guid) or about unique resource names (urn)?</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson">Meet Jason Feed - A New Feed Format in JSON - feed.json</h1>
+
+<p><img src="i/jsonfeed.png" alt="" /></p>
+
+<p>More <a href="https://jsonfeed.org">jsonfeed.org</a> »</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<pre><code>{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Jason Fried's Microblog",
+    "home_page_url": "https://micro.blog/jasonfried/",
+    "feed_url": "https://micro.blog/jasonfried/feed.json",
+    "author": {
+        "name": "Jason Fried",
+        "url": "https://micro.blog/jasonfried/",
+        "avatar": "https://micro.blog/jasonfried/avatar.png"
+    },
+    "items": [
+        {
+            "id": "865767227416612864",
+            "url": "https://micro.blog/jasonfried/status/865767227416612864",
+            "content_text": "JSON Feed? I know that guy.",
+            "date_published": "2017-05-19T20:12:00-00:00"
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible</h1>
+
+<p>Standards - Standards - Standards</p>
+
+<p><img src="i/xkcd-date.png" alt="" /></p>
+
+<p>(Source: <a href="https://xkcd.com/1179/">xkcd.com/1179</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible-cont">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible (Cont.)</h1>
+
+<p>One (format) to rule them all.
+All your base are belong to us.
+JavaScript is eating the world ;-)</p>
+
+<p><img src="i/xkcd-standards.png" alt="" /></p>
+
+<p>(Source: <a href="https://xkcd.com/927/">xkcd.com/927</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible-cont-1">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible (Cont.)</h1>
+
+<p><a href="http://scripting.com/2017/05/09/rulesForStandardsmakers.html">Manifesto: Rules for standards-makers</a>
+by Dave Winer - Inventor and Promotor of RSS (0.92, 0.93, 2.0)</p>
+
+<p>One “frozen” format to rule them all (Hint: RSS). Really!?</p>
+
+<p>Lots of great insightful advice, however, what’s missing? what’s wrong?</p>
+
+<p>Evolve or Die ;-) “Living” standards are the new “everything frozen - we’re done forever”.
+See HTML as an example. Or the English (or German or any) language
+including programming languages e.g. JavaScript ;-)</p>
+
+<p>So let’s celebrate there are many  worlds and many ways to do it ;-)
+and don’t be afraid to break things to try new “keep it simpler” ways
+e.g. web journal log entry =&gt; web journal log =&gt; web log =&gt; blog.</p>
+
+<p>=&gt; Let’s welcome and celebrate JSON Feed!  Finally, feeds in JSON ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont-1">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p>Q: What about plain (vanilla) text vs hypertext (markup language)?</p>
+
+<p>Use <code>content_text</code> for text</p>
+
+<p>and <code>content_html</code> for hypertext.</p>
+
+<p>No artificial intelligence (AI) needed ;-)</p>
+
+<p>Q: What about summary vs full content?</p>
+
+<p>Use <code>summary</code> for summaries</p>
+
+<p>and <code>content_text</code> or <code>content_html</code> for full content.</p>
+
+<p>Note: “Full” content might just be:</p>
+
+<pre><code>"content_text": "Me!"
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-another-feed-format">Why (another) feed format?</h1>
+
+<p>JSON is the new XML ;-)  Easier. Free. Simpler.</p>
+
+<p><img src="i/google-trends-xml-json.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-another-feed-format---json-is-the-new-xml---cont">Why (another) feed format? - JSON is the new XML ;-) (Cont.)</h1>
+
+<p>RSS and Atom feed formats in XML. No “official” JSON versions (§).</p>
+
+<p>Why?</p>
+
+<blockquote>
+  <p>Goals. After making feeds easier to read and write,
+our second goal is to provide a format that’s self-documenting
+and difficult to do wrong.</p>
+</blockquote>
+
+<p><a href="https://jsonfeed.org/version/1">(Source: jsonfeed.org/version/1)</a></p>
+
+<p>(§) <em>Breaking News</em> May/30 - Dave Winer (re)started <a href="http://scripting.com/2017/05/30.html#a110554">rss in json</a>,
+see <a href="http://scripting.com/rss.xml">scripting.com/rss.xml</a>, for an example.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-another-feed-format-cont">Why (another) feed format? Cont.</h1>
+
+<p>More than “just” JSON versions of RSS or Atom.</p>
+
+<p>(I) Made simpler e.g.:</p>
+
+<ul>
+  <li>Everything is plain text and only <code>content_html</code> is for hypertext
+e.g. <code>summary</code>, <code>title</code>, etc. always plain text.</li>
+  <li>No <code>title</code> required just <code>content_text</code> (e.g. used for microposts)
+or <code>content_html</code>.</li>
+</ul>
+
+<p>(II) Many (practical) optional additions e.g.:</p>
+
+<ul>
+  <li>Multiple attachments.</li>
+  <li>Modern needs such as avatar images, feed icons and favicons,
+and banner and featured images. Feed readers should not have to search
+and scrape to guess at these things.</li>
+  <li>A simple way to add extensions.</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-another-feed-format-cont-1">Why (another) feed format? Cont.</h1>
+
+<p>Feed format sounds boring!? How about:</p>
+
+<p>A Univeral Server-less Head-less Microservice
+Content Management HTTP JSON API.</p>
+
+<p>Easy. Free. Simple.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="add-json-feed-to-your-site">Add JSON Feed to Your Site</h1>
+
+<p>WordPress JSON Feed Plugin. Yes! Jeykyll. Yes! Hugo. Yes!
+And many more.</p>
+
+<p>See the <a href="https://jsonfeed.org/code">JSON Feed Code Page</a>:</p>
+
+<p><img src="i/jsonfeed-code.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-feed-in-action---json-feed-viewer">JSON Feed in Action - JSON Feed Viewer</h1>
+
+<p><a href="https://json-feed-viewer.herokuapp.com">JSON Feed Viewer</a> by Maxime Vaillancourt</p>
+
+<p>Browse through fresh feeds, or enter a feed.</p>
+
+<p>Open Source, see <a href="https://github.com/maximevaillancourt/json-feed-viewer">github.com/maximevaillancourt/json-feed-viewer</a>)</p>
+
+<ul>
+  <li>uses Node.js with Express and Pug (formerly Jade) templates</li>
+</ul>
+
+<p><img src="i/jsonfeed-viewer.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-feed-in-action---rss-or-atom-to-json-feed">JSON Feed in Action - RSS or Atom to JSON Feed</h1>
+
+<p><a href="">feed2json.org</a> by Andrew Chilton</p>
+
+<p>Convert RSS or Atom feed to JSON Feed</p>
+
+<p>Open Source, see
+<a href="https://github.com/appsattic/feed2json.org">github.com/appsattic/feed2json.org</a></p>
+
+<ul>
+  <li>uses Node.js with Express and feedparser (for RSS/Atom)</li>
+</ul>
+
+<p><img src="i/feed2json.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="build-your-own-news-web-component-w-react">Build Your Own News Web Component w/ React</h1>
+
+<p>See the <a href="https://playhtml.github.io/feeds/react">Feeds News Reader Sample</a> in Action.</p>
+
+<p><img src="i/playhtml-feeds.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="build-your-own-news-web-component-w-react---newsapp">Build Your Own News Web Component w/ React - NewsApp</h1>
+
+<p>Step 1: Fetch the JSON feed</p>
+
+<pre><code>componentDidMount() {
+    const FEED_URL = 'https://openfootball.github.io/feed.json';
+
+    fetch( FEED_URL )
+       .then( res =&gt; res.json() )
+       .then( json =&gt; {
+               this.setState( { feed: json } );
+            });
+	}
+</code></pre>
+
+<p>(Source: <a href="https://github.com/playhtml/feeds/blob/master/react/src/NewsApp.js">github.com/playhtml/feeds/react/src/NewsApp.js</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="build-your-own-news-web-component-w-react---feed">Build Your Own News Web Component w/ React - Feed</h1>
+
+<p>Step 2: Diplay the JSON feed in HTML</p>
+
+<pre><code>export default class Feed extends React.Component {
+
+render() {
+   // show json feed formatted w/ html template
+ const feed = this.props.feed;
+
+ if (!feed) return &lt;div&gt;Loading...&lt;/div&gt;;
+
+ return(
+    &lt;div className="list"&gt;
+  		{ feed.items.map( item =&gt; (
+&lt;div style={{{
+  padding: 10,
+  margin: 10,
+  background: 'white',
+  boxShadow: '0 1px 5px rgba(0,0,0,0.5)'
+}}&gt;
+  &lt;div&gt;
+    &lt;h3&gt;
+       &lt;a href="{item._url}"&gt;{item.title}&lt;/a&gt;
+    &lt;/h3&gt;
+    &lt;div dangerouslySetInnerHTML={{__html: item.content_html}} /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+     )) }
+    &lt;/div&gt;);
+} // render
+
+} // class Feed
+</code></pre>
+
+<p>That’s it.</p>
+
+<p>(Source: <a href="https://github.com/playhtml/feeds/blob/master/react/src/Feed.js">github.com/playhtml/feeds/react/src/Feed.js</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="thanks---questions-comments">Thanks - Questions? Comments?</h1>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-json-feed-podcast-example">Bonus: JSON Feed Podcast Example</h1>
+
+<p>Yes, works “out-of-the-box” for podcasts too.
+Use attachments for audio recordings (media files).</p>
+
+<pre><code>{
+    "version": "https://jsonfeed.org/version/1",
+    "user_comment": "This is a podcast feed. You can add this feed to your podcast client using the following URL: http://therecord.co/feed.json",
+    "title": "The Record",
+    "home_page_url": "http://therecord.co/",
+    "feed_url": "http://therecord.co/feed.json",
+    "items": [
+        {
+            "id": "http://therecord.co/chris-parrish",
+            "title": "Special #1 - Chris Parrish",
+            "url": "http://therecord.co/chris-parrish",
+            "content_text": "Chris has worked at Adobe and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged &amp; Distilled with Guy English - which shipped Napkin, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on Bainbridge Island, a quick ferry ride from Seattle.",
+            "content_html": "Chris has worked at &lt;a href=\"http://adobe.com/\"&gt;Adobe&lt;/a&gt; and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged &amp; Distilled with Guy English - which shipped &lt;a href=\"http://aged-and-distilled.com/napkin/\"&gt;Napkin&lt;/a&gt;, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on &lt;a href=\"http://www.ci.bainbridge-isl.wa.us/\"&gt;Bainbridge Island&lt;/a&gt;, a quick ferry ride from Seattle.",
+            "summary": "Brent interviews Chris Parrish, co-host of The Record and one-half of Aged &amp; Distilled.",
+            "date_published": "2014-05-09T14:04:00-07:00",
+            "attachments": [
+                {
+                    "url": "http://therecord.co/downloads/The-Record-sp1e1-ChrisParrish.m4a",
+                    "mime_type": "audio/x-m4a",
+                    "size_in_bytes": 89970236,
+                    "duration_in_seconds": 6629
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-json-feed---whos-who---meet-brent-simmons-n-manton-reece">Bonus: JSON Feed - Who’s Who - Meet Brent Simmons n Manton Reece</h1>
+
+<p>Brent Simmons? - I know this guy!</p>
+
+<p>Manton Reece? - I know that guy!</p>
+
+<p>Brent Simmons built the NetNewsWire  more than 10+ years ago;
+was first (most popular) news reader for Apple Mac OS X.</p>
+
+<p>Blogs at <a href="http://inessential.com">inessential.com</a>
+with <a href="http://inessential.com/feed.json">feed.json</a> ;-)</p>
+
+<p>Manton Reece builds micro.blog - a timeline and publishing platform for the open web.
+Also built the WordPress JSON Feed plugin ;-)</p>
+
+<p>Blogs at <a href="http://manton.org">manton.org</a> with <a href="http://manton.org/feed/json">feed.json</a> ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-lets-fix-json---whats-wrong-or-missing-in-json-10">Bonus: Let’s “fix” JSON - What’s wrong or missing in JSON 1.0?</h1>
+
+<ul>
+  <li>Add comments.</li>
+  <li>Allow object keys without quotes.</li>
+  <li>Add multi-line strings.</li>
+  <li>Allow trailing commas or make commas optional.</li>
+  <li>And much much more.</li>
+</ul>
+
+<p>New (working) JSON format proposals include:</p>
+
+<ul>
+  <li><a href="https://github.com/aleksandergurin/simple-object-notation">SON (Simple Object Notation)</a></li>
+  <li><a href="http://hjson.org">HJSON (Human JSON)</a></li>
+  <li><a href="http://json5.org">JSON5</a></li>
+  <li>and others</li>
+</ul>
+
+<p>Why not evolve JSON? Keep it frozen, forever, really?</p>
+
+<p>SON Feed? JSON5 Feed? HJSON Feed? Anyone?</p>
+</div>
+
+
+</div><!-- presentation -->
+</body>
+</html>
