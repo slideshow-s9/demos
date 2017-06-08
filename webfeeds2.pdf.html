@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title></title>
+   
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+     
+ul { list-style-type: square; }    
+   
+.center { text-align: center; }   
+     
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+         
+         border: 1px dotted black;
+
+/*      
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+pre {
+  padding: 4px 4px 4px 4px;
+  border-top: #bbb 1px solid;
+  border-bottom: #bbb 1px solid;
+  background: #f3f3f3;
+}
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<div class="presentation">
+
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="agenda">Agenda</h1>
+
+<ul>
+  <li>The Future of Online News - The Future of Facebook &amp; Co</li>
+  <li>What’s a Web Feed?
+    <ul>
+      <li>News Feeds in 2017 - Vienna.rb (@viennarb)</li>
+      <li>News Feeds in 2020 - viennarb.json5</li>
+      <li>Triva Quiz - News Feeds in 2009 - What’s RSS?</li>
+      <li>Web Feed Formats - XML, JSON, YAML, HTML, TXT
+        <ul>
+          <li>Triva Quiz - The Wonders of RSS 2.0 - Find the Content</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Meet Jason Feed - A New Feed Format in JSON - feed.json
+    <ul>
+      <li>Why JSON? Why not XML?</li>
+    </ul>
+  </li>
+  <li>Reading JSON Feed - Ruby One-Liner - Ruby Loves JSON - JSON.parse</li>
+  <li>Reading XML in Ruby - What’s the state of the art in 2017?</li>
+  <li>Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible
+    <ul>
+      <li>One gem to rule them all! All your base are blong to feedparser.</li>
+    </ul>
+  </li>
+  <li>What’s the feedparser gem?
+    <ul>
+      <li>Reading feed.json</li>
+      <li>Reading feeds in HTML w/ Microformats</li>
+    </ul>
+  </li>
+  <li>Add JSON Feed to Your Site - Jekyll Template</li>
+  <li>Add Feed.TXT to Your Site  - Jekyll Template</li>
+  <li>Bonus
+    <ul>
+      <li>JSON Feed Podcast Example</li>
+      <li>JSON Feed - Who’s Who - Meet Brent Simmons n Manton Reece</li>
+      <li>Let’s “fix” JSON - What’s wrong or missing in JSON 1.0?
+        <ul>
+          <li>SON Feed? JSON5 Feed? HJSON Feed?</li>
+        </ul>
+      </li>
+      <li>What’s Feed.TXT?</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="the-future-of-online-news---the-future-of-facebook--co">The Future of Online News - The Future of Facebook &amp; Co</h1>
+
+<ul>
+  <li>How do you read your news?
+    <ul>
+      <li>On your computer?</li>
+      <li>On your mobile phone?</li>
+      <li>In your browser?</li>
+      <li>In an app?</li>
+    </ul>
+  </li>
+  <li>How many websites do you read?
+    <ul>
+      <li>One (just Facebook ;-) or Krone)</li>
+      <li>Two or three</li>
+      <li>More than ten</li>
+      <li>More than a hundred</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-a-web-feed">What’s a Web Feed?</h1>
+
+<p><img src="i/web-feed-icon.png" style="float: right;" /></p>
+
+<p>A web feed (or news feed) is a (simple) document/text format
+that:</p>
+
+<p>(1) lets you publish a list of:</p>
+
+<ul>
+  <li>status updates, blog postings, articles, pictures, cartoons, recordings, etc.</li>
+</ul>
+
+<p>and that</p>
+
+<p>(2) lets others subscribe to your updates.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="news-feeds-in-2017---viennarb">News Feeds in 2017 - viennarb</h1>
+
+<p><img src="i/viennarb-newsfeed.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="news-feeds-in-2020---viennarbjson5">News Feeds in 2020 - viennarb.json5</h1>
+
+<pre><code>{
+  title: "vienna.rb",
+  description: "Aggregation of Ruby relevant topics in Vienna and Austria and organizing meetups while we're at it. http://vienna-rb.at/",
+  author: { name: "vienna.rb" },
+  items: [
+    {
+      content_text: "Oh hi! Our next meetup will take place on Thursday the 8th of June! 💎 Got a talk you'd like to give? Get in touch! https://meetup.com/vienna-rb/events/239689512",
+      date_published: "2017-05-17T05:26",
+      url: "http://vienna-rb.at/status/864819337416388608",
+      id:  "http://vienna-rb.at/status/864819337416388608"
+    },
+    {
+      content_text: "Baboom! 2ish months of our picks up 😱 Check'em out! http://www.vienna-rb.at/",
+      date_published: "2017-05-11T00:12",
+      url: "http://vienna-rb.at/status/862354623805489152",
+      id:  "http://vienna-rb.at/status/862354623805489152"
+    },
+    {
+      content_text: "Rails 5.1.0 released with npm/webpack support, bye bye jquery and baked in Capybara integration tests. http://weblog.rubyonrails.org/releases/",
+      date_publlished: "2017-04-28T02:50",
+      url: "http://vienna-rb.at/status/857894899500429314",
+      id:  "http://vienna-rb.at/status/857894899500429314",
+      author: { name: "Aaron Cruz" }
+    }
+  ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="triva-quiz---news-feeds-in-2009---whats-rss">Triva Quiz - News Feeds in 2009 - What’s RSS?</h1>
+
+<ul>
+  <li>(A) RDF Site Summary</li>
+  <li>(B) Rich Site Summary</li>
+  <li>(C) Really Simple Syndication</li>
+  <li>(D) Really Simple, Stupid</li>
+  <li>(E) Rapid Syndicaton Solution</li>
+</ul>
+
+<p>RDF = Resource Description Framework</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="web-feed-formats---xml-json-yaml-html-txt">Web Feed Formats - XML, JSON, YAML, HTML, TXT</h1>
+
+<ul>
+  <li>RSS 2.0 (0.91, 0.92) a.k.a. Really Simple Syndication - in XML</li>
+  <li>RSS 1.0 a.k.a. RDF Site Summary - in RDF/XML</li>
+  <li>Atom - in XML</li>
+  <li>JSON Feed - in - surprise, surprise - JSON</li>
+  <li>Microformats (h-feed/h-entry) - in HTML</li>
+  <li>Feed.TXT - in plain text; metadata in (simplified) YAML or JSON; Markdown</li>
+</ul>
+
+<p>And some more. Let’s celebrate diversity! Live and let live!</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="triva-quiz---the-wonders-of-rss-20---find-the-content">Triva Quiz - The Wonders of RSS 2.0 - Find the Content</h1>
+
+<p>What’s your favorite way to add content in hypertext to RSS 2.0?</p>
+
+<ul>
+  <li>(A) <code>&lt;description&gt;</code></li>
+  <li>(B) <code>&lt;content:encoded&gt;</code>  from RDF/RSS 1.0 content module extension</li>
+  <li>(C) <code>&lt;media:content&gt;</code>  from Yahoo! search extension</li>
+  <li>(D) Other?  Please, tell!</li>
+</ul>
+
+<p>Bonus: Is your content in plain text, in html, in xhtml, in html escaped?
+Is your content a summary? or full text?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson">Meet Jason Feed - A New Feed Format in JSON - feed.json</h1>
+
+<p><img src="i/jsonfeed.png" alt="" /></p>
+
+<p>More <a href="https://jsonfeed.org">jsonfeed.org</a> »</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p><img src="i/jsonfried.png" alt="" /></p>
+
+<pre><code>{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Jason Fried's Microblog",
+    "home_page_url": "https://micro.blog/jasonfried/",
+    "feed_url": "https://micro.blog/jasonfried/feed.json",
+    "author": {
+        "name": "Jason Fried",
+        "url": "https://micro.blog/jasonfried/",
+        "avatar": "https://micro.blog/jasonfried/avatar.png"
+    },
+    "items": [
+        {
+            "id": "865767227416612864",
+            "url": "https://micro.blog/jasonfried/status/865767227416612864",
+            "content_text": "JSON Feed? I know that guy.",
+            "date_published": "2017-05-19T20:12:00-00:00"
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont-1">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p>Use <code>content_text</code> for text</p>
+
+<pre><code>"content_text": "JSON Feed? I know that guy."
+</code></pre>
+
+<p>and <code>content_html</code> for hypertext.</p>
+
+<pre><code>"content_html": "&lt;p&gt;JSON Feed? I know that guy.&lt;/p&gt;"
+</code></pre>
+
+<p>No artificial intelligence (AI) needed ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont-2">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p>Bonus: Use <code>summary</code> for summaries</p>
+
+<p>and <code>content_text</code> or <code>content_html</code> for full content.</p>
+
+<p>Note: “Full” content might just be:</p>
+
+<pre><code>"content_text": "Me!"
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-json-why-not-xml">Why JSON? Why not XML?</h1>
+
+<p>JSON is the new XML ;-)  Easier. Free. Simpler.</p>
+
+<p><img src="i/google-trends-xml-json.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="reading-json-feed---ruby-one-liner---ruby-loves-json---jsonparse">Reading JSON Feed - Ruby One-Liner - Ruby Loves JSON - JSON.parse</h1>
+
+<pre><code>require 'open-uri'
+require 'json'
+
+text = open( 'http://openfootball.github.io/feed.json' ).read
+feed = JSON.parse( text )
+
+puts feed['title']
+# =&gt; "football.db - Open Football Data"
+
+puts feed['url']
+# =&gt; "http://openfootball.github.io/"
+
+puts feed['items'][0]['title']
+# =&gt; "football.db - League Quick Starter Sample - Mauritius Premier League - Create Your Own Repo/League(s) from Scratch"
+
+puts feed['items'][0]['url']
+# =&gt; "http://openfootball.github.io/2015/08/30/league-quick-starter.html"
+
+puts feed['items'][0]['date_updated']
+# =&gt; 2015-08-30T00:00
+
+puts feed['items'][0]['content_text']
+# =&gt; "Added a new quick starter sample using the Mauritius Premier League to get you started..."
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="reading-xml-in-ruby---whats-the-state-of-the-art-in-2017">Reading XML in Ruby - What’s the state of the art in 2017?</h1>
+
+<ul>
+  <li>REXML Stdlib?</li>
+  <li>Nokogiri Gem?  (with libxml c-extension)</li>
+  <li>Text with regular expressions?</li>
+  <li>Other? Please tell!</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible</h1>
+
+<p>Standards - Standards - Standards</p>
+
+<p><img src="i/xkcd-date.png" alt="" /></p>
+
+<p>(Source: <a href="https://xkcd.com/1179/">xkcd.com/1179</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible-cont">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible (Cont.)</h1>
+
+<p>One (format) to rule them all.
+All your base are belong to us.
+JavaScript is eating the world ;-)</p>
+
+<p><img src="i/xkcd-standards.png" alt="" /></p>
+
+<p>(Source: <a href="https://xkcd.com/927/">xkcd.com/927</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="one-gem-to-rule-them-all-all-your-base-are-blong-to-feedparser">One gem to rule them all! All your base are blong to feedparser.</h1>
+
+<p>Live and let live! Celebrate diversity. In the end all formats
+are just 0 and 1s or:</p>
+
+<ul>
+  <li><code>feed.title</code></li>
+  <li><code>feed.url</code></li>
+  <li><code>feed.items[0].title</code></li>
+  <li><code>feed.items[0].url</code></li>
+  <li><code>feed.items[0].published</code></li>
+  <li><code>feed.items[0].content_html</code> or <code>feed.items[0].content</code></li>
+  <li><code>feed.items[0].content_text</code></li>
+  <li><code>feed.items[0].summary</code></li>
+  <li>etc.</li>
+</ul>
+
+<p>=&gt; Let your computer handle the reading of web feeds ;-).</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-the-feedparser-gem">What’s the feedparser gem?</h1>
+
+<p>Web feed parser and normalizer @ GitHub <a href="https://github.com/feedparser/feedparser"><code>feedparser/feedparser</code></a></p>
+
+<p>Formats include:</p>
+
+<ul>
+  <li>XML - with Atom or RSS</li>
+  <li>JSON - with JSON Feed</li>
+  <li>HTML - with Microformats e.g. <code>h-entry</code>/<code>h-feed</code></li>
+</ul>
+
+<!-- break -->
+
+<ul>
+  <li>Upcoming - TXT - with Feed.TXT e.g. YAML &amp; Markdown (Yeah!)</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-the-feedparser-gem-cont">What’s the feedparser gem? Cont.</h1>
+
+<pre><code>require 'open-uri'
+require 'feedparser'
+
+txt = open( 'http://openfootball.github.io/feed.json' ).read
+
+feed = FeedParser::Parser.parse( txt )
+
+puts feed.title
+# =&gt; "football.db - Open Football Data"
+
+puts feed.url
+# =&gt; "http://openfootball.github.io/"
+
+puts feed.items[0].title
+# =&gt; "football.db - League Quick Starter Sample - Mauritius Premier League - Create Your Own Repo/League(s) from Scratch"
+
+puts feed.items[0].url
+# =&gt; "http://openfootball.github.io/2015/08/30/league-quick-starter.html"
+
+puts feed.items[0].updated
+# =&gt; Sun, 30 Aug 2015 00:00:00 +0000
+
+puts feed.items[0].content_text
+# =&gt; "Added a new quick starter sample using the Mauritius Premier League to get you started..."
+
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-the-feedparser-gem-cont---microformats">What’s the feedparser gem? Cont. - Microformats</h1>
+
+<pre><code>require 'microformats'
+require 'feedparser'
+
+text =&lt;&lt;HTML
+&lt;article class="h-entry"&gt;
+  &lt;h1 class="p-name"&gt;Microformats are amazing&lt;/h1&gt;
+  &lt;p&gt;Published by
+    &lt;a class="p-author h-card" href="http://example.com"&gt;W. Developer&lt;/a&gt;
+     on &lt;time class="dt-published" datetime="2013-06-13 12:00:00"&gt;13&lt;sup&gt;th&lt;/sup&gt; June 2013&lt;/time&gt;
+
+  &lt;p class="p-summary"&gt;In which I extoll the virtues of using microformats.&lt;/p&gt;
+
+  &lt;div class="e-content"&gt;
+    &lt;p&gt;Blah blah blah&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;
+HTML
+
+feed = FeedParser::Parser.parse( text )
+
+puts feed.format
+# =&gt; "html"
+puts feed.items.size
+# =&gt;  1
+puts feed.items[0].authors.size
+# =&gt; 1
+puts feed.items[0].content_html  
+# =&gt; "&lt;p&gt;Blah blah blah&lt;/p&gt;"
+puts feed.items[0].content_text  
+# =&gt; "Blah blah blah"
+puts feed.items[0].title
+# =&gt; "Microformats are amazing"
+puts feed.items[0].summary
+# =&gt; "In which I extoll the virtues of using microformats."
+puts feed.items[0].published
+# =&gt; 2013-06-13 12:00:00
+puts feed.items[0].authors[0].name
+# =&gt; "W. Developer"
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="add-json-feed-to-your-site">Add JSON Feed to Your Site</h1>
+
+<p>WordPress JSON Feed Plugin. Yes! Jeykyll. Yes! Hugo. Yes!
+And many more.</p>
+
+<p>See the <a href="https://jsonfeed.org/code">JSON Feed Code Page</a>:</p>
+
+<p><img src="i/jsonfeed-code.png" alt="" /></p>
+
+<!-- add feed to your site here -->
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="thanks---questions-comments">Thanks - Questions? Comments?</h1>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-json-feed-podcast-example">Bonus: JSON Feed Podcast Example</h1>
+
+<p>Yes, works “out-of-the-box” for podcasts too.
+Use attachments for audio recordings (media files).</p>
+
+<pre><code>{
+    "version": "https://jsonfeed.org/version/1",
+    "user_comment": "This is a podcast feed. You can add this feed to your podcast client using the following URL: http://therecord.co/feed.json",
+    "title": "The Record",
+    "home_page_url": "http://therecord.co/",
+    "feed_url": "http://therecord.co/feed.json",
+    "items": [
+        {
+            "id": "http://therecord.co/chris-parrish",
+            "title": "Special #1 - Chris Parrish",
+            "url": "http://therecord.co/chris-parrish",
+            "content_text": "Chris has worked at Adobe and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged &amp; Distilled with Guy English - which shipped Napkin, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on Bainbridge Island, a quick ferry ride from Seattle.",
+            "content_html": "Chris has worked at &lt;a href=\"http://adobe.com/\"&gt;Adobe&lt;/a&gt; and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged &amp; Distilled with Guy English - which shipped &lt;a href=\"http://aged-and-distilled.com/napkin/\"&gt;Napkin&lt;/a&gt;, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on &lt;a href=\"http://www.ci.bainbridge-isl.wa.us/\"&gt;Bainbridge Island&lt;/a&gt;, a quick ferry ride from Seattle.",
+            "summary": "Brent interviews Chris Parrish, co-host of The Record and one-half of Aged &amp; Distilled.",
+            "date_published": "2014-05-09T14:04:00-07:00",
+            "attachments": [
+                {
+                    "url": "http://therecord.co/downloads/The-Record-sp1e1-ChrisParrish.m4a",
+                    "mime_type": "audio/x-m4a",
+                    "size_in_bytes": 89970236,
+                    "duration_in_seconds": 6629
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-json-feed---whos-who---meet-brent-simmons-n-manton-reece">Bonus: JSON Feed - Who’s Who - Meet Brent Simmons n Manton Reece</h1>
+
+<p>Brent Simmons? - I know this guy!</p>
+
+<p>Manton Reece? - I know that guy!</p>
+
+<p>Brent Simmons built the NetNewsWire  more than 10+ years ago;
+was first (most popular) news reader for Apple Mac OS X.</p>
+
+<p>Blogs at <a href="http://inessential.com">inessential.com</a>
+with <a href="http://inessential.com/feed.json">feed.json</a> ;-)</p>
+
+<p>Manton Reece builds micro.blog - a timeline and publishing platform for the open web.
+Also built the WordPress JSON Feed plugin ;-)</p>
+
+<p>Blogs at <a href="http://manton.org">manton.org</a> with <a href="http://manton.org/feed/json">feed.json</a> ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-lets-fix-json---whats-wrong-or-missing-in-json-10">Bonus: Let’s “fix” JSON - What’s wrong or missing in JSON 1.0?</h1>
+
+<ul>
+  <li>Add comments.</li>
+  <li>Allow object keys without quotes.</li>
+  <li>Add multi-line strings.</li>
+  <li>Allow trailing commas or make commas optional.</li>
+  <li>And much much more.</li>
+</ul>
+
+<p>New (working) JSON format proposals include:</p>
+
+<ul>
+  <li><a href="https://github.com/aleksandergurin/simple-object-notation">SON (Simple Object Notation)</a></li>
+  <li><a href="http://hjson.org">HJSON (Human JSON)</a></li>
+  <li><a href="http://json5.org">JSON5</a></li>
+  <li>and others</li>
+</ul>
+
+<p>Why not evolve JSON? Keep it frozen, forever, really?</p>
+
+<p>SON Feed? JSON5 Feed? HJSON Feed? Anyone?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-whats-feedtxt">Bonus: What’s Feed.TXT?</h1>
+
+<p>Feeds in Plain Text w/ Structured Meta Data @ GitHub <a href="https://feedtxt.github.io">/feedtxt</a></p>
+
+<ul>
+  <li>Meta Data in (Simplified) YAML or Classic or Mordern JSON.</li>
+  <li>Content in Plain Text with Markdown Formatting Conventions.</li>
+</ul>
+
+<p>Example: Yes, the world’s 1st podcasting feed in plain text ;-) Let’s try.</p>
+
+<pre><code>|&gt;&gt;&gt;
+ comment: This is a podcast feed. You can add this feed to your podcast client using the following URL: http://therecord.co/feed.json
+ title:   The Record
+ home_page_url: http://therecord.co/
+ feed_url:      http://therecord.co/feed.txt
+ &lt;/&gt;
+ id:        http://therecord.co/chris-parrish
+ title:     Special #1 - Chris Parrish
+ url:       http://therecord.co/chris-parrish
+ summary:   Brent interviews Chris Parrish, co-host of The Record and one-half of Aged &amp; Distilled.
+ published: 2014-05-09T14:04:00-07:00
+ attachments:
+ - url:           http://therecord.co/downloads/The-Record-sp1e1-ChrisParrish.m4a
+   mime_type:     audio/x-m4a
+   size_in_bytes: 89970236,
+   duration_in_seconds: 6629
+ ---
+ Chris has worked at [Adobe][1] and as a founder of Rogue Sheep, which won an Apple Design Award for Postage.
+ Chris's new company is Aged &amp; Distilled with Guy English - which shipped [Napkin](2),
+ a Mac app for visual collaboration. Chris is also the co-host of The Record.
+ He lives on [Bainbridge Island][3], a quick ferry ride from Seattle.
+
+ [1]: http://adobe.com/
+ [2]: http://aged-and-distilled.com/napkin/
+ [3]: http://www.ci.bainbridge-isl.wa.us/
+&lt;&lt;&lt;|  
+</code></pre>
+</div>
+
+
+  </div> <!-- presentation -->
+</body>
+</html> 
+
