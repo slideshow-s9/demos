@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=utf-8"> 
+   <title></title>
+
+<meta name="generator" content="">
+<meta name="author"    content="" >
+
+
+<!-- S6 style sheet links -->
+<link rel="stylesheet" href="quik.css"  media="projection" id="styleProjection">
+<link rel="stylesheet" href="s6/screen.css"    media="screen"     id="styleScreen">
+<link rel="stylesheet" href="s6/print.css"     media="print">
+
+<!-- S6 JS -->
+<script src="s6/jquery.js"></script>
+<script src="s6/jquery.slideshow.js"></script>
+<script>
+  $(document).ready( function() {
+    Slideshow.init();
+  } );
+
+  
+</script>
+
+<!-- Better Browser Banner for Microsoft Internet Explorer (IE) -->
+<!--[if IE]>
+<script src="s6/jquery.microsoft.js"></script>
+<![endif]-->
+
+
+
+</head>
+<body>
+
+<div class="layout"> 
+  <div id="header"></div>
+  <div id="footer">
+    <h1></h1>
+    <h2></h2>
+  </div>
+</div>
+
+<div class="presentation">
+   
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="quik---the-missing-project-scaffolder-for-ruby">Quik - The Missing Project Scaffolder (for Ruby)</h1>
+
+<p>Quick Start Your Ruby Gems, Your Sinatra Apps, Your Jekyll Sites ‘n’ More
+w/ Project Templates</p>
+
+<p>Agenda:</p>
+
+<ul>
+  <li>Quick Starter Kits / Boilerplates / Project Scaffolder in the World</li>
+  <li>What about Ye Old’ Ruby?
+    <ul>
+      <li>How do you get started with creating a new gem?</li>
+      <li>How do you get started with creating a new sinatra app?</li>
+      <li>How do you get started with creating a new jekyll theme?</li>
+    </ul>
+  </li>
+  <li>Turn GitHub repos into quik starter templates in 1-2-3 steps.
+    <ul>
+      <li>Step 1: Download Single-File Quik Starter (.ZIP) Archive</li>
+      <li>Step 2: Parameterize Files - Use a Meta Template Template Language</li>
+      <li>Step 3: What’s Missing? All together Now - Automate with a Script</li>
+    </ul>
+  </li>
+  <li>Let’s welcome the quik command line tool / gem.
+    <ul>
+      <li>quik help - Quik Starter Commands</li>
+      <li>quik ls - List Quik Starter Wizards</li>
+      <li>quik new - New Wizard Quik Start</li>
+    </ul>
+  </li>
+  <li>Bonus
+    <ul>
+      <li>Meet Mr Hyde - Dr Jekyll’s Dark Side - New Static Website Wizard Command</li>
+      <li>Quik Starter Thor Command Line Template</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="quick-starter-kits--boilerplates--project-scaffolder-in-the-world">Quick Starter Kits / Boilerplates / Project Scaffolder in the World</h1>
+
+<ul>
+  <li>Python uses <a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a></li>
+  <li>Node.js uses <a href="http://yeoman.io">Yeoman</a> (<code>yo</code>) or (NEW!) <a href="https://yarnpkg.com/en/docs/cli/create">Yarn</a> with (<code>create</code>)</li>
+  <li>Rails uses <a href="http://guides.rubyonrails.org/rails_application_templates.html">Rails Application Templates</a> ;-)</li>
+</ul>
+
+<p>Q: What about Ye Old’ Ruby?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="how-do-you-get-started-with-creating-a-new-gem">How do you get started with creating a new gem?</h1>
+
+<ul>
+  <li>[A] From scratch ;-)</li>
+  <li>[B] Using <a href="http://bundler.io/v1.15/man/bundle-gem.1.html">bundler</a> with <code>$ bundle gem</code></li>
+  <li>[C] Using <a href="https://github.com/quikstart/gem-starter-template">quik</a> with <code>$ quik new gem</code></li>
+  <li>[D] Using <a href="https://github.com/seattlerb/hoe">hoe</a> with <code>$ soe</code> (incl. with hoe rake tasks gem)</li>
+  <li>[E] Other (Please Tell).</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="how-do-you-get-started-with-creating-a-new-sinatra-app">How do you get started with creating a new sinatra app?</h1>
+
+<ul>
+  <li>[A] From scratch ;-)</li>
+  <li>[B] Using <a href="http://padrinorb.com/guides/generators/projects">padriono</a> with <code>$ padrino g project</code></li>
+  <li>[C] Using <a href="https://github.com/quikstart/sinatra-starter-template">quik</a> with <code>$ quik new sinatra</code></li>
+  <li>[D] Other (Please Tell).</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="how-do-you-get-started-with-creating-a-new-jekyll-theme">How do you get started with creating a new jekyll theme?</h1>
+
+<ul>
+  <li>[A] From scratch ;-)</li>
+  <li>[B] Using <a href="http://jekyllrb.com/docs/themes/#creating-a-gem-based-theme">jekyll</a> with <code>$ jekyll new-theme</code></li>
+  <li>[C] Using <a href="https://github.com/quikstart/jekyll-starter-theme">quik</a> with <code>$ quik new jekyll</code></li>
+  <li>[D] Other (Please Tell).</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="one-quik-starter-to-rule-them-all">One Quik Starter to Rule Them All?</h1>
+
+<p>The Idea - Many starter templates / boilerplates
+are ready-to-fork GitHub repos.</p>
+
+<p>Why not turn GitHub repos into quik starter templates?!</p>
+
+<p>Let’s do it in 1-2-3 steps.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-1-download-single-file-quik-starter-zip-archive">Step 1: Download Single-File Quik Starter (.ZIP) Archive</h1>
+
+<p>Did you know? You can download GitHub repos without git?
+That is, download a single-file archive (.ZIP) – gets (auto-)built by GitHub.</p>
+
+<p>Example - <code>gem-starter-template.zip</code>:</p>
+
+<pre><code>lib/
+  $filename$.rb
+  $filename$/
+    version.rb    
+test/
+  helper.rb
+  test_version.rb
+.gitignore
+HISTORY.md
+Manifest.txt
+README.md
+Rakefile
+</code></pre>
+<p>(Source: <a href="https://github.com/quikstart/gem-starter-template">quikstart/gem-starter-template</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-2-parameterize-files---use-a-template-language">Step 2: Parameterize Files - Use a Template Language</h1>
+
+<ul>
+  <li>[A] Use Embedded Ruby (ERB)</li>
+  <li>[B] Use Liquid</li>
+  <li>[C] Other (Please Tell).</li>
+</ul>
+
+<p>Example - <code>lib/linz/version.rb</code>:</p>
+
+<pre><code>module Linz
+
+  MAJOR = 0
+  MINOR = 0
+  PATCH = 1
+  VERSION = [MAJOR,MINOR,PATCH].join('.')
+
+  def self.version
+    VERSION
+  end
+
+  def self.banner
+    "linz/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+  end
+
+end  # module Linz
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-2-parameterize-files---use-a-template-language-1">Step 2: Parameterize Files - Use a Template Language</h1>
+
+<p>Let’s use a new (simpler) template language (e.g. <code>$name$</code>)!</p>
+
+<p>Example - <code>lib/$filename$/version.rb</code>:</p>
+
+<pre><code>module $module$
+
+  MAJOR = 0
+  MINOR = 0
+  PATCH = 1
+  VERSION = [MAJOR,MINOR,PATCH].join('.')
+
+  def self.version
+    VERSION
+  end
+
+  def self.banner
+    "$name$/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+  end
+
+end  # module $module$
+</code></pre>
+
+<p>(Source: <a href="https://github.com/quikstart/gem-starter-template/blob/master/template/lib/%24filename%24/version.rb">quikstart/gem-starter-template/template/lib/$filename$/version.rb</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-2-parameterize-files---a-new-meta-template-template-language">Step 2: Parameterize Files - A New Meta Template Template Language</h1>
+
+<p>Why not ERB or Liquid?</p>
+
+<ul>
+  <li>Simpler  – works inside filenames too ;-) e.g. <code>lib/$filename$/version.rb</code></li>
+  <li>Shorter  – less typing (plus: no worries about whitespace)</li>
+</ul>
+
+<p><strong>Most Important:</strong> “Orthogonal” to ERB and Liquid.
+Lets you parameterize ERB or Liquid templates too - no need for escaping or “raw” blocks etc.</p>
+
+<pre><code>module $module$     | module &lt;%= module %&gt;  | module {{ module }}  | module Linz
+  ...               |  ...                  |   ...                |   ...
+end                 | end                   | end                  | end
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-3-whats-missing-all-together-now---automate-with-a-script">Step 3: What’s Missing? All together Now - Automate with a Script</h1>
+
+<p>Let’s use Ruby ;-) a with wizard mini language,
+that is, a domain-specific language (DSL).</p>
+
+<p>Example - <code>scripts/gem.rb</code>:</p>
+
+<pre><code>say "Hello from the gem quick starter wizard script"
+
+name  = ask "Name of the gem", "hola"
+
+def make_module( name )
+   ...
+end
+
+module_name = ask "Module name of the gem", make_module( name )
+
+
+## use template repo e.g. github.com/quikstart/gem-starter-template
+
+use "quikstart/gem-starter-template"     
+
+config do |c|
+  c.name     = name
+  c.filename = name     ## for now assume name is 1:1 used as filename
+  c.module   = module_name
+
+  c.date     = Time.new.strftime("%Y-%m-%d")  ## e.g. use like $date$  =&gt; 2015-08-27
+end
+</code></pre>
+
+<p>(Source: <a href="https://github.com/quikstart/scripts/blob/master/gem.rb">quikstart/scripts/gem.rb</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="voila-thats-it-lets-welcome-the-quik-command-line-tool--gem">Voila. That’s it. Let’s welcome the quik command line tool / gem.</h1>
+
+<p>Q: What’s <strong>qk/quik</strong> ★21 (github: <a href="https://github.com/quikstart/quik">quickstart/quik</a>)?</p>
+
+<p>Ruby quick starter template script wizard .:. the missing code generator or project scaffolder.</p>
+
+<p>Trivia:</p>
+
+<p>Q: Why is quik misspelled? A: Because it’s shorter, that is, saves one letter - quik vs quick is quicker).
+Helps with finding quik templates on Google!</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="quik-help----quik-starter-commands">quik help  - Quik Starter Commands</h1>
+
+<pre><code>$ quik --help      # or
+$ qk -h
+</code></pre>
+
+<p>Resulting in:</p>
+
+<pre><code>NAME
+    qk/quik - ruby quick starter template script wizard .:. the missing code generator
+
+SYNOPSIS
+    quik [global options] command [command options] [arguments...]
+
+VERSION
+    0.3.0
+
+GLOBAL OPTIONS
+    --help            - Show this message
+    --verbose         - (Debug) Show debug messages
+    --version         - Display the program version
+
+COMMANDS
+    list, ls, l - List ruby quick starter scripts
+    new, n      - Run ruby quick starter script
+
+    help        - Shows a list of commands or help for one command
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="quik-ls---list-quik-starter-wizards">quik ls - List Quik Starter Wizards</h1>
+
+<p>Use:</p>
+
+<pre><code>$ quik list    # or
+$ quik ls      # or
+$ quik l       # or
+$ qk l
+</code></pre>
+
+<p>Resulting in:</p>
+
+<pre><code>  1..gem        .:.  Gem Quick Starter Template
+  2..gem-hoe    .:.  Gem Quick Starter Template (Hoe Classic Edition)
+  3..sinatra    .:.  Sinatra Quick Starter Template
+...
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="quik-new---new-wizard-quik-start">quik new - New Wizard Quik Start</h1>
+
+<p>To run a quick starter template wizard script
+to download and install (unzip/unpack) a template archive and configure
+the code ready-to-use. Try:</p>
+
+<pre><code>$ quik new gem    # or
+$ quik n gem      # or
+$ qk n gem
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="quik-new---new-wizard-quik-start-cont">quik new - New Wizard Quik Start (Cont.)</h1>
+
+<p>This will download the <code>gem.rb</code> wizard script
+from the <a href="https://github.com/quikstart/scripts">Scripts</a> repo
+and run through all steps e.g.:</p>
+
+<pre><code>Welcome, to the gem quick starter script.
+
+Q: What's your gem's name? [hola]:   hello
+Q: What's your gem's module? [Hola]: Hello
+
+Thanks! Ready-to-go. Stand back.
+
+  Downloading Gem Starter Template...
+  Setting up Starter Template...
+  ...
+Done.
+</code></pre>
+
+<p>That’s it. Now the gem starter code is ready in the <code>hello</code>
+folder.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="thats-it-thanks">That’s it. Thanks.</h1>
+
+<p>Questions? Comments?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-i-meet-mr-hyde---dr-jekylls-dark-side">Bonus I: Meet Mr Hyde - Dr Jekyll’s Dark Side</h1>
+
+<p>Q: What’s <strong>mrh/mrhyde</strong> ★14 (github: <a href="https://github.com/mrhydescripts/mrhyde">mrhydescripts/mrhyde</a>)?</p>
+
+<p>Static website quick starter script wizard .:. the missing jekyll command line tool.</p>
+
+<p>Try:</p>
+
+<pre><code>$ mrhyde help
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-i-meet-mr-hyde---new-static-website-wizard-command">Bonus I: Meet Mr Hyde - New Static Website Wizard Command</h1>
+
+<p>To run a static website quick starter wizard script
+to download and install (unzip/unpack) a theme archive and configure
+a static website ready-to-use. Try:</p>
+
+<pre><code>$ mrhyde new starter    # or
+$ mrhyde n starter      # or
+$ mrh n starter
+</code></pre>
+
+<p>This will download the <code>starter.rb</code> wizard script
+from the <a href="https://github.com/mrhydescripts/scripts">Mr. Hyde’s Scripts</a> repo
+and run through all steps.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-i--meet-mr-hyde---new-static-website-wizard-command-cont">Bonus I:  Meet Mr Hyde - New Static Website Wizard Command (Cont.)</h1>
+
+<pre><code>Welcome, before setting up your site Mr. Hyde will ask you some questions.
+
+Q: What's your site's title? [Your Site Title]:  Another Beautiful Static Website
+Q: What's your name? [Henry Jekyll]: Edward Hyde
+Q: Select your theme:
+     1 - Starter
+     2 - Bootstrap
+     3 - Minimal
+   Your choice (1-3)? [1]: 2
+
+Thanks! Ready-to-go. Stand back twenty-five meters.
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-i--meet-mr-hyde---new-static-website-wizard-command-cont-1">Bonus I:  Meet Mr Hyde - New Static Website Wizard Command (Cont.)</h1>
+
+<pre><code>  Downloading Henry's Bootstrap Theme...
+  Setting up Henry's Bootstrap Theme..
+  ...
+  Updating settings in _config.yml...
+    title: "Another Beautiful Static Website"
+    author.name: "Edward Hyde"
+  ...
+Done.
+</code></pre>
+
+<p>That’s it. Now use:</p>
+
+<pre><code>$ cd starter
+$ jekyll serve
+</code></pre>
+
+<p>And open up your new static website in your browser.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-ii-quik-starter-thor-command-line-template">Bonus II: Quik Starter Thor Command Line Template</h1>
+
+<p>by Georg G. (aka nilsding) from Linz! Thanks!</p>
+
+<pre><code>config/
+  environment.rb
+  my_app.yml.example
+exe/
+  __name__
+lib/
+  __name__/
+    application.rb
+    cli.rb
+    configuration.rb
+  rake/
+    rubocop_runner.rake
+  __name__.rb
+.rubocop.yml
+.ruby-gemset
+.ruby-version
+Gemfile
+LICENSE
+README.md
+Rakefile
+</code></pre>
+
+<p>(Source: <a href="https://github.com/nilsding/ndcli-template">nilsding/ndcli-template</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-ii-quik-starter-thor-command-line-template-cont">Bonus II: Quik Starter Thor Command Line Template (Cont.)</h1>
+
+<p>Use <code>$ quik new ndcli</code></p>
+
+<p>Quik Wizard Script - <code>ndcli.rb</code>:</p>
+
+<pre><code># transform snake_case into CamelCase - borrowed from example quikstart scripts :-)
+def camelize(str)
+  str.gsub(/(?:^|_)([a-z])/i) { $1.upcase }
+end
+
+# generate a nice name, because naming is hard apparently
+parts = %w(
+  awesome epic great best word excel powerpoint office internet_explorer
+  paint photoshop fox wolf dog coyote woof awoo bark bork yip yap yiff
+  image video answer question retrospring sausage oachkatzlschwoaf bier
+  pretzel emacs vim notepad slack twitter reddit ruby diamond gem humor
+  lol internet melli17 blue green red black yellow orange magenta white
+)
+awesome_name = parts.shuffle.take(2).join("_")
+
+say "*** nilsding's CLI template ***"
+
+name = ask("How should I name your app? (snake_case)", awesome_name)
+
+use "nilsding/ndcli-template"
+
+config do |c|
+  c.name         = name
+  c.class        = camelize(name)
+  c.current_year = Time.now.year.to_s
+  c.user         = ENV.fetch("USER", "Anonymous Coward")
+end
+</code></pre>
+
+<p>(Source: <a href="https://github.com/nilsding/ndcli-template/blob/master/ndcli.rb">nilsding/ndcli-template/ndcli.rb</a>)</p>
+</div>
+
+
+</div><!-- presentation -->
+</body>
+</html>
