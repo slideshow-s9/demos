@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title></title>
+   
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+     
+ul { list-style-type: square; }    
+   
+.center { text-align: center; }   
+     
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+         
+         border: 1px dotted black;
+
+/*      
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+pre {
+  padding: 4px 4px 4px 4px;
+  border-top: #bbb 1px solid;
+  border-bottom: #bbb 1px solid;
+  background: #f3f3f3;
+}
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<div class="presentation">
+
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="agenda">Agenda</h1>
+
+<ul>
+  <li>Dynamic Website Generators
+    <ul>
+      <li>Why Static? Inside a Dynamic WordPress Page Query</li>
+    </ul>
+  </li>
+  <li>Static Website Generators</li>
+  <li>Hello, Gatsby!
+    <ul>
+      <li>Open Source Heroes - Kyle Mathews</li>
+    </ul>
+  </li>
+  <li>Getting Started w/ Gatsby
+    <ul>
+      <li>Gatsby Commands</li>
+      <li>Gatsby Quick Starter - Ready-to-Use/Fork Themes</li>
+      <li>Hello, React World! - The World’s Simplest Gatsby Website</li>
+      <li>Gatsby In Action - Why Gatsby (v0)? Live Hot Reloading</li>
+      <li>Gatsby In Action - Why Gatsby (v1)? Continued</li>
+    </ul>
+  </li>
+  <li>Gatsby Stay Static Sample Website
+    <ul>
+      <li>Gatsby Stay Static Website - File Structure</li>
+      <li>Gatsby Stay Static Website - Pages</li>
+      <li>Gatsby Stay Static Site - Posts with Front Matter
+        <ul>
+          <li>Markdown Madness - Markdown Library Options in Gatsby</li>
+        </ul>
+      </li>
+      <li>Gatsby Stay Static Website - Datafiles</li>
+      <li>Gatsby Stay Static Website - HTML Web Components - Loops</li>
+      <li>Gatsby Stay Static Website - HTML Web Components - Includes</li>
+      <li>Gatsby Stay Static Website - Configuration / Settings</li>
+      <li>Gatsby Stay Static Website Demo</li>
+      <li>Going Live - Free (Static) Website Hosting Options</li>
+    </ul>
+  </li>
+  <li>What’s GraphQL?
+    <ul>
+      <li>Gatsby GraphQL Example - Query Site Metadata</li>
+      <li>Gatsby GraphQL Example - Query Filesystem</li>
+      <li>What’s GraphiQL?</li>
+      <li>Gatsby GraphQL Example - Query Markdown Pages</li>
+      <li>Gatsby GraphQL Example - WordPress Post Query</li>
+      <li>How to Use GraphQL and React with Gatsby?</li>
+    </ul>
+  </li>
+  <li>CSS-in-JS - Start using CSS in JavaScript (JS)</li>
+  <li>Gatsby (Static) Websites in the “Real World”</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="10-years-ago---dynamic-website-generators-in-2007">10 Years Ago - Dynamic Website Generators in 2007</h1>
+
+<p><strong>The Biggies</strong> (PHP Rules!)</p>
+
+<ul>
+  <li>WordPress</li>
+  <li>Drupal</li>
+  <li>Joomla!</li>
+</ul>
+
+<p>On your live production site requires</p>
+
+<ul>
+  <li>database (e.g. mysql)</li>
+  <li>application server (e.g. mod_php)</li>
+  <li>web server (e.g. apache)</li>
+</ul>
+
+<p>On every request - (re)builds the page on-the-fly
+e.g. queries the database, runs scripts,
+merges templates, etc.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-static-inside-a-dynamic-wordpress-page-query">Why Static? Inside a Dynamic WordPress Page Query</h1>
+
+<ol>
+  <li>When a visitor first clicks on or types a URL for a page that is part of your blog, WordPress starts by running a few core files (wp-config.php, wp-settings.php, etc.) If you are interested in the specifics of the file loading order, start at index.php and follow the chain of files as each PHP file includes/requires additional PHP files (or read this excellent post at humanshell.net)</li>
+  <li>WordPress loads and initializes any plugins you have activated (calls the plugin init actions).</li>
+  <li>WordPress loads the “text domain” for internationalization, and the functions.php file from the currently active theme.</li>
+  <li>WordPress runs the wp() function (in wp-includes/functions.php), which calls $wp-&gt;main() ($wp is an object of class WP, which is defined in wp-includes/class-wp.php). This tells WordPress to:
+    <ol>
+      <li>Parse the URL into a query specification using WP-&gt;parse_request() – more on that below.</li>
+      <li>Set all the is_ variables that are used by Conditional Tags using $wp_query-&gt;parse_query() ($wp_query is an object of class WP_Query, which is defined in wp-includes/query.php). Note that in spite of this function’s name, in this case WP_Query-&gt;parse_query doesn’t actually do any parsing for us, since that is done before-hand by WP-&gt;parse_request().</li>
+      <li>Convert the query specification into a MySQL database query, and run the database query to get the list of posts, in function WP_Query-&gt;get_posts(). Save the posts in the $wp_query object to be used in the WordPress Loop.</li>
+      <li>Handle 404 errors.</li>
+      <li>Send the blog’s HTTP headers.</li>
+      <li>Set up some variables for the WordPress Loop.</li>
+    </ol>
+  </li>
+  <li>WordPress loads your template, figures out which template file to use according to the Template Hierarchy, and runs that file (basically doing whatever your template file says to do). Or, WordPress could run one of the feed files (such as wp-rss2.php) instead.</li>
+  <li>Generally, the template or feed file runs the WordPress Loop to print blog posts or a static page.</li>
+  <li>The template or feed file will also likely print out permalinks to some archives, categories, or posts using built-in WordPress functions.</li>
+</ol>
+
+<p>And so and so on and so on and so on.</p>
+
+<p>(Source: <a href="https://codex.wordpress.org/Query_Overview">codex.wordpress.org/Query_Overview</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="10-years-later---dynamic-website-generators-today-in-2017">10 Years Later - Dynamic Website Generators Today in 2017?</h1>
+
+<p><strong>The Biggies</strong> (PHP Rules!)</p>
+
+<ul>
+  <li>WordPress</li>
+  <li>Drupal</li>
+  <li>Joomla!</li>
+</ul>
+
+<p>See the difference ;-) JavaScript Fatigue - Anyone?
+Use WordPress (PHP) ;-)
+28.8% of the Internet and counting.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="static-website-generators--builders-in-1999">Static Website Generators / Builders in 1999</h1>
+
+<p><strong>The Biggies</strong> in 1999</p>
+
+<ol>
+  <li>Macromedia Dreamweaver</li>
+  <li>Microsoft FrontPage</li>
+  <li>Netscape Composer</li>
+</ol>
+
+<p>And today?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hello-gatsby">Hello, Gatsby!</h1>
+
+<p>by Kyle Mathews et al (★12 869) -
+github: <a href="https://github.com/gatsbyjs/gatsby"><code>gatsbyjs/gatsby</code></a></p>
+
+<p><img src="i/gatsbyjsorg-website.png" alt="" /></p>
+
+<p>(Source: <a href="https://gatsbyjs.org">gatsbyjs.org</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="getting-started-w-gatsby">Getting Started w/ Gatsby</h1>
+
+<p>Gatsby is a JavaScript package using Webpack, React, React Router,
+React Helmet, GraphQL, Markdown
+and more to let you build static websites.
+Use npm to install e.g.:</p>
+
+<pre><code>$ npm install -g gatsby-cli
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-commands">Gatsby Commands</h1>
+
+<p>Try:</p>
+
+<pre><code>$ gatsby -h
+</code></pre>
+
+<p>prints</p>
+
+<pre><code>Usage:  
+  gatsby [command] [options]
+
+Available Commands:
+  new [rootPath] [starter]  Create new Gatsby project.
+  develop [options]         Start development server. Watches files and rebuilds and hot reloads
+                              if something changes
+  build [options]           Build a Gatsby project.
+  serve [options]           Serve built site.
+
+Options:
+  -h, --help     output usage information
+  -V, --version  output the version number
+</code></pre>
+
+<p>See the <a href="https://github.com/statictimes/quickrefs/blob/master/GATSBY.md">Gatsby Quick Reference (Cheat Sheet)</a></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-quick-starter---ready-to-usefork-themes">Gatsby Quick Starter - Ready-to-Use/Fork Themes</h1>
+
+<ul>
+  <li>Hello, React World!</li>
+  <li>Simple website (default)</li>
+  <li>Simple blog</li>
+  <li>Simple documentation website</li>
+  <li>Kitchen sink demo site</li>
+</ul>
+
+<p>To get started use:</p>
+
+<pre><code>$ gatsby new hello https://github.com/gatsbyjs/gatsby-starter-hello-world
+</code></pre>
+
+<p>Basically the same as:</p>
+
+<pre><code>$ git clone https://github.com/gatsbyjs/gatsby-starter-hello-world
+$ cd gatsby-starter-hello-world
+$ npm install
+</code></pre>
+
+<p>To test drive use:</p>
+
+<pre><code>$ gatsby develop  
+</code></pre>
+
+<p>And open the browser. Voila.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hello-react-world---the-worlds-simplest-gatsby-website">Hello, React World! - The World’s Simplest Gatsby Website</h1>
+
+<p>Web Page - <code>src/pages/index.js</code>:</p>
+
+<pre><code>import React from "react"
+
+export default () =&gt; &lt;div&gt;Hello, React World!&lt;/div&gt;
+</code></pre>
+
+<p>That’s it! Add <code>package.json</code>:</p>
+
+<pre><code>{
+  "name": "gatsby-starter-hello-react-world",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build":   "gatsby build",
+    "serve":   "gatsby serve"
+  },
+  "dependencies": {
+    "gatsby":      "^1.8.11",
+    "gatsby-link": "^1.4.1"
+  }
+}
+</code></pre>
+
+<p>And install / run / build etc.:</p>
+
+<pre><code>$ npm install
+$ npm run build
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="open-source-heroes---kyle-mathews">Open Source Heroes - Kyle Mathews</h1>
+
+<p>Kyle Mathews working on Gatsby.js full-time since August 2016.
+Looking for sponsorship/consulting.</p>
+
+<p>Trivia Quiz - Q: How many open source JavaScript (node module) packages
+on npm?</p>
+
+<p>A:</p>
+
+<ul>
+  <li>[ A ]  100+</li>
+  <li>[ B ]  200+</li>
+  <li>[ C ]  500+</li>
+  <li>[ D ]  1000+</li>
+</ul>
+
+<p>Comparison: The Vienna React “Mafia”:</p>
+
+<ul>
+  <li>49 packages by <a href="https://www.npmjs.com/~nikgraf">Nik Graf (<code>~nikgraf</code>)</a></li>
+  <li>35 packages by <a href="https://www.npmjs.com/~mxstbr">Max Stoiber (<code>~mxstbr</code>)</a></li>
+  <li>17 packages by <a href="https://www.npmjs.com/~okonet">Andrey Okonetchnikov (<code>~okonet</code>)</a></li>
+  <li>7 packages by <a href="https://www.npmjs.com/~ryyppy">Patrick Stapfer (<code>~ryyppy</code>)</a></li>
+</ul>
+
+<p><a href="https://www.npmjs.com/~kylemathews">Click for answer</a> ;-).</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-sample-website">Gatsby Stay Static Sample Website</h1>
+
+<p>Shows how-to-use:</p>
+
+<ul>
+  <li>Posts (e.g. Blog News ‘n’ Updates Posts Sorted by Date)</li>
+  <li>Pages  (e.g. About Page)</li>
+  <li>Datafiles (e.g. Links ‘n’ Bookmarks)</li>
+</ul>
+
+<p><img src="i/staystatic-samplesite.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-in-action---why-gatsby-v0-live-hot-reloading">Gatsby In Action - Why Gatsby (v0)? Live Hot Reloading</h1>
+
+<p>No. 1 Selling Point (Gatsby v0) - Hot (!) Reloading - Thanks to Webpack</p>
+
+<p>Works for:</p>
+
+<ul>
+  <li>React Web Components (Templates)</li>
+  <li>Your Writing (in Markdown) e.g. Posts / Pages</li>
+  <li>Styles</li>
+  <li>Configuration in gatsby-config.js e.g. Site Title, Author Name, etc.</li>
+</ul>
+
+<p>New! (in Gatsby v1) Works for:</p>
+
+<ul>
+  <li>Adding New Files too!</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-in-action---why-gatsby-v1-continued">Gatsby In Action - Why Gatsby (v1)? Continued</h1>
+
+<p>New Selling Points from (new) Gatsby.js Website:</p>
+
+<ul>
+  <li>Modern web tech without the headache =&gt; e.g. React, Webpack, etc. out-of-the-box all setup ready-to-use</li>
+  <li>Bring your own data  =&gt; e.g. pull data from any sources w/ GraphQL</li>
+  <li>Static Progressive Web Apps (PWA)  =&gt; e.g. code and data splitting out-of-the-box all setup ready-to-use</li>
+  <li>Speed past the competition   =&gt; e.g. build the fastest possible website;
+ pre-build pages, etc.</li>
+  <li>And some more.</li>
+</ul>
+
+<p>(Source: <a href="https://gatsbyjs.org">GatsbyJS.org</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website---file-structure">Gatsby Stay Static Website - File Structure</h1>
+
+<pre><code>│   gatsby-config.js
+│   gatsby-node.js
+│   package.json
+└───src/
+    ├───components/
+    │       Footer.js
+    │       Header.js
+    │       LinkList.js
+    │       PostList.js
+    ├───css/
+    │       style.css
+    ├───data/
+    │       links.js
+    ├───layouts/
+    │       index.js
+    ├───pages/
+    │   │   about.js
+    │   │   index.js
+    │   └───posts/
+    │           new-build-system.md
+    │           new-repo-maps.md
+    │           new-season.md
+    └───templates/
+            post.js
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/tree/master/gatsby"><code>staystatic/gatsby</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website---pages">Gatsby Stay Static Website - Pages</h1>
+
+<pre><code>import React from "react"
+
+export default () =&gt;
+&lt;div&gt;
+  &lt;h1&gt;About&lt;/h1&gt;
+  &lt;p&gt;
+   Gatsby Static Site Sample. Shows how to use:
+  &lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Pages (see &lt;code&gt;src/pages/about.html&lt;/code&gt;)&lt;/li&gt;
+    &lt;li&gt;Posts (see &lt;code&gt;src/pages/posts/*.md&lt;/code&gt;)&lt;/li&gt;
+    &lt;li&gt;Custom Content Types (see &lt;code&gt;src/data/links.js&lt;/code&gt;)&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/about.js"><code>staystatic/gatsby/src/pages/about.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-site---posts-with-front-matter">Gatsby Stay Static Site - Posts with Front Matter</h1>
+
+<p>YAML + Markdown</p>
+
+<pre><code>---
+title: "beer.db - New Repo /maps - Free 'Full-Screen' Interactive Beer Maps w/ Brewery Listings"
+date:   "2015-08-25"
+---
+
+The beer.db project - offering free public domain beer, brewery
+and brewpubs data - added a new repo, that is, `/maps`
+for hosting 'full-screen' interactive beer maps with brewery listings.
+
+See an example [beer map for Austria](http://openbeer.github.io/maps/at)
+(~200 breweries n brewpubs) live or
+[check the source](https://github.com/openbeer/maps) using the mapbox.js mapping library.
+
+...
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/posts/new-repo-maps.md"><code>staystatic/gatsby/pages/posts/new-repo-maps.md</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="markdown-madness---markdown-library-options-in-gatsby">Markdown Madness - Markdown Library Options in Gatsby</h1>
+
+<p><strong>remark</strong> ★1 064 by Titus et al (github: <a href="https://github.com/wooorm/remark">wooorm/remark</a>)</p>
+
+<p>Markdown processor powered by plugins.</p>
+
+<p>Gatsby remark plugins / goodies include:</p>
+
+<ul>
+  <li>Rendering math equations with KaTeX</li>
+  <li>Code and syntax highlighting with Prism.js</li>
+  <li>Copying linked files and intercepting local links</li>
+  <li>Responsive images and iframes</li>
+  <li>And much more</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website---datafiles">Gatsby Stay Static Website - Datafiles</h1>
+
+<p><strong>Datafile</strong> - JavaScript</p>
+
+<pre><code>//////////////////////////
+//  Links 'n' Bookmarks
+
+export default [
+ { title: "football.db - Open Football Data",
+   url:   "https://github.com/openfootball" },
+ { title: "beer.db - Open Beer, Brewery 'n' Brewpub Data",
+   url:   "https://github.com/openbeer" },
+ { title: "world.db - Open World Data",
+   url:   "https://github.com/openmundi" }
+]
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/data/links.js"><code>staystatic/gatsby/src/data/links.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website----html-web-components---loops">Gatsby Stay Static Website  - HTML Web Components - Loops</h1>
+
+<p><strong>Templates</strong> - React HTML Web Components</p>
+
+<pre><code>import React from "react"
+
+export default ({links}) =&gt;
+&lt;ul&gt;
+  { links.map( link =&gt; &lt;li&gt;&lt;a href={link.url}&gt;{link.title}&lt;/a&gt;&lt;/li&gt; )}
+&lt;/ul&gt;
+
+
+// Use like:
+//   &lt;LinkList links={links}/&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/LinkList.js"><code>staystatic/gatsby/src/components/LinkList.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website----html-web-components---loops-cont">Gatsby Stay Static Website  - HTML Web Components - Loops (Cont.)</h1>
+
+<pre><code>import React from "react"
+import Link  from "gatsby-link"
+
+export default ({posts}) =&gt;
+&lt;ul&gt;
+  {posts.map( ({node : post}) =&gt;
+     &lt;li&gt;&lt;Link to={post.fields.slug}&gt;{post.frontmatter.title}&lt;/Link&gt;&lt;/li&gt; )}
+&lt;/ul&gt;
+
+// Use like:
+//  &lt;PostList posts={posts}/&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/PostList.js"><code>staystatic/gatsby/src/components/PostList.html</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website---html-web-components---includes">Gatsby Stay Static Website - HTML Web Components - Includes</h1>
+
+<p><strong>Templates</strong> - React HTML Web Components</p>
+
+<pre><code>import Header from "../components/Header"
+import Footer from "../components/Footer"
+
+export default ({ children }) =&gt;
+      &lt;div&gt;
+        &lt;Header/&gt;
+        &lt;div&gt;
+          {children()}
+        &lt;/div&gt;
+        &lt;Footer/&gt;
+      &lt;/div&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/layouts/index.js"><code>staystatic/gatsby/src/layouts/index.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website---html-web-components---includes-cont">Gatsby Stay Static Website - HTML Web Components - Includes (Cont.)</h1>
+
+<pre><code>import React from "react"
+
+export default () =&gt;
+&lt;div id="footer"&gt;
+  A &lt;a href="http://staystatic.github.io"&gt;Stay Static&lt;/a&gt; Sample Site
+&lt;/div&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/Footer.js"><code>staystatic/gatsby/src/components/Footer.js</code></a>)</p>
+
+<pre><code>import React from 'react'
+import Link  from 'gatsby-link'
+
+export default ({data}) =&gt;
+      &lt;div id="header"&gt;
+        &lt;table style={{width: "100%"}}&gt;
+         &lt;tbody&gt;
+         &lt;tr&gt;
+           &lt;td&gt;
+            &lt;Link to={"/"}&gt;{ data.site.siteMetadata.title }&lt;/Link&gt;
+           &lt;/td&gt;
+           &lt;td style={{textAlign: "right"}}&gt;
+            &lt;Link to={"/about/"}&gt;About&lt;/Link&gt;
+           &lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/Header.js"><code>staystatic/gatsby/src/components/Header.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website---configuration--settings">Gatsby Stay Static Website - Configuration / Settings</h1>
+
+<p>JavaScript</p>
+
+<pre><code>module.exports = {
+  siteMetadata: {
+    title: "Gatsby (+GraphQL) Stay Static Site Sample",
+  },
+  pathPrefix: "/sites/gatsby-graphql"
+}
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/gatsby-config.js"><code>staystatic/gatsby/gatsby-config.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby---summary">Gatsby - Summary</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>-</th>
+      <th>Gatsby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub Stars (+1s)</td>
+      <td>★12 870</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>Settings / Configuration</td>
+      <td>JavaScript</td>
+    </tr>
+    <tr>
+      <td>HTML Templates</td>
+      <td>React</td>
+    </tr>
+    <tr>
+      <td>. Layouts</td>
+      <td>React</td>
+    </tr>
+    <tr>
+      <td>. Includes</td>
+      <td>React</td>
+    </tr>
+    <tr>
+      <td>Front Matter / Meta Data</td>
+      <td>YAML</td>
+    </tr>
+    <tr>
+      <td>Datafiles</td>
+      <td>JavaScript</td>
+    </tr>
+    <tr>
+      <td>CSS Preprocessing</td>
+      <td>CSS-in-JS, Sass, PostCSS etc.</td>
+    </tr>
+    <tr>
+      <td>HTML “Shortcodes”</td>
+      <td>Markdown</td>
+    </tr>
+  </tbody>
+</table>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website-demo">Gatsby Stay Static Website Demo</h1>
+
+<pre><code>$ gatsby build
+</code></pre>
+
+<p>results in</p>
+
+<pre><code>success delete html files from previous builds - 0.016 s
+success open and validate gatsby-config.js - 0.006 s
+success copy gatsby files - 0.052 s
+success source and transform nodes - 0.106 s
+success building schema - 0.148 s
+success createLayouts - 0.011 s
+success createPages - 0.034 s
+success createPagesStatefully - 0.014 s
+success extract queries from components - 0.105 s
+success run graphql queries - 0.007 s
+success write out page data - 0.006 s
+success update schema - 0.082 s
+
+info bootstrap finished - 3.354 s
+
+success Building CSS - 5.017 s
+success Building production JavaScript bundles - 9.895 s
+success Building static HTML for pages - 2.197 s
+
+Done building in 20.475 seconds
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-stay-static-website-demo-cont">Gatsby Stay Static Website Demo (Cont.)</h1>
+
+<p>File Structure in <code>/public</code>:</p>
+
+<pre><code>│   app-2acd99fcfc70c7ec8a0a.js
+│   app-2acd99fcfc70c7ec8a0a.js.map
+│   build-js-styles.css
+│   build-js-styles.css.map
+│   chunk-manifest.json
+│   commons-a706efda9882e3aecc8c.js
+│   commons-a706efda9882e3aecc8c.js.map
+│   component---src-layouts-index-js-c7801619b3d290cd7234.js
+│   component---src-layouts-index-js-c7801619b3d290cd7234.js.map
+│   component---src-pages-about-js-ec83f8cb31d5d651db6a.js
+│   component---src-pages-about-js-ec83f8cb31d5d651db6a.js.map
+│   component---src-pages-index-js-7a4ee00b60c522c51efc.js
+│   component---src-pages-index-js-7a4ee00b60c522c51efc.js.map
+│   component---src-templates-post-js-2c2b6669e1eef7a2bf41.js
+│   component---src-templates-post-js-2c2b6669e1eef7a2bf41.js.map
+│   index.html
+│   path----c622219dd6f45a37b480.js
+│   path----c622219dd6f45a37b480.js.map
+│   path---about-a0e39f21c11f6a62c5ab.js
+│   path---about-a0e39f21c11f6a62c5ab.js.map
+│   path---index-a1a20f675945a44dff76.js
+│   path---index-a1a20f675945a44dff76.js.map
+│   path---posts-new-build-system-28812c3926bd90e09ffd.js
+│   path---posts-new-build-system-28812c3926bd90e09ffd.js.map
+│   path---posts-new-repo-maps-b4a76498aa30a97236aa.js
+│   path---posts-new-repo-maps-b4a76498aa30a97236aa.js.map
+│   path---posts-new-season-3ff4114e155504f291d4.js
+│   path---posts-new-season-3ff4114e155504f291d4.js.map
+│   render-page.js.map
+│   stats.json
+│   styles.css
+│
+├───about/
+│       index.html
+│
+└───posts/
+    ├───new-build-system/
+    │       index.html
+    │
+    ├───new-repo-maps/
+    │       index.html
+    │
+    └───new-season/
+            index.html
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="going-live---free-static-website-hosting-options">Going Live - Free (Static) Website Hosting Options</h1>
+
+<ul>
+  <li>GitHub Pages      – use git push</li>
+  <li>GitLab Pages      – use git push</li>
+  <li>Surge.sh  – go live with six keystrokes - s u r g e [ENTER]</li>
+  <li>Google Firebase (Free Tier)</li>
+  <li>Netlify (Free OpenSource Tier)</li>
+  <li>And Many More</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-goodies---whats-missing">Gatsby Goodies - What’s Missing?</h1>
+
+<p>GraphQL - Query any Data Source (at Build-Time)</p>
+
+<p>And much much more.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-graphql">What’s GraphQL?</h1>
+
+<p>A data query language (by example).</p>
+
+<p>QL =&gt; Query Language</p>
+
+<p><img src="i/graphqlorg-website.png" alt="" /></p>
+
+<p>(Source: <a href="http://graphql.org">graphql.org</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-graphql-example---query-site-metadata">Gatsby GraphQL Example - Query Site Metadata</h1>
+
+<pre><code>{
+    site {
+      siteMetadata {
+        title
+      }
+    }
+}
+</code></pre>
+
+<p>resulting in:</p>
+
+<pre><code>{
+    "site": {
+      "siteMetadata": {
+        "title": "Gatsby (+GraphQL) Stay Static Site Sample"
+      }
+    }
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-graphql-example---query-filesystem">Gatsby GraphQL Example - Query Filesystem</h1>
+
+<pre><code>{
+  allFile
+  { edges
+    { node {
+        relativePath
+        prettySize
+        birthTime
+  }}}
+}
+</code></pre>
+
+<p>resulting in:</p>
+
+<pre><code>{
+    "allFile": {
+      "edges": [
+        {
+          "node": {
+            "relativePath": "pages/about.js",
+            "prettySize": "343 B",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/index.js",
+            "prettySize": "863 B",
+            "birthTime": "2017-09-02T16:53:52.821Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/posts/new-repo-maps.md",
+            "prettySize": "516 B",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/posts/new-build-system.md",
+            "prettySize": "892 B",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/posts/new-season.md",
+            "prettySize": "1.03 kB",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        }
+      ]
+    }
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-graphiql">What’s GraphiQL?</h1>
+
+<p>An in-browser IDE for exploring GraphQL.
+Built into Gatsby! (only during development).</p>
+
+<pre><code>$ gatsby develop
+
+Your site is running at http://localhost:8000
+Your graphql debugger is running at http://localhost:8000/___graphql
+</code></pre>
+
+<p><img src="i/graphiql.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-graphql-example---query-markdown-pages">Gatsby GraphQL Example - Query Markdown Pages</h1>
+
+<pre><code>{ allMarkdownRemark {
+      totalCount
+      edges {
+        node {
+          frontmatter {
+            title
+            date
+          }
+        }
+      }
+    }
+}
+</code></pre>
+
+<p>results in:</p>
+
+<pre><code>{  "allMarkdownRemark": {
+      "totalCount": 3,
+      "edges": [
+        {
+          "node": {
+            "frontmatter": {
+              "title": "beer.db - New Repo /maps - Free 'Full-Screen' Interactive Beer Maps w/ Brewery Listings",
+              "date": "2014-11-11"
+            }
+          }
+        },
+        {
+          "node": {
+            "frontmatter": {
+              "title": "football.db - New Build System - Welcome ./Datafile",
+              "date": "2014-12-12"
+            }
+          }
+        },
+        {
+          "node": {
+            "frontmatter": {
+              "title": "football.db - New 2015/16 Seasons - English Premier League, Bundesliga, And More",
+              "date": "2015-08-25"
+            }
+          }
+        }
+      ]
+    }
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-graphql-example---wordpress-post-query">Gatsby GraphQL Example - WordPress Post Query</h1>
+
+<p>Add the <a href="https://www.gatsbyjs.org/packages/gatsby-source-wordpress"><code>gatsby-source-wordpress</code></a> plugin. Example:</p>
+
+<pre><code>allWordpressPost {
+    edges {
+      node {
+        id
+        slug
+        title
+        content
+        excerpt
+        date
+        date_gmt
+        modified
+        modified_gmt
+        status
+        author
+        featured_media
+        comment_status
+        ping_status
+        sticky
+        template
+        format
+        categories
+        tags
+      }
+    }
+  }
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-1---how-to-use-graphql-and-react-with-gatsby">Step 1 - How to Use GraphQL and React with Gatsby?</h1>
+
+<p>Every (React) web component can use a GraphQL query (in Gatsby)!
+Export your query in the Javascript module. Example:</p>
+
+<pre><code>export const query = graphql`
+  query IndexQuery {
+    allMarkdownRemark(sort: {fields: [frontmatter___date], order: DESC}) {
+      edges {
+        node {
+          frontmatter { title }
+          fields      { slug  }
+        }
+      }
+    }
+  }
+`
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/index.js"><code>staystatic/gatsby/src/pages/index.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="step-2---how-to-use-graphql-and-react-with-gatsby">Step 2 - How to Use GraphQL and React with Gatsby?</h1>
+
+<p>New <code>data</code> props gets “automagically” passed to your (React) web component.
+Use it! Example:</p>
+
+<pre><code>export default ({data}) =&gt; {
+
+ const posts = data.allMarkdownRemark.edges
+
+ return &lt;div&gt;
+          &lt;div&gt;
+            &lt;b&gt;News 'n' Updates&lt;/b&gt;
+            &lt;ul&gt;
+               {posts.map( ({node : post}) =&gt;
+                 &lt;li&gt;
+                   &lt;Link to={post.fields.slug}&gt;
+                     {post.frontmatter.title}
+                  &lt;/Link&gt;
+                 &lt;/li&gt; )}
+            &lt;/ul&gt;
+          &lt;/div&gt;
+       &lt;/div&gt;
+}
+</code></pre>
+
+<p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/index.js"><code>staystatic/gatsby/src/pages/index.js</code></a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="css-in-js---start-using-css-in-javascript-js">CSS-in-JS - Start using CSS in JavaScript (JS)</h1>
+
+<p>Gatsby has (out-of-the-box) built-in support for CSS Modules.</p>
+
+<p>What about?</p>
+
+<ul>
+  <li>Glamor  =&gt; Yes, use <code>gatsby-plugin-glamor</code></li>
+  <li>Glamorous =&gt; Yes, use  <code>gatsby-plugin-glamor glamorous</code></li>
+  <li>Styled Components =&gt; Yes, use <code>gatsby-plugin-styled-components</code></li>
+  <li>and many more options</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-static-websites-in-the-real-world">Gatsby (Static) Websites in the “Real World”</h1>
+
+<p><strong>How Did It All Get Started?</strong></p>
+
+<p>Why not build (another) blog w/ React.js in 5 minutes?
+The world’s 1st Gatsby site?</p>
+
+<p><strong>Bricolage</strong> (web: <a href="https://bricolage.io">bricolage.io</a>, github: <a href="https://github.com/KyleAMathews/blog">KyleAMathews/blog</a>) - a blog written
+ by <strong>Kyle Mathews</strong> who lives and works in San Francisco building useful things.</p>
+
+<p><img src="i/bricolage.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-static-websites-in-the-real-world-cont">Gatsby (Static) Websites in the “Real World” (Cont.)</h1>
+
+<p><strong>ReasonML Documenation</strong> (web: <a href="https://reasonml.github.io">reasonml.github.io</a>, github: <a href="https://github.com/reasonml/reasonml.github.io">reasonml/reasonml.github.io</a>)</p>
+
+<p><strong>How To GraphQL</strong> (web: <a href="https://www.howtographql.com">howtographql.com</a>, github: <a href="https://github.com/howtographql/howtographql">howtographql/howtographql</a>)</p>
+
+<p>And many more, see <a href="https://github.com/gatsbyjs/gatsby#showcase">Gatsby.js Showcase</a>.</p>
+
+<p>Your Website ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="thanks---stay-static">Thanks - Stay Static</h1>
+
+<p><strong>Stay Static Sample Sites (Showcase)</strong></p>
+
+<ul>
+  <li><a href="http://staystatic.github.io">Stay Static</a>
+    <ul>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/hugo"><code>/hugo</code></a></li>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/jekyll"><code>/jekyll</code></a></li>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/middleman"><code>/middleman</code></a></li>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/webgen"><code>/webgen</code></a></li>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/metalsmith-handlebars"><code>/metalsmith-handlebars</code></a></li>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/metalsmith-nunjucks"><code>/metalsmith-nunjucks</code></a></li>
+      <li><a href="https://github.com/staystatic/staystatic/tree/master/attic/gatsby"><code>/gatsby</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Stay Up-To-Date - Follow Along</strong></p>
+
+<ul>
+  <li>For Vienna.html News =&gt; Follow <a href="https://twitter.com/viennahtml">@viennahtml</a></li>
+  <li>For Static Site News =&gt; Follow <a href="https://twitter.com/statictimes">@statictimes</a></li>
+  <li>For Writing in Plain Text w/ Markdown News =&gt; Follow <a href="https://twitter.com/manuscriptsnews">@manuscriptsnews</a></li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="appendix-static-site-builders--generators">Appendix: Static Site Builders / Generators</h1>
+
+<p><img src="i/staticgencom-website-2017.png" alt="" /></p>
+
+<p>(Source: <a href="https://staticgen.com">StaticGen.com</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="appendix-getting-started-with-gatsbyjs">Appendix: Getting Started with Gatsby.js</h1>
+
+<p>Tip: Try the Official <a href="https://www.gatsbyjs.org/tutorial">Gatsby.js Tutorials</a>:</p>
+
+<ul>
+  <li>Part I: Introduction to basics of Gatsby
+    <ul>
+      <li>Starting new projects, developing, and deploying sites.</li>
+    </ul>
+  </li>
+  <li>Part II: Introduction to using CSS in Gatsby.
+    <ul>
+      <li>Explore libraries like Typography.js, CSS Modules, Glamor, and Styled Components.</li>
+    </ul>
+  </li>
+  <li>Part III: Explore building nested layouts in Gatsby.
+    <ul>
+      <li>Layouts are sections of your site that are reused across multiple pages like headers and footers.</li>
+    </ul>
+  </li>
+  <li>Part IV: Learn how to work with Gatsby’s data layer.
+    <ul>
+      <li>Explore source &amp; transformer plugins. Get introduced to programmatic pages and how to write GraphQL queries.</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="appendix-more-reactjs-static-website-builders--generators">Appendix: More React.js Static Website Builders / Generators</h1>
+
+<p><strong>Phenomic</strong> (web: <a href="https://phenomic.io">phenomic.io</a>, github: <a href="https://github.com/MoOx/phenomic">MoOx/phenomic</a>) ★2 537
+by Maxime Thirouin et al</p>
+
+<p><strong>Leo</strong> (github: <a href="https://github.com/superawesomelabs/leo">superawesomelabs/leo</a>) ★92
+by Christopher Biscardi et al</p>
+
+<p><strong>Next.js</strong> (github: <a href="https://github.com/zeit/next.js">zeit/next.js</a>) ★16 783 by Guillermo Rauch et al – version 3.0+ adds static export</p>
+
+<p>And others.</p>
+</div>
+
+
+  </div> <!-- presentation -->
+</body>
+</html> 
+
