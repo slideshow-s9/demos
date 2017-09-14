@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title></title>
+   
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+     
+ul { list-style-type: square; }    
+   
+.center { text-align: center; }   
+     
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+         
+         border: 1px dotted black;
+
+/*      
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+pre {
+  padding: 4px 4px 4px 4px;
+  border-top: #bbb 1px solid;
+  border-bottom: #bbb 1px solid;
+  background: #f3f3f3;
+}
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<div class="presentation">
+
+<div class='slide '>
+
+
+<!-- _S9SLIDE_ -->
+<h1 id="agenda">Agenda</h1>
+
+<ul>
+  <li>(Non-Binary) “Human” Data Formats in Plain Text</li>
+  <li>What’s JSON (JavaScript Object Notation)?
+    <ul>
+      <li>JSON v1.0 - The New XML - XML for Script Kiddies Punks!?</li>
+      <li>JSON: The Fat-Free Alternative to XML</li>
+    </ul>
+  </li>
+  <li>Aside / Excursion - XML Evolved!?</li>
+  <li>JSON v1.1 - JSON What’s Next? - JSON v1.0 Evolved
+    <ul>
+      <li>JSON Extensions - JSON5 • HJSON • HanSON • SON • CSON • USON • JSONX • JSON11</li>
+      <li>HanSON - JSON for Humans</li>
+      <li>SON - Simple Object Notation</li>
+      <li>JSONX - JSON with Extensions (JSONX)</li>
+      <li>Fixing / Evolving JSON - Is it too late?</li>
+      <li>JSON 1.1 (JSONX) - Real-World Examples - JSON 1.0 vs JSON 1.1 - Less is More</li>
+    </ul>
+  </li>
+  <li>Case Study I - GraphQL
+    <ul>
+      <li>Gatsby GraphQL Example - Query Site Metadata</li>
+      <li>Gatsby GraphQL Example - Query Filesystem</li>
+      <li>GraphQL - What about Comments? What about Commas?</li>
+    </ul>
+  </li>
+  <li>Case Study II - JSON Feed - Universal Content Microservice
+    <ul>
+      <li>What’s a Web Feed?</li>
+      <li>Web Feed Format == Universal Content Management Microservice JSON HTTP API</li>
+      <li>Triva Quiz - News Feeds in 2009 - What’s RSS?</li>
+      <li>Web Feed Formats - XML, JSON, YAML, HTML, TXT</li>
+      <li>Triva Quiz - The Wonders of RSS 2.0 - Find the Content</li>
+      <li>Meet Jason Feed - A New Feed Format in JSON - feed.json</li>
+      <li>Why JSON? Why not XML?</li>
+      <li>Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible</li>
+      <li>Bonus: JSON Feed Podcast Example</li>
+      <li>Bonus: JSON Feed - Who’s Who - Meet Brent Simmons n Manton Reece</li>
+    </ul>
+  </li>
+  <li>JSON Feed - What’s Next?</li>
+  <li>Beyond JSON - .TXT is the new JSON</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-json-javascript-object-notation">What’s JSON (JavaScript Object Notation)?</h1>
+
+<p>The (New) Universal Data Exchange Format. Example:</p>
+
+<pre><code>{
+  "Image": {
+    "Width":  800,
+    "Height": 600,
+    "Title":  "View from 15th Floor",
+    "Thumbnail": {
+      "Url":    "http://www.example.com/image/481989943",
+      "Height": 125,
+      "Width":  100
+    },
+    "Animated" : false,
+    "IDs": [116, 943, 234, 38793]
+  }
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="non-binary-human-data-formats-in-plain-text">(Non-Binary) “Human” Data Formats in Plain Text</h1>
+
+<p>Ice Breaker Quiz</p>
+
+<p>Q: What’s your favorite text (“human”/non-binary)
+data exchange format?</p>
+
+<ul>
+  <li>(A) JSON</li>
+  <li>(B) XML</li>
+  <li>(C) HTML</li>
+  <li>(D) YAML</li>
+  <li>(E) TOML/INI</li>
+  <li>(F) SQL</li>
+  <li>(G) CSV</li>
+  <li>(H) Other, please tell!</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-v10---the-new-xml---xml-for-script-kiddies-punks">JSON v1.0 - The New XML - XML for Script Kiddies Punks!?</h1>
+
+<blockquote>
+  <p>XML already does everything JSON does!
+And there’s no way to differentiate between nodes and attributes!
+And there are no namespaces!
+And no schemas!
+What’s the point of JSON?</p>
+
+  <p>– Anonymous</p>
+</blockquote>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-the-fat-free-alternative-to-xml">JSON: The Fat-Free Alternative to XML</h1>
+
+<p>by Douglas Crockford (Inventor of JSON)</p>
+
+<p>XML is not well suited to data-interchange, much as a wrench is not well-suited to driving nails. It carries a lot of baggage, and it doesn’t match the data model of most programming languages. When most programmers saw XML for the first time, they were shocked at how ugly and inefficient it was. It turns out that that first reaction was the correct one. There is another text notation that has all of the advantages of XML, but is much better suited to data-interchange. That notation is JavaScript Object Notation (JSON).</p>
+
+<p>…</p>
+
+<p>XML is easily readable by both humans and machines</p>
+
+<p><strong>JSON is easier to read for both humans and machines.</strong></p>
+
+<p>XML is object-oriented</p>
+
+<p><strong>Actually, XML is document-oriented. JSON is data-oriented. JSON can be mapped more easily to object-oriented systems.</strong></p>
+
+<p>XML is being widely adopted by the computer industry</p>
+
+<p><strong>JSON is just beginning to become known. Its simplicity and the ease of converting XML to JSON makes JSON ultimately more adoptable.</strong></p>
+
+<p>…</p>
+
+<p>(Source: <a href="http://www.json.org/xml.html">json.org/xml</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="aside--excursion---xml-evolved">Aside / Excursion - XML Evolved!?</h1>
+
+<p>Triva Quiz: What’s the difference between XML 1.0 and 1.1?</p>
+
+<p>Bonus Question: Did you know there’s XML version 1.1 :-)</p>
+
+<p>What’s next?  MicroXML - Anyone?</p>
+
+<pre><code>&lt;memo lang="en" date="2017-05-01"&gt;
+I &lt;em&gt;love&lt;/em&gt; &amp;#xB5;&lt;!-- MICRO SIGN --&gt;XML!&lt;br/&gt;
+It's so clean &amp;amp; simple.&lt;/memo&gt;
+</code></pre>
+
+<p>Simplified XML with official JSON representation / mapping!</p>
+
+<pre><code>[ "memo",
+  {  "date": "2017-05-01", "lang": "en" },
+  [ "\nI ",
+    ["em", {}, ["love"]],
+    " \u03BCXML!",
+    ["br", {}, []],
+    "\nIt's so clean &amp; simple."
+  ]
+]
+</code></pre>
+
+<p>(Source: <a href="https://www.xml.com/articles/2017/06/03/simplifying-xml-microxml/">xml.com/articles/simplifying-xml-microxml</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="aside--excursion---xml-evolved-cont">Aside / Excursion - XML Evolved!? (Cont.)</h1>
+
+<p>Q: What’s JSONx?</p>
+
+<p>A: JSONx is an IBM standard format to represent JSON as XML.</p>
+
+<pre><code>{
+  "name": "Jason Feed",
+  "address": {
+    "streetAddress": "Siebenbrunnengasse 44",
+    "city": "Vienna",
+    "postalCode": 1050,
+    "country": "AT"
+  }
+}
+</code></pre>
+
+<p>in XML (JSONx w/ default namespace):</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;object xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.ibm.com/xmlns/prod/2009/jsonx"&gt;
+  &lt;string name="name"&gt;Jason Feed&lt;/string&gt;
+  &lt;object name="address"&gt;
+    &lt;string name="streetAddress"&gt;Siebenbrunnengasse 44&lt;/string&gt;
+    &lt;string name="city"&gt;Vienna&lt;/string&gt;
+    &lt;number name="postalCode"&gt;1050&lt;/number&gt;
+    &lt;string name="country"&gt;AT&lt;/string&gt;
+  &lt;/object&gt;
+&lt;/object&gt;
+</code></pre>
+
+<p>in XML (JSONx w/ json namespace) - official IBM “enterprise” example:</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;json:object xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns=json="http://www.ibm.com/xmlns/prod/2009/jsonx"&gt;
+  &lt;json:string name="name"&gt;Jason Feed&lt;/json:string&gt;
+  &lt;json:object name="address"&gt;
+    &lt;json:string name="streetAddress"&gt;Siebenbrunnengasse 44&lt;/json:string&gt;
+    &lt;json:string name="city"&gt;Vienna&lt;/json:string&gt;
+    &lt;json:number name="postalCode"&gt;1050&lt;/json:number&gt;
+    &lt;json:string name="country"&gt;AT&lt;/json:string&gt;
+  &lt;/json:object&gt;
+&lt;/json:object&gt;
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-v11---json-whats-next---json-v10-evolved">JSON v1.1 - JSON What’s Next? - JSON v1.0 Evolved</h1>
+
+<p>What’s missing in JSON v1.0?</p>
+
+<blockquote>
+  <p>We can easily agree on what’s wrong with JSON,
+and I can’t help wondering if it’d be worth fixing it.</p>
+
+  <p>– Tim Bray (<a href="https://www.tbray.org/ongoing/When/201x/2016/08/20/Fixing-JSON">Fixing JSON</a>)</p>
+</blockquote>
+
+<blockquote>
+  <p>We need to fix engineers that try to ‘fix JSON’,
+absolutely nothing is broken with JSON.</p>
+
+  <p>– Anonymous</p>
+</blockquote>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-v11---json-whats-next---json-v10-evolved-1">JSON v1.1 - JSON What’s Next? - JSON v1.0 Evolved</h1>
+
+<p>What’s missing in JSON v1.0?</p>
+
+<ol>
+  <li>Comments, Comments, Comments, Please!</li>
+  <li>Unquoted Keys</li>
+  <li>Multi-Line Strings
+    <ul>
+      <li>a) Folded – Folds Newlines (like HTML)</li>
+      <li>b) Unfolded</li>
+    </ul>
+  </li>
+  <li>Trailing Commas in Arrays and Objects</li>
+</ol>
+
+<p>More:</p>
+
+<ul>
+  <li>Date/DateTime/Timestamp Type</li>
+  <li>Optional Commas</li>
+  <li>Optional Unquoted String Values</li>
+  <li>“Raw” String (e.g. <code>''</code> instead of <code>""</code>)
+    <ul>
+      <li>No need to escape <code>\</code> or <code>"</code> etc. To escape <code>'</code> use <code>'''</code> e.g. <code>''''Henry's Themes'''</code></li>
+    </ul>
+  </li>
+  <li>More Data Types (<code>set</code>, <code>map</code>, <code>symbol</code>, etc.)</li>
+  <li>And Much More</li>
+</ul>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-extensions---json5--hjson--hanson--son--cson--uson--jsonx--json11">JSON Extensions - JSON5 • HJSON • HanSON • SON • CSON • USON • JSONX • JSON11</h1>
+
+<p>What’s your favorite JSON extension format/flavor?</p>
+
+<ul>
+  <li>(A) JSON5 - JSON for the ES5 Era</li>
+  <li>(B) HJSON - A “Human” User Interface for JSON</li>
+  <li>(C) HanSON - JSON for Humans</li>
+  <li>(D) SON - Simple Object Notation</li>
+  <li>(E) CSON - CoffeeScript-Object-Notation</li>
+  <li>(F) USON - μson</li>
+  <li>(G) JSONX / JSON11 - JSON with Extensions (JSONX) or JSON v1.1</li>
+  <li>(H) Other, please tell!</li>
+</ul>
+
+<p>(Source: <a href="https://github.com/jsonii/awesome-json-next">Awesome JSON - What’s Next?</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hanson---json-for-humans">HanSON - JSON for Humans</h1>
+
+<p>github: <a href="https://github.com/timjansen/hanson">timjansen/hanson</a></p>
+
+<p>Adds:</p>
+
+<ul>
+  <li>HanSON is JSON with comments, multi-line strings and unquoted property names.</li>
+  <li>Comments use JavaScript syntax (<code>//</code>, <code>/**/</code>).</li>
+  <li>Supports backticks as quotes (``) for multi-line strings.</li>
+  <li>You can use either double-quotes (<code>""</code>) or single-quotes (<code>''</code>) for single-line strings.</li>
+  <li>Property names do not require quotes if they are valid JavaScript identifiers.</li>
+  <li>Commas after the last list element or property will be ignored.</li>
+  <li>Every JSON string is valid HanSON.</li>
+</ul>
+
+<pre><code class="language-js">{
+  listName: "Sesame Street Monsters", // note that listName needs no quotes
+  content: [
+    {
+      name: "Cookie Monster",
+      /* Note the template quotes and unescaped regular quotes in the next string */
+      background: `Cookie Monster used to be a
+monster that ate everything, especially cookies.
+These days he is forced to eat "healthy" food.`
+    }, {
+      // You can single-quote strings too:
+      name: 'Herry Monster',
+      background: `Herry Monster is a furry blue monster with a purple nose.
+He's mostly retired today.`
+    },    // don't worry, the trailing comma will be ignored
+   ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="hanson---json-for-humans-cont">HanSON - JSON for Humans (Cont.)</h1>
+
+<p>Want to use HanSON in your program, without including any libraries?</p>
+
+<p>Use this function to convert
+HanSON to JSON. It returns a JSON string that can be read using <code>JSON.parse()</code>.</p>
+
+<pre><code class="language-js">function toJSON(input) {
+		var UNESCAPE_MAP = { '\\"': '"', "\\`": "`", "\\'": "'" };
+		var ML_ESCAPE_MAP = {'\n': '\\n', "\r": '\\r', "\t": '\\t', '"': '\\"'};
+		function unescapeQuotes(r) { return UNESCAPE_MAP[r] || r; }
+
+		return input.replace(/`(?:\\.|[^`])*`|'(?:\\.|[^'])*'|"(?:\\.|[^"])*"|\/\*[^]*?\*\/|\/\/.*\n?/g, // pass 1: remove comments
+							 function(s) {
+			if (s.charAt(0) == '/')
+				return '';
+			else  
+				return s;
+		})
+		.replace(/(?:true|false|null)(?=[^\w_$]|$)|([a-zA-Z_$][\w_$]*)|`((?:\\.|[^`])*)`|'((?:\\.|[^'])*)'|"(?:\\.|[^"])*"|(,)(?=\s*[}\]])/g, // pass 2: requote
+							 function(s, identifier, multilineQuote, singleQuote, lonelyComma) {
+			if (lonelyComma)
+				return '';
+			else if (identifier != null)
+					return '"' + identifier + '"';
+			else if (multilineQuote != null)
+				return '"' + multilineQuote.replace(/\\./g, unescapeQuotes).replace(/[\n\r\t"]/g, function(r) { return ML_ESCAPE_MAP[r]; }) + '"';
+			else if (singleQuote != null)
+				return '"' + singleQuote.replace(/\\./g, unescapeQuotes).replace(/"/g, '\\"') + '"';
+			else
+				return s;
+		});
+}
+</code></pre>
+
+<p>(Source: <a href="https://github.com/timjansen/hanson">github.com/timjansen/hanson</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="son---simple-object-notation">SON - Simple Object Notation</h1>
+
+<p>github: <a href="https://github.com/aleksandergurin/simple-object-notation">aleksandergurin/simple-object-notation</a></p>
+
+<p>Adds:</p>
+
+<ul>
+  <li>comments starts with # sign and ends with newline (\n)</li>
+  <li>comma after a key-value pair is optional</li>
+  <li>comma after an array element is optional</li>
+</ul>
+
+<pre><code>{
+  # Personal information
+
+  "name": "Alexander Grothendieck"
+  "fields": "mathematics"
+  "main_topics": [
+    "Etale cohomology"
+    "Motives"
+    "Topos theory"
+    "Schemes"
+  ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="jsonx---json-with-extensions-jsonx">JSONX - JSON with Extensions (JSONX)</h1>
+
+<p>JSON v1.1 - JSON Evolved for Humans - Easy-to-Write, Easy-to-Read</p>
+
+<p>github: <a href="https://github.com/jsonii">jsonii</a></p>
+
+<p>JSON v1.1 includes all JSON extensions from HanSON (JSON for Humans):</p>
+
+<ul>
+  <li>quotes for strings are optional if they follow JavaScript identifier rules.</li>
+  <li>you can alternatively use backticks, as in ES6’s template string literal, as quotes for strings.
+A backtick-quoted string may span several lines and you are not required to escape regular quote characters,
+only backticks. Backslashes still need to be escaped, and all other backslash-escape sequences work like in
+regular JSON.</li>
+  <li>for single-line strings, single quotes (<code>''</code>) are supported in addition to double quotes (<code>""</code>)</li>
+  <li>you can use JavaScript comments, both single line (<code>//</code>) and multi-line comments (<code>/* */</code>), in all places where JSON allows whitespace.</li>
+  <li>Commas after the last list element or object property will be ignored.</li>
+</ul>
+
+<p>Plus all JSON extensions from SON (Simple Object Notation):</p>
+
+<ul>
+  <li>comments starts with <code>#</code> sign and ends with newline (<code>\n</code>)</li>
+  <li>comma after an object key-value pair is optional</li>
+  <li>comma after an array item is optional</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>{
+  #  use shell-like comments
+
+  listName: "Sesame Street Monsters"   # note: comments after key-value pairs are optional  
+  content: [
+    {
+      name: "Cookie Monster"
+      // note: the template quotes and unescaped regular quotes in the next string
+      background: `Cookie Monster used to be a
+monster that ate everything, especially cookies.
+These days he is forced to eat "healthy" food.`
+    }, {
+      // You can single-quote strings too:
+      name: 'Herry Monster',
+      background: `Herry Monster is a furry blue monster with a purple nose.
+He's mostly retired today.`
+    },    /* don't worry, the trailing comma will be ignored  */
+   ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="fixing--evolving-json---is-it-too-late">Fixing / Evolving JSON - Is it too late?</h1>
+
+<p>Yes, it’s too late for JSON 1.0 (that is, <code>JSON.parse</code>).</p>
+
+<p>No, it’s never too late for JSON 1.1 ;-). Evolve or die.</p>
+
+<p>Use <code>JSONX.parse</code> for version 1.1 ;-)</p>
+
+<p>or</p>
+
+<p>use a JSON preprocessor.</p>
+
+<p>Note: Use <code>JSONX.convert</code> (or <code>JSON11.convert</code>) to convert JSONX text to ye old’ JSON text.
+<code>JSONX.parse == JSON.parse( JSONX.convert( text ))</code>.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-11-jsonx---real-world-examples---json-10-vs-json-11---less-is-more">JSON 1.1 (JSONX) - Real-World Examples - JSON 1.0 vs JSON 1.1 - Less is More</h1>
+
+<p>Code Libraries, Web Feeds, Tables &amp; Schemas, Map Features, &amp; More</p>
+
+<p>package.json • feed.json • datapackage.json • geojson</p>
+
+<p>See <a href="https://jsonii.github.io">jsonii.github.io »</a>.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="case-study-i---graphql">Case Study I - GraphQL</h1>
+
+<p>What’s GraphQL?</p>
+
+<p>A data query language (by example).</p>
+
+<p>QL =&gt; Query Language</p>
+
+<p><img src="i/graphqlorg-website.png" alt="" /></p>
+
+<p>(Source: <a href="http://graphql.org">graphql.org</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-graphql-example---query-site-metadata">Gatsby GraphQL Example - Query Site Metadata</h1>
+
+<pre><code>{
+    site {
+      siteMetadata {
+        title
+      }
+    }
+}
+</code></pre>
+
+<p>resulting in:</p>
+
+<pre><code>{
+    "site": {
+      "siteMetadata": {
+        "title": "Gatsby (+GraphQL) Stay Static Site Sample"
+      }
+    }
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="gatsby-graphql-example---query-filesystem">Gatsby GraphQL Example - Query Filesystem</h1>
+
+<pre><code>{
+  allFile
+  { edges
+    { node {
+        relativePath
+        prettySize
+        birthTime
+  }}}
+}
+</code></pre>
+
+<p>resulting in:</p>
+
+<pre><code>{
+    "allFile": {
+      "edges": [
+        {
+          "node": {
+            "relativePath": "pages/about.js",
+            "prettySize": "343 B",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/index.js",
+            "prettySize": "863 B",
+            "birthTime": "2017-09-02T16:53:52.821Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/posts/new-repo-maps.md",
+            "prettySize": "516 B",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/posts/new-build-system.md",
+            "prettySize": "892 B",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        },
+        {
+          "node": {
+            "relativePath": "pages/posts/new-season.md",
+            "prettySize": "1.03 kB",
+            "birthTime": "2017-09-02T16:21:53.799Z"
+          }
+        }
+      ]
+    }
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="graphql---what-about-comments-what-about-commas">GraphQL - What about Comments? What about Commas?</h1>
+
+<p>GraphQL source documents may contain single-line comments, starting with the # marker.</p>
+
+<p>A comment can contain any Unicode code point except LineTerminator
+so a comment always consists of all code points starting with the # character
+up to but not including the line terminator.</p>
+
+<p>Comments behave like white space and may appear after any token, or before a line terminator,
+and have no significance to the semantic meaning of a GraphQL query document.</p>
+
+<p>(Source: <a href="https://facebook.github.io/graphql/#Comment">facebook.github.io/graphql/#Comment</a>)</p>
+
+<p>Insignificant Commas. Similar to white space and line terminators, commas (,) are used to improve
+the legibility of source text and separate lexical tokens but are otherwise syntactically and semantically insignificant within GraphQL query documents.</p>
+
+<p>Non-significant comma characters ensure that the absence or presence of a comma does not meaningfully alter the interpreted syntax of the document, as this can be a common user-error in other languages. It also allows for the stylistic use of either trailing commas or line-terminators as list delimiters which are both often desired for legibility and maintainability of source code.</p>
+
+<p>(Source: <a href="https://facebook.github.io/graphql/#Comma">facebook.github.io/graphql/#Comma</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="case-study-ii---json-feed---universal-content-microservice">Case Study II - JSON Feed - Universal Content Microservice</h1>
+
+<p>What’s a Web Feed? What’s JSON Feed?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="whats-a-web-feed">What’s a Web Feed?</h1>
+
+<p><img src="i/web-feed-icon.png" style="float: right;" /></p>
+
+<p>A web feed (or news feed) is a (simple) document/text format
+that:</p>
+
+<p>(1) lets you publish a list of:</p>
+
+<ul>
+  <li>status updates, blog postings, articles, pictures, cartoons, recordings, etc.</li>
+</ul>
+
+<p>and that</p>
+
+<p>(2) lets others subscribe to your updates.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="web-feed-format--universal-content-management-microservice-json-http-api">Web Feed Format == Universal Content Management Microservice JSON HTTP API</h1>
+
+<p>Feed format sounds boring!? How about:</p>
+
+<p>A Univeral Server-less Head-less Microservice
+Content Management HTTP JSON API.</p>
+
+<p>Easy. Free. Simple.</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="triva-quiz---news-feeds-in-2009---whats-rss">Triva Quiz - News Feeds in 2009 - What’s RSS?</h1>
+
+<ul>
+  <li>(A) RDF Site Summary</li>
+  <li>(B) Rich Site Summary</li>
+  <li>(C) Really Simple Syndication</li>
+  <li>(D) Really Simple, Stupid</li>
+  <li>(E) Rapid Syndicaton Solution</li>
+</ul>
+
+<p>RDF = Resource Description Framework</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="web-feed-formats---xml-json-yaml-html-txt">Web Feed Formats - XML, JSON, YAML, HTML, TXT</h1>
+
+<ul>
+  <li>RSS 2.0 (0.91, 0.92) a.k.a. Really Simple Syndication - in XML</li>
+  <li>RSS 1.0 a.k.a. RDF Site Summary - in RDF/XML</li>
+  <li>Atom - in XML</li>
+  <li>JSON Feed - in - surprise, surprise - JSON</li>
+  <li>Microformats (h-feed/h-entry) - in HTML</li>
+  <li>Feed.TXT - in plain text; metadata in (simplified) YAML or JSON; Markdown</li>
+</ul>
+
+<p>And some more. Let’s celebrate diversity! Live and let live!</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="triva-quiz---the-wonders-of-rss-20---find-the-content">Triva Quiz - The Wonders of RSS 2.0 - Find the Content</h1>
+
+<p>What’s your favorite way to add content in hypertext to RSS 2.0?</p>
+
+<ul>
+  <li>(A) <code>&lt;description&gt;</code></li>
+  <li>(B) <code>&lt;content:encoded&gt;</code>  from RDF/RSS 1.0 content module extension</li>
+  <li>(C) <code>&lt;media:content&gt;</code>  from Yahoo! search extension</li>
+  <li>(D) Other?  Please, tell!</li>
+</ul>
+
+<p>Bonus: Is your content in plain text, in html, in xhtml, in html escaped?
+Is your content a summary? or full text?</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson">Meet Jason Feed - A New Feed Format in JSON - feed.json</h1>
+
+<p><img src="i/jsonfeed.png" alt="" /></p>
+
+<p>More <a href="https://jsonfeed.org">jsonfeed.org</a> »</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p><img src="i/jsonfried.png" alt="" /></p>
+
+<pre><code>{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Jason Fried's Microblog",
+    "home_page_url": "https://micro.blog/jasonfried/",
+    "feed_url": "https://micro.blog/jasonfried/feed.json",
+    "author": {
+        "name": "Jason Fried",
+        "url": "https://micro.blog/jasonfried/",
+        "avatar": "https://micro.blog/jasonfried/avatar.png"
+    },
+    "items": [
+        {
+            "id": "865767227416612864",
+            "url": "https://micro.blog/jasonfried/status/865767227416612864",
+            "content_text": "JSON Feed? I know that guy.",
+            "date_published": "2017-05-19T20:12:00-00:00"
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont-1">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p>Use <code>content_text</code> for text</p>
+
+<pre><code>"content_text": "JSON Feed? I know that guy."
+</code></pre>
+
+<p>and <code>content_html</code> for hypertext.</p>
+
+<pre><code>"content_html": "&lt;p&gt;JSON Feed? I know that guy.&lt;/p&gt;"
+</code></pre>
+
+<p>No artificial intelligence (AI) needed ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="meet-jason-feed---a-new-feed-format-in-json---feedjson-cont-2">Meet Jason Feed - A New Feed Format in JSON - feed.json (Cont.)</h1>
+
+<p>Bonus: Use <code>summary</code> for summaries</p>
+
+<p>and <code>content_text</code> or <code>content_html</code> for full content.</p>
+
+<p>Note: “Full” content might just be:</p>
+
+<pre><code>"content_text": "Me!"
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="why-json-why-not-xml">Why JSON? Why not XML?</h1>
+
+<p>JSON is the new XML ;-)  Easier. Free. Simpler.</p>
+
+<p><img src="i/google-trends-xml-json.png" alt="" /></p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible</h1>
+
+<p>Standards - Standards - Standards</p>
+
+<p><img src="i/xkcd-date.png" alt="" /></p>
+
+<p>(Source: <a href="https://xkcd.com/1179/">xkcd.com/1179</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="rules-for-standard-makers---evolve-or-die-----break-things---many-worlds-possible-cont">Rules for Standard Makers - Evolve or Die ;-) - Break Things - Many Worlds Possible (Cont.)</h1>
+
+<p>One (format) to rule them all.
+All your base are belong to us.
+JavaScript is eating the world ;-)</p>
+
+<p><img src="i/xkcd-standards.png" alt="" /></p>
+
+<p>(Source: <a href="https://xkcd.com/927/">xkcd.com/927</a>)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-json-feed-podcast-example">Bonus: JSON Feed Podcast Example</h1>
+
+<p>Yes, works “out-of-the-box” for podcasts too.
+Use attachments for audio recordings (media files).</p>
+
+<pre><code>{
+    "version": "https://jsonfeed.org/version/1",
+    "user_comment": "This is a podcast feed. You can add this feed to your podcast client using the following URL: http://therecord.co/feed.json",
+    "title": "The Record",
+    "home_page_url": "http://therecord.co/",
+    "feed_url": "http://therecord.co/feed.json",
+    "items": [
+        {
+            "id": "http://therecord.co/chris-parrish",
+            "title": "Special #1 - Chris Parrish",
+            "url": "http://therecord.co/chris-parrish",
+            "content_text": "Chris has worked at Adobe and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged &amp; Distilled with Guy English - which shipped Napkin, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on Bainbridge Island, a quick ferry ride from Seattle.",
+            "content_html": "Chris has worked at &lt;a href=\"http://adobe.com/\"&gt;Adobe&lt;/a&gt; and as a founder of Rogue Sheep, which won an Apple Design Award for Postage. Chris’s new company is Aged &amp; Distilled with Guy English - which shipped &lt;a href=\"http://aged-and-distilled.com/napkin/\"&gt;Napkin&lt;/a&gt;, a Mac app for visual collaboration. Chris is also the co-host of The Record. He lives on &lt;a href=\"http://www.ci.bainbridge-isl.wa.us/\"&gt;Bainbridge Island&lt;/a&gt;, a quick ferry ride from Seattle.",
+            "summary": "Brent interviews Chris Parrish, co-host of The Record and one-half of Aged &amp; Distilled.",
+            "date_published": "2014-05-09T14:04:00-07:00",
+            "attachments": [
+                {
+                    "url": "http://therecord.co/downloads/The-Record-sp1e1-ChrisParrish.m4a",
+                    "mime_type": "audio/x-m4a",
+                    "size_in_bytes": 89970236,
+                    "duration_in_seconds": 6629
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="bonus-json-feed---whos-who---meet-brent-simmons-n-manton-reece">Bonus: JSON Feed - Who’s Who - Meet Brent Simmons n Manton Reece</h1>
+
+<p>Brent Simmons? - I know this guy!</p>
+
+<p>Manton Reece? - I know that guy!</p>
+
+<p>Brent Simmons built the NetNewsWire  more than 10+ years ago;
+was first (most popular) news reader for Apple Mac OS X.</p>
+
+<p>Blogs at <a href="http://inessential.com">inessential.com</a>
+with <a href="http://inessential.com/feed.json">feed.json</a> ;-)</p>
+
+<p>Manton Reece builds micro.blog - a timeline and publishing platform for the open web.
+Also built the WordPress JSON Feed plugin ;-)</p>
+
+<p>Blogs at <a href="http://manton.org">manton.org</a> with <a href="http://manton.org/feed/json">feed.json</a> ;-)</p>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="json-feed---whats-next">JSON Feed - What’s Next?</h1>
+
+<p>JSON Feed uses JSON 1.0!</p>
+
+<p>JSON v1.1 Feed - Anyone?</p>
+
+<pre><code>{
+  version       : 'https://jsonfeed.org/version/1'
+  title         : 'My Example Feed'
+  home_page_url : 'https://example.org/'
+  feed_url      : 'https://example.org/feed.json'
+  items         : [
+        {
+            id           : '2'
+            content_text : 'This is a second item.'
+            url          : 'https://example.org/second-item'
+        }
+        {
+            id           : '1'
+            content_html : '&lt;p&gt;Hello, world!&lt;/p&gt;'
+            url          : 'https://example.org/initial-post'
+        }
+    ]
+}
+</code></pre>
+
+
+</div>
+<div class='slide '>
+<!-- _S9SLIDE_ -->
+<h1 id="beyond-json---txt-is-the-new-json">Beyond JSON - .TXT is the new JSON</h1>
+
+<p>Feed.TXT (or Journal.TXT) is the new JSON Feed!</p>
+
+<p>See <a href="https://feedtxt.github.io">feedtxt.github.io</a>
+or <a href="https://journaltxt.github.io">journaltxt.github.io »</a>.</p>
+
+<pre><code>---
+year:  2017
+month: July
+day:   Wed 19
+---
+Let's reinvent push-button publishing on the internets!
+Use a single-file for your journal / diary / blog. That's it.
+---
+day:   Thu 20
+---
+Crazy idea? Let's put up a website and a example blog auto-generated from journal.txt.
+---
+day:   Fri 21
+---
+Did you know? The single-file format works great for advent calendars
+or beer-of-the-day calendars.
+---
+day:    Sat 22
+---
+Let's add another example. A diary about the Oktoberfest 2016. Prost. Cheers.
+---
+day:    Sun 23
+---
+Let's rest.
+</code></pre>
+</div>
+
+
+  </div> <!-- presentation -->
+</body>
+</html> 
+
