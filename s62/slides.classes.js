@@ -1,9 +1,8 @@
 
 
-class DeckClassesPlugin {
-
+class S6_Plugin_Classes {
    constructor( deck ) {
-     console.log( "[DeckClassesPlugin] ctor" );
+     console.log( "[S6.Plugin.Classes] ctor" );
 
      this.deck = deck;
 
@@ -19,12 +18,12 @@ class DeckClassesPlugin {
 
 
   addClass( el, cls ) {
-    console.log( "[DeckClassesPlugin] addClass >" + cls + "<" )
+    console.log( "[S6.Plugin.Classes] addClass >" + cls + "<" );
     el.classList.add( 'bespoke-' + cls );
   }
 
   removeClass( el, cls ) {
-    console.log( "[DeckClassesPlugin] removeClass >" + cls + "<" )
+    console.log( "[S6.Plugin.Classes] removeClass >" + cls + "<" );
     el.className = el.className
           .replace( new RegExp('bespoke-' + cls +'(\\s|$)', 'g'), ' ' )
           .trim();
@@ -35,7 +34,7 @@ class DeckClassesPlugin {
           offset      = index - this.deck.slideIndex,
           offsetClass = offset > 0 ? 'after' : 'before';
 
-    console.log( "[DeckClassesPlugin] deactivate index=" + index + ",offset=" + offset )
+    console.log( "[S6.Plugin.Classes] deactivate index=" + index + ",offset=" + offset );
     console.log( el );
 
     ['before(-\\d+)?',
@@ -46,4 +45,12 @@ class DeckClassesPlugin {
     if( el !== activeSlide )
       ['inactive', offsetClass, `${offsetClass}-${Math.abs(offset)}`].forEach( cls => this.addClass( el, cls ) );
   }
-} // class DeckClassesPlugin
+} // class S6_Plugin_Classes
+
+
+//////////////////////////////
+// add global S6 "export"
+//   e.g. lets you call classes( options ) for plugins array config
+
+var S6 = S6 || {};
+S6.classes = options => deck => new S6_Plugin_Classes( deck, options );

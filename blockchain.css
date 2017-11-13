@@ -1,10 +1,19 @@
 body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
 
-a:link, a:visited { color: black; }
-
 ul { list-style-type: square; }
 
 
+
+/******************************
+ *note: wrap projection stuff with @media screen - why?  do NOT mess up printing with position: absolute etc. 
+ *
+ *  todo/check: wrap everything? and add a print stylesheet - why? why not?
+ */
+
+@media screen {
+
+
+a:link, a:visited { color: black; }
 
 /***************************************
  *  note: for bespoke.js compatibility use  bespoke-slide (instead of slide) etc. */
@@ -16,7 +25,8 @@ ul { list-style-type: square; }
 
 /* lets you create slides with no heading (because heading is hidden but gets included in toc) */
 .bespoke-slide h1.hidden     { display: none; }
-
+    
+} /* @media screen */
 
 
 
@@ -45,16 +55,15 @@ ul { list-style-type: square; }
 
 
 
-
 pre { padding: 4px 4px 4px 4px;
       border-top: #bbb 1px solid;
       border-bottom: #bbb 1px solid;
       background: #f3f3f3; }
 
 
-
 .help p,
 .help td  { font-size: 88%; }
 
 
+    
 

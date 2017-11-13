@@ -1,9 +1,12 @@
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   <title></title>
-   
+   <meta charset="utf-8">
+   <title>Stay Static - Build Single-Page Static Websites w/ Gatsby (and GraphQL)</title>
+
    
 
 <style>
@@ -25,29 +28,21 @@ pre.code {
         background-color: azure;
         padding: 5px;
       }
-     
-ul { list-style-type: square; }    
-   
-.center { text-align: center; }   
-     
+
+ul { list-style-type: square; }
+
+.center { text-align: center; }
+
 .slide { page-break-after: always;
          min-height: 100mm;
          padding: 40px;
-         
+
          border: 1px dotted black;
 
-/*      
+/*
   background: -moz-linear-gradient( top, maroon, red);
 */
        }
-
-
-pre {
-  padding: 4px 4px 4px 4px;
-  border-top: #bbb 1px solid;
-  border-bottom: #bbb 1px solid;
-  background: #f3f3f3;
-}
 
 
 
@@ -60,11 +55,11 @@ for princexml (CSS3 paged media support)
 </head>
 <body>
 
-<div class="presentation">
-
-<div class='slide '>
+<article id="presentation">
 
 
+<section class="slide " id="1">
+  
 <!-- _S9SLIDE_ -->
 <h1 id="agenda">Agenda</h1>
 
@@ -121,9 +116,11 @@ for princexml (CSS3 paged media support)
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="2">
+  <!-- _S9SLIDE_ -->
 <h1 id="10-years-ago---dynamic-website-generators-in-2007">10 Years Ago - Dynamic Website Generators in 2007</h1>
 
 <p><strong>The Biggies</strong> (PHP Rules!)</p>
@@ -147,9 +144,11 @@ e.g. queries the database, runs scripts,
 merges templates, etc.</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="3">
+  <!-- _S9SLIDE_ -->
 <h1 id="why-static-inside-a-dynamic-wordpress-page-query">Why Static? Inside a Dynamic WordPress Page Query</h1>
 
 <ol>
@@ -176,9 +175,11 @@ merges templates, etc.</p>
 <p>(Source: <a href="https://codex.wordpress.org/Query_Overview">codex.wordpress.org/Query_Overview</a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="4">
+  <!-- _S9SLIDE_ -->
 <h1 id="10-years-later---dynamic-website-generators-today-in-2017">10 Years Later - Dynamic Website Generators Today in 2017?</h1>
 
 <p><strong>The Biggies</strong> (PHP Rules!)</p>
@@ -194,9 +195,11 @@ Use WordPress (PHP) ;-)
 28.8% of the Internet and counting.</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="5">
+  <!-- _S9SLIDE_ -->
 <h1 id="static-website-generators--builders-in-1999">Static Website Generators / Builders in 1999</h1>
 
 <p><strong>The Biggies</strong> in 1999</p>
@@ -210,9 +213,11 @@ Use WordPress (PHP) ;-)
 <p>And today?</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="6">
+  <!-- _S9SLIDE_ -->
 <h1 id="hello-gatsby">Hello, Gatsby!</h1>
 
 <p>by Kyle Mathews et al (★12 869) -
@@ -223,9 +228,11 @@ github: <a href="https://github.com/gatsbyjs/gatsby"><code>gatsbyjs/gatsby</code
 <p>(Source: <a href="https://gatsbyjs.org">gatsbyjs.org</a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="7">
+  <!-- _S9SLIDE_ -->
 <h1 id="getting-started-w-gatsby">Getting Started w/ Gatsby</h1>
 
 <p>Gatsby is a JavaScript package using Webpack, React, React Router,
@@ -237,9 +244,11 @@ Use npm to install e.g.:</p>
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="8">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-commands">Gatsby Commands</h1>
 
 <p>Try:</p>
@@ -267,9 +276,11 @@ Options:
 <p>See the <a href="https://github.com/statictimes/quickrefs/blob/master/GATSBY.md">Gatsby Quick Reference (Cheat Sheet)</a></p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="9">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-quick-starter---ready-to-usefork-themes">Gatsby Quick Starter - Ready-to-Use/Fork Themes</h1>
 
 <ul>
@@ -300,9 +311,11 @@ $ npm install
 <p>And open the browser. Voila.</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="10">
+  <!-- _S9SLIDE_ -->
 <h1 id="hello-react-world---the-worlds-simplest-gatsby-website">Hello, React World! - The World’s Simplest Gatsby Website</h1>
 
 <p>Web Page - <code>src/pages/index.js</code>:</p>
@@ -335,9 +348,11 @@ $ npm run build
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="11">
+  <!-- _S9SLIDE_ -->
 <h1 id="open-source-heroes---kyle-mathews">Open Source Heroes - Kyle Mathews</h1>
 
 <p>Kyle Mathews working on Gatsby.js full-time since August 2016.
@@ -367,9 +382,11 @@ on npm?</p>
 <p><a href="https://www.npmjs.com/~kylemathews">Click for answer</a> ;-).</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="12">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-sample-website">Gatsby Stay Static Sample Website</h1>
 
 <p>Shows how-to-use:</p>
@@ -383,9 +400,11 @@ on npm?</p>
 <p><img src="i/staystatic-samplesite.png" alt="" /></p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="13">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-in-action---why-gatsby-v0-live-hot-reloading">Gatsby In Action - Why Gatsby (v0)? Live Hot Reloading</h1>
 
 <p>No. 1 Selling Point (Gatsby v0) - Hot (!) Reloading - Thanks to Webpack</p>
@@ -406,9 +425,11 @@ on npm?</p>
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="14">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-in-action---why-gatsby-v1-continued">Gatsby In Action - Why Gatsby (v1)? Continued</h1>
 
 <p>New Selling Points from (new) Gatsby.js Website:</p>
@@ -425,9 +446,11 @@ on npm?</p>
 <p>(Source: <a href="https://gatsbyjs.org">GatsbyJS.org</a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="15">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website---file-structure">Gatsby Stay Static Website - File Structure</h1>
 
 <pre><code>│   gatsby-config.js
@@ -459,9 +482,11 @@ on npm?</p>
 <p>(Source: <a href="https://github.com/staystatic/staystatic/tree/master/gatsby"><code>staystatic/gatsby</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="16">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website---pages">Gatsby Stay Static Website - Pages</h1>
 
 <pre><code>import React from "react"
@@ -483,9 +508,11 @@ export default () =&gt;
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/about.js"><code>staystatic/gatsby/src/pages/about.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="17">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-site---posts-with-front-matter">Gatsby Stay Static Site - Posts with Front Matter</h1>
 
 <p>YAML + Markdown</p>
@@ -509,9 +536,11 @@ See an example [beer map for Austria](http://openbeer.github.io/maps/at)
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/posts/new-repo-maps.md"><code>staystatic/gatsby/pages/posts/new-repo-maps.md</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="18">
+  <!-- _S9SLIDE_ -->
 <h1 id="markdown-madness---markdown-library-options-in-gatsby">Markdown Madness - Markdown Library Options in Gatsby</h1>
 
 <p><strong>remark</strong> ★1 064 by Titus et al (github: <a href="https://github.com/wooorm/remark">wooorm/remark</a>)</p>
@@ -529,9 +558,11 @@ See an example [beer map for Austria](http://openbeer.github.io/maps/at)
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="19">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website---datafiles">Gatsby Stay Static Website - Datafiles</h1>
 
 <p><strong>Datafile</strong> - JavaScript</p>
@@ -552,9 +583,11 @@ export default [
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/data/links.js"><code>staystatic/gatsby/src/data/links.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="20">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website----html-web-components---loops">Gatsby Stay Static Website  - HTML Web Components - Loops</h1>
 
 <p><strong>Templates</strong> - React HTML Web Components</p>
@@ -574,9 +607,11 @@ export default ({links}) =&gt;
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/LinkList.js"><code>staystatic/gatsby/src/components/LinkList.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="21">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website----html-web-components---loops-cont">Gatsby Stay Static Website  - HTML Web Components - Loops (Cont.)</h1>
 
 <pre><code>import React from "react"
@@ -595,9 +630,11 @@ export default ({posts}) =&gt;
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/PostList.js"><code>staystatic/gatsby/src/components/PostList.html</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="22">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website---html-web-components---includes">Gatsby Stay Static Website - HTML Web Components - Includes</h1>
 
 <p><strong>Templates</strong> - React HTML Web Components</p>
@@ -618,9 +655,11 @@ export default ({ children }) =&gt;
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/layouts/index.js"><code>staystatic/gatsby/src/layouts/index.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="23">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website---html-web-components---includes-cont">Gatsby Stay Static Website - HTML Web Components - Includes (Cont.)</h1>
 
 <pre><code>import React from "react"
@@ -656,9 +695,11 @@ export default ({data}) =&gt;
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/components/Header.js"><code>staystatic/gatsby/src/components/Header.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="24">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website---configuration--settings">Gatsby Stay Static Website - Configuration / Settings</h1>
 
 <p>JavaScript</p>
@@ -674,9 +715,11 @@ export default ({data}) =&gt;
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/gatsby-config.js"><code>staystatic/gatsby/gatsby-config.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="25">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby---summary">Gatsby - Summary</h1>
 
 <table>
@@ -729,9 +772,11 @@ export default ({data}) =&gt;
 </table>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="26">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website-demo">Gatsby Stay Static Website Demo</h1>
 
 <pre><code>$ gatsby build
@@ -762,9 +807,11 @@ Done building in 20.475 seconds
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="27">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-stay-static-website-demo-cont">Gatsby Stay Static Website Demo (Cont.)</h1>
 
 <p>File Structure in <code>/public</code>:</p>
@@ -816,9 +863,11 @@ Done building in 20.475 seconds
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="28">
+  <!-- _S9SLIDE_ -->
 <h1 id="going-live---free-static-website-hosting-options">Going Live - Free (Static) Website Hosting Options</h1>
 
 <ul>
@@ -831,9 +880,11 @@ Done building in 20.475 seconds
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="29">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-goodies---whats-missing">Gatsby Goodies - What’s Missing?</h1>
 
 <p>GraphQL - Query any Data Source (at Build-Time)</p>
@@ -841,9 +892,11 @@ Done building in 20.475 seconds
 <p>And much much more.</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="30">
+  <!-- _S9SLIDE_ -->
 <h1 id="whats-graphql">What’s GraphQL?</h1>
 
 <p>A data query language (by example).</p>
@@ -855,9 +908,11 @@ Done building in 20.475 seconds
 <p>(Source: <a href="http://graphql.org">graphql.org</a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="31">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-graphql-example---query-site-metadata">Gatsby GraphQL Example - Query Site Metadata</h1>
 
 <pre><code>{
@@ -881,9 +936,11 @@ Done building in 20.475 seconds
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="32">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-graphql-example---query-filesystem">Gatsby GraphQL Example - Query Filesystem</h1>
 
 <pre><code>{
@@ -943,9 +1000,11 @@ Done building in 20.475 seconds
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="33">
+  <!-- _S9SLIDE_ -->
 <h1 id="whats-graphiql">What’s GraphiQL?</h1>
 
 <p>An in-browser IDE for exploring GraphQL.
@@ -960,9 +1019,11 @@ Your graphql debugger is running at http://localhost:8000/___graphql
 <p><img src="i/graphiql.png" alt="" /></p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="34">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-graphql-example---query-markdown-pages">Gatsby GraphQL Example - Query Markdown Pages</h1>
 
 <pre><code>{ allMarkdownRemark {
@@ -1014,9 +1075,11 @@ Your graphql debugger is running at http://localhost:8000/___graphql
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="35">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-graphql-example---wordpress-post-query">Gatsby GraphQL Example - WordPress Post Query</h1>
 
 <p>Add the <a href="https://www.gatsbyjs.org/packages/gatsby-source-wordpress"><code>gatsby-source-wordpress</code></a> plugin. Example:</p>
@@ -1049,9 +1112,11 @@ Your graphql debugger is running at http://localhost:8000/___graphql
 </code></pre>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="36">
+  <!-- _S9SLIDE_ -->
 <h1 id="step-1---how-to-use-graphql-and-react-with-gatsby">Step 1 - How to Use GraphQL and React with Gatsby?</h1>
 
 <p>Every (React) web component can use a GraphQL query (in Gatsby)!
@@ -1074,9 +1139,11 @@ Export your query in the Javascript module. Example:</p>
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/index.js"><code>staystatic/gatsby/src/pages/index.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="37">
+  <!-- _S9SLIDE_ -->
 <h1 id="step-2---how-to-use-graphql-and-react-with-gatsby">Step 2 - How to Use GraphQL and React with Gatsby?</h1>
 
 <p>New <code>data</code> props gets “automagically” passed to your (React) web component.
@@ -1105,9 +1172,11 @@ Use it! Example:</p>
 <p>(Source: <a href="https://github.com/staystatic/staystatic/blob/master/gatsby/src/pages/index.js"><code>staystatic/gatsby/src/pages/index.js</code></a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="38">
+  <!-- _S9SLIDE_ -->
 <h1 id="css-in-js---start-using-css-in-javascript-js">CSS-in-JS - Start using CSS in JavaScript (JS)</h1>
 
 <p>Gatsby has (out-of-the-box) built-in support for CSS Modules.</p>
@@ -1122,9 +1191,11 @@ Use it! Example:</p>
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="39">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-static-websites-in-the-real-world">Gatsby (Static) Websites in the “Real World”</h1>
 
 <p><strong>How Did It All Get Started?</strong></p>
@@ -1138,9 +1209,11 @@ The world’s 1st Gatsby site?</p>
 <p><img src="i/bricolage.png" alt="" /></p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="40">
+  <!-- _S9SLIDE_ -->
 <h1 id="gatsby-static-websites-in-the-real-world-cont">Gatsby (Static) Websites in the “Real World” (Cont.)</h1>
 
 <p><strong>ReasonML Documenation</strong> (web: <a href="https://reasonml.github.io">reasonml.github.io</a>, github: <a href="https://github.com/reasonml/reasonml.github.io">reasonml/reasonml.github.io</a>)</p>
@@ -1152,9 +1225,11 @@ The world’s 1st Gatsby site?</p>
 <p>Your Website ;-)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="41">
+  <!-- _S9SLIDE_ -->
 <h1 id="thanks---stay-static">Thanks - Stay Static</h1>
 
 <p><strong>Stay Static Sample Sites (Showcase)</strong></p>
@@ -1182,9 +1257,11 @@ The world’s 1st Gatsby site?</p>
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="42">
+  <!-- _S9SLIDE_ -->
 <h1 id="appendix-static-site-builders--generators">Appendix: Static Site Builders / Generators</h1>
 
 <p><img src="i/staticgencom-website-2017.png" alt="" /></p>
@@ -1192,9 +1269,11 @@ The world’s 1st Gatsby site?</p>
 <p>(Source: <a href="https://staticgen.com">StaticGen.com</a>)</p>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="43">
+  <!-- _S9SLIDE_ -->
 <h1 id="appendix-getting-started-with-gatsbyjs">Appendix: Getting Started with Gatsby.js</h1>
 
 <p>Tip: Try the Official <a href="https://www.gatsbyjs.org/tutorial">Gatsby.js Tutorials</a>:</p>
@@ -1223,9 +1302,11 @@ The world’s 1st Gatsby site?</p>
 </ul>
 
 
-</div>
-<div class='slide '>
-<!-- _S9SLIDE_ -->
+
+</section>
+
+<section class="slide " id="44">
+  <!-- _S9SLIDE_ -->
 <h1 id="appendix-more-reactjs-static-website-builders--generators">Appendix: More React.js Static Website Builders / Generators</h1>
 
 <p><strong>Phenomic</strong> (web: <a href="https://phenomic.io">phenomic.io</a>, github: <a href="https://github.com/MoOx/phenomic">MoOx/phenomic</a>) ★2 537
@@ -1237,10 +1318,10 @@ by Christopher Biscardi et al</p>
 <p><strong>Next.js</strong> (github: <a href="https://github.com/zeit/next.js">zeit/next.js</a>) ★16 783 by Guillermo Rauch et al – version 3.0+ adds static export</p>
 
 <p>And others.</p>
-</div>
+
+</section>
 
 
-  </div> <!-- presentation -->
+</article> <!-- presentation -->
 </body>
-</html> 
-
+</html>
