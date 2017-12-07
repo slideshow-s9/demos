@@ -1,0 +1,1016 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Blockchain! Blockchain! Blockchain! - Build Your Own Blockchains in Ruby from Zero (Scratch)</title>
+
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+
+ul { list-style-type: square; }
+
+.center { text-align: center; }
+
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+
+         border: 1px dotted black;
+
+/*
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<article id="presentation">
+
+
+<section class="slide " id="1">
+  
+<!-- _S9SLIDE_ -->
+<h1 id="alchemy---how-to-mine-digital-schilling-how-to-turn-digital-bits-into--or-">Alchemy - How-To Mine Digital Schilling? How-To Turn Digital Bits Into $$$ or €€€?</h1>
+
+<p><strong>Transactions (Hyper) Ledger Book</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th style="text-align: right">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Grossklockner (†)</td>
+      <td>Sepp</td>
+      <td style="text-align: right">3798</td>
+    </tr>
+    <tr>
+      <td>Grossvenediger (†)</td>
+      <td>Franz</td>
+      <td style="text-align: right">3666</td>
+    </tr>
+    <tr>
+      <td>Dachstein (†)</td>
+      <td>Sissi</td>
+      <td style="text-align: right">2995</td>
+    </tr>
+    <tr>
+      <td>Wildspitze (†)</td>
+      <td>Maria</td>
+      <td style="text-align: right">3768</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Sissi</td>
+      <td>Eva</td>
+      <td style="text-align: right">20</td>
+    </tr>
+    <tr>
+      <td>Sepp</td>
+      <td>Maria</td>
+      <td style="text-align: right">17</td>
+    </tr>
+    <tr>
+      <td>Franz</td>
+      <td>Sissi</td>
+      <td style="text-align: right">3</td>
+    </tr>
+    <tr>
+      <td>Sepp</td>
+      <td>Ferdl</td>
+      <td style="text-align: right">100</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Franz</td>
+      <td>Max</td>
+      <td style="text-align: right">17</td>
+    </tr>
+    <tr>
+      <td>Maria</td>
+      <td>Adam</td>
+      <td style="text-align: right">4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(†): Miner Transaction - New Schilling on the Market!</p>
+
+<p>(Source: <a href="https://github.com/blockchainaustria/schilling">blockchainaustria/schilling</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="2">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-blockchain-blockchain-decentralize-payments-decentralize-transactions-decentralize-blockchains">Blockchain! Blockchain! Blockchain! Decentralize Payments. Decentralize Transactions. Decentralize Blockchains.</h1>
+
+<p>What’s Blockchain?</p>
+
+<ul>
+  <li>Distributed Database?</li>
+  <li>Hyper Ledger Book?</li>
+  <li>Consensus with Proof-of-Work or Proof-of-Stake?</li>
+  <li>Digital Fingerprints? Cryptographic Hashes?</li>
+  <li>Lottery? Central Bank?</li>
+  <li>Byzantine-Generals Solution?</li>
+</ul>
+
+<p>Yes. Yes. Yes. Blockchain! Blockchain! Blockchain!</p>
+
+<p>(Source: <a href="https://github.com/openblockchains/whatsblockchain">openblockchains/whatsblockchain</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="3">
+  <!-- _S9SLIDE_ -->
+<h1 id="the-proof-of-the-pudding-is---the-bitcoin-btc-blockchains">The Proof of the Pudding is …  The Bitcoin (BTC) Blockchain(s)</h1>
+
+<p>A Success Story on the Blockchain.</p>
+
+<p>May 22, 2010 - World’s 1st Bitcoin Payment</p>
+
+<p>A developer bought two pizzas using 10 000 Bitcoin (BTC) - a then-little-known digital (crypto)currency.
+Estimated worth about $40.</p>
+
+<p>Triva Q: How much is one Bitcoin worth today? Q: How much are 10 000 Bitcoin worth today?</p>
+
+
+
+</section>
+
+<section class="slide " id="4">
+  <!-- _S9SLIDE_ -->
+<h1 id="20-million-dollar-pizza-day---celebrating-the-birth-of-bitcoin-alchemy---">$20 Million Dollar Pizza Day - Celebrating the Birth of Bitcoin Alchemy - $$$</h1>
+
+<p><img src="i/bitcoinmarket.png" alt="" /></p>
+
+<p>(Source: <a href="https://coinmarketcap.com/currencies/bitcoin">coinmarketcap.com/currencies/bitcoin</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="5">
+  <!-- _S9SLIDE_ -->
+<h1 id="lets-build-your-own-blockchain-in-ruby-from-zero--scratch">Let’s Build Your Own Blockchain in Ruby (From Zero / Scratch)</h1>
+
+<p>Crypto God? Ruby Ninja / Rockstar?</p>
+
+<p>Yes, you can.</p>
+
+<p><img src="i/fake-dilbert-blockchain.png" alt="" /></p>
+
+
+
+</section>
+
+<section class="slide " id="6">
+  <!-- _S9SLIDE_ -->
+<h1 id="code-code-code---a-blockchain-in-ruby-in-20-lines-a-blockchain-is-a-data-structure">Code, Code, Code - A Blockchain in Ruby in 20 Lines! A Blockchain is a Data Structure</h1>
+
+<p>What’s Blockchain?</p>
+
+<p>It’s a list (chain) of blocks linked and secured by digital fingerprints (also known as
+crypto hashes).</p>
+
+<pre><code class="language-ruby">require "digest"    # for hash checksum digest function SHA256
+
+class Block
+
+  attr_reader :index
+  attr_reader :timestamp
+  attr_reader :data
+  attr_reader :previous_hash
+  attr_reader :hash
+
+  def initialize(index, data, previous_hash)
+    @index         = index
+    @timestamp     = Time.now
+    @data          = data
+    @previous_hash = previous_hash
+    @hash          = calc_hash
+  end
+
+  def calc_hash
+    sha = Digest::SHA256.new
+    sha.update( @index.to_s + @timestamp.to_s + @data + @previous_hash )
+    sha.hexdigest
+  end
+</code></pre>
+
+<p>(Source: <a href="https://github.com/openblockchains/awesome-blockchains/blob/master/blockchain.rb/blockchain.rb">openblockchains/awesome-blockchains/blockchain.rb</a>)</p>
+
+<p>Yes, that’s it.</p>
+
+
+
+</section>
+
+<section class="slide " id="7">
+  <!-- _S9SLIDE_ -->
+<h1 id="code-code-code---a-blockchain-in-ruby-in-20-lines-a-blockchain-is-a-data-structure-cont">Code, Code, Code - A Blockchain in Ruby in 20 Lines! A Blockchain is a Data Structure (Cont.)</h1>
+
+<p>Let’s add two helpers (<code>first</code>, <code>next</code>) for building (“mining”) blocks.</p>
+
+<pre><code class="language-ruby">class Block
+
+  def self.first( data="Genesis" )    # create genesis (big bang! first) block
+    ## uses index zero (0) and arbitrary previous_hash ("0")
+    Block.new( 0, data, "0" )
+  end
+
+  def self.next( previous, data="Transaction Data..." )
+    Block.new( previous.index+1, data, previous.hash )
+  end
+
+end  # class Block
+</code></pre>
+
+<p>(Source: <a href="https://github.com/openblockchains/awesome-blockchains/blob/master/blockchain.rb/blockchain.rb">openblockchains/awesome-blockchains/blockchain.rb</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="8">
+  <!-- _S9SLIDE_ -->
+<h1 id="code-code-code---a-blockchain-in-ruby-in-20-lines-a-blockchain-is-a-data-structure-cont-1">Code, Code, Code - A Blockchain in Ruby in 20 Lines! A Blockchain is a Data Structure (Cont.)</h1>
+
+<p>Let’s get started -  build a blockchain a block at a time!</p>
+
+<pre><code class="language-ruby">b0 = Block.first( "Genesis" )
+b1 = Block.next( b0, "Transaction Data..." )
+b2 = Block.next( b1, "Transaction Data......" )
+b3 = Block.next( b2, "More Transaction Data..." )
+
+blockchain = [b0, b1, b2, b3]
+
+pp blockchain     ## pp (pretty print to console)
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="9">
+  <!-- _S9SLIDE_ -->
+<h1 id="code-code-code---a-blockchain-in-ruby-in-20-lines-a-blockchain-is-a-data-structure-cont-2">Code, Code, Code - A Blockchain in Ruby in 20 Lines! A Blockchain is a Data Structure (Cont.)</h1>
+
+<blockquote>
+  <p>Wait, so a blockchain is just a linked list?</p>
+
+  <p>No. A linked list is only required to have a reference to the previous element,
+a block must have an identifier depending on the previous block’s identifier,
+meaning that you cannot replace a block without recomputing every single block that comes after.
+In this implementation that happens as the previous digest is input in the calc_hash method.</p>
+</blockquote>
+
+<p>will log something like:</p>
+
+<pre><code>[#&lt;Block:0x1eed2a0
+  @index         = 0,
+  @timestamp     = 1637-09-15 20:52:38,
+  @data          = "Genesis",
+  @previous_hash = "0",
+  @hash          = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b"&gt;,
+ #&lt;Block:0x1eec9a0
+  @index         = 1,
+  @timestamp     = 1637-09-15 21:02:38,
+  @data          = "Transaction Data...",
+  @previous_hash = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b",
+  @hash          = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743"&gt;,
+ #&lt;Block:0x1eec838
+  @index         = 2,
+  @timestamp     = 1637-09-15 21:12:38,
+  @data          = "Transaction Data......",
+  @previous_hash = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743",
+  @hash          = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4"&gt;,
+  ...
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="10">
+  <!-- _S9SLIDE_ -->
+<h1 id="what-about-proof-of-work-what-about-consensus">What about Proof-of-Work? What about Consensus?</h1>
+
+<p>Making (Hash) Mining a Lottery - Find the Lucky Number</p>
+
+<pre><code class="language-ruby">def calc_hash
+  sha = Digest::SHA256.new
+  sha.update( @index.to_s + @timestamp.to_s + @data + @previous_hash )
+  sha.hexdigest
+end
+</code></pre>
+
+<p>The computer (node) in the blockchain network that computes the
+next block with a valid hash wins the lottery.</p>
+
+<p>For adding a block to the chain you get a reward! You get ~25~ 12.5 Bitcoin! (†)</p>
+
+<p>Bitcoin adds a block every ten minutes.</p>
+
+<p>(†) The reward gets halfed about every two years. In Sep’17 you’ll get 12.5 Bitcoin.</p>
+
+
+
+</section>
+
+<section class="slide " id="11">
+  <!-- _S9SLIDE_ -->
+<h1 id="what-about-proof-of-work-what-about-consensus-cont">What about Proof-of-Work? What about Consensus? (Cont.)</h1>
+
+<p>Random SHA256 hash #1: <code>c396de4c03ddb5275661982adc75ce5fc5905d2a2457d1266c74436c1f3c50f1</code></p>
+
+<p>Random SHA256 hash #2: <code>493131e09c069645c82795c96e4715cea0f5558be514b5096d853a5b9899154a</code></p>
+
+<p>Triva Q: What’s SHA256?</p>
+
+<ul>
+  <li>(A) Still Hacking Anyway</li>
+  <li>(B) Secure Hash Algorithm</li>
+  <li>(C) Sweet Home Austria</li>
+  <li>(D) Super High Aperture</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide " id="12">
+  <!-- _S9SLIDE_ -->
+<h1 id="what-about-proof-of-work-what-about-consensus-cont-1">What about Proof-of-Work? What about Consensus? (Cont.)</h1>
+
+<p>A: SHA256 == Secure Hash Algorithms 256 Bits</p>
+
+<p>Trivia: Designed by the National Security Agency (NSA) of the United States of America (USA).</p>
+
+<p>Secure == Random  e.g. Change one Letter and the Hash will Change Completely</p>
+
+<p>Making (Hash) Mining a Lottery - Find the Lucky Number</p>
+
+<p>Find a hash that starts with ten leading zeros e.g.</p>
+
+<p><code>0000000000069645c82795c96e4715cea0f5558be514b5096d853a5b9899154a</code></p>
+
+<p>Hard to compute! Easy to check / validate.</p>
+
+
+
+</section>
+
+<section class="slide " id="13">
+  <!-- _S9SLIDE_ -->
+<h1 id="what-about-proof-of-work-what-about-consensus-cont-2">What about Proof-of-Work? What about Consensus? (Cont.)</h1>
+
+<p>Making (Hash) Mining a Lottery - Find the Lucky Number (Nonce)</p>
+
+<pre><code class="language-ruby">def compute_hash_with_proof_of_work( difficulty="00" )
+  nonce = 0
+  loop do
+    hash = calc_hash_with_nonce( nonce )
+    if hash.start_with?( difficulty )
+      return [nonce,hash]    ## bingo! proof of work if hash starts with leading zeros (00)
+    else
+      nonce += 1             ## keep trying (and trying and trying)
+    end
+  end
+end
+
+def calc_hash_with_nonce( nonce=0 )
+  sha = Digest::SHA256.new
+  sha.update( nonce.to_s + @index.to_s + @timestamp.to_s + @data + @previous_hash )
+  sha.hexdigest
+end
+</code></pre>
+
+<p>(Source: <a href="https://github.com/openblockchains/awesome-blockchains/blob/master/blockchain.rb/blockchain_with_proof_of_work.rb">awesome-blockchains/blockchain_with_proof_of_work.rb</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="14">
+  <!-- _S9SLIDE_ -->
+<h1 id="what-about-proof-of-work-what-about-consensus-cont-3">What about Proof-of-Work? What about Consensus? (Cont.)</h1>
+
+<p>Let’s rerun the sample with the proof of work machinery added.
+Now the sample will pretty print (pp) something like:</p>
+
+<pre><code>[#&lt;Block:0x1e204f0
+  @index         = 0,
+  @timestamp     = 1637-09-20 20:13:38,
+  @data          = "Genesis",
+  @previous_hash = "0",
+  @nonce         = 242,
+  @hash          = "00b8e77e27378f9aa0afbcea3a2882bb62f6663771dee053364beb1887e18bcf"&gt;,
+ #&lt;Block:0x1e56e20
+  @index         = 1,
+  @timestamp     = 1637-09-20 20:23:38,
+  @data          = "Transaction Data...",
+  @previous_hash = "00b8e77e27378f9aa0afbcea3a2882bb62f6663771dee053364beb1887e18bcf",
+  @nonce         = 46,
+  @hash          = "00aae8d2e9387e13c71b33f8cd205d336ac250d2828011f5970062912985a9af"&gt;,
+ #&lt;Block:0x1e2bd58
+  @index         = 2,
+  @timestamp     = 1637-09-20 20:33:38,
+  @data          = "Transaction Data......",
+  @previous_hash = "00aae8d2e9387e13c71b33f8cd205d336ac250d2828011f5970062912985a9af",
+  @nonce         = 350,
+  @hash          = "00ea45e0f4683c3bec4364f349ee2b6816be0c9fd95cfd5ffcc6ed572c62f190"&gt;,
+  ...
+</code></pre>
+
+<p>See the difference?
+All hashes now start with leading zeros (<code>00</code>)
+and the nonce is the random “lucky number” that makes it happen.
+That’s the magic behind the proof of work.</p>
+
+
+
+</section>
+
+<section class="slide " id="15">
+  <!-- _S9SLIDE_ -->
+<h1 id="the-worlds-worst-database---bitcoin-blockchain-mining">The World’s Worst Database - Bitcoin Blockchain Mining</h1>
+
+<ul>
+  <li>Uses approximately the same amount of electricity as could power an average American household
+for a day per transaction</li>
+  <li>Supports 3 transactions / second across a global network with millions of CPUs/purpose-built ASICs</li>
+  <li>Takes over 10 minutes to “commit” a transaction</li>
+  <li>Doesn’t acknowledge accepted writes: requires you read your writes,
+but at any given time you may be on a blockchain fork, meaning your write might not actually
+make it into the “winning” fork of the blockchain (and no, just making it into the mempool doesn’t count).
+In other words: “blockchain technology” cannot by definition tell you if a given write is ever
+accepted/committed except by reading it out of the blockchain itself (and even then)</li>
+  <li>Can only be used as a transaction ledger denominated in a single currency,
+or to store/timestamp a maximum of 80 bytes per transaction</li>
+</ul>
+
+<p>(Source: <a href="https://tonyarcieri.com/on-the-dangers-of-a-blockchain-monoculture">Tony Arcieri - On the dangers of a blockchain monoculture</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="16">
+  <!-- _S9SLIDE_ -->
+<h1 id="tulip-mania-quiz---win-100-schilling-on-the-blockchain">Tulip Mania Quiz - Win 100 Schilling on the Blockchain!</h1>
+
+<p>Q: Tulip Mania Bubble in Holland - What Year?</p>
+
+<ul>
+  <li>(A) 1561</li>
+  <li>(B) 1637</li>
+  <li>(C) 1753</li>
+  <li>(D) 1817</li>
+</ul>
+
+<p>Q: What’s the Name of the Most Expensive Tulip?</p>
+
+<ul>
+  <li>(A) Admiral van Eijck</li>
+  <li>(B) Admiral of Admirals</li>
+  <li>(C) Semper Augustus</li>
+  <li>(C) Semper Cesarus</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide " id="17">
+  <!-- _S9SLIDE_ -->
+<h1 id="tulips-on-the-blockchain-adding-transactions">Tulips on the Blockchain! Adding Transactions</h1>
+
+<p>Learn by Example from the Real World (Anno 1637) - Buy! Sell! Hold! Enjoy the Beauty of Admiral of Admirals, Semper Augustus and More.</p>
+
+<p><strong>Transactions (Hyper) Ledger Book</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th>What</th>
+      <th style="text-align: right">Qty</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dutchgrown (†)</td>
+      <td>Vincent</td>
+      <td>Tulip Bloemendaal Sunset</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td>Keukenhof (†)</td>
+      <td>Anne</td>
+      <td>Tulip Semper Augustus</td>
+      <td style="text-align: right">7</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Flowers (†)</td>
+      <td>Ruben</td>
+      <td>Tulip Admiral van Eijck</td>
+      <td style="text-align: right">5</td>
+    </tr>
+    <tr>
+      <td>Vicent</td>
+      <td>Anne</td>
+      <td>Tulip Bloemendaal Sunset</td>
+      <td style="text-align: right">3</td>
+    </tr>
+    <tr>
+      <td>Anne</td>
+      <td>Julia</td>
+      <td>Tulip Semper Augustus</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td>Julia</td>
+      <td>Luuk</td>
+      <td>Tulip Semper Augustus</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Bloom &amp; Blossom (†)</td>
+      <td>Daisy</td>
+      <td>Tulip Admiral of Admirals</td>
+      <td style="text-align: right">8</td>
+    </tr>
+    <tr>
+      <td>Vincent</td>
+      <td>Max</td>
+      <td>Tulip Bloemendaal Sunset</td>
+      <td style="text-align: right">2</td>
+    </tr>
+    <tr>
+      <td>Anne</td>
+      <td>Martijn</td>
+      <td>Tulip Semper Augustus</td>
+      <td style="text-align: right">2</td>
+    </tr>
+    <tr>
+      <td>Ruben</td>
+      <td>Julia</td>
+      <td>Tulip Admiral van Eijck</td>
+      <td style="text-align: right">2</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Teleflora (†)</td>
+      <td>Max</td>
+      <td>Tulip Red Impression</td>
+      <td style="text-align: right">11</td>
+    </tr>
+    <tr>
+      <td>Anne</td>
+      <td>Naomi</td>
+      <td>Tulip Bloemendaal Sunset</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td>Daisy</td>
+      <td>Vincent</td>
+      <td>Tulip Admiral of Admirals</td>
+      <td style="text-align: right">3</td>
+    </tr>
+    <tr>
+      <td>Julia</td>
+      <td>Mina</td>
+      <td>Tulip Admiral van Eijck</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Max</td>
+      <td>Isabel</td>
+      <td>Tulip Red Impression</td>
+      <td style="text-align: right">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(†): Grower Transaction - New Tulips on the Market!</p>
+
+<p>(Source: <a href="https://github.com/openblockchains/tulips">openblockchains/tulips</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="18">
+  <!-- _S9SLIDE_ -->
+<h1 id="tulips-on-the-blockchain-adding-transactions-cont">Tulips on the Blockchain! Adding Transactions (Cont.)</h1>
+
+<p><strong>Quotes - Blockchains are the next Internets / Tulips</strong></p>
+
+<blockquote>
+  <p>People who compare digital tokens to tulips are essentially saying digital tokens are a bubble backed
+by nothing but pure hype and speculation.</p>
+
+  <p>What they fail to understand is that tulips come from dirt, not a blockchain.</p>
+
+  <p>And as we all know, blockchain is possibly the best technological innovation since the internet.
+It will have a tremendous impact on global business and society in general.
+– <a href="http://tuliptoken.com">TulipToken</a></p>
+</blockquote>
+
+
+
+</section>
+
+<section class="slide " id="19">
+  <!-- _S9SLIDE_ -->
+<h1 id="tulips-on-the-blockchain-adding-transactions-cont-1">Tulips on the Blockchain! Adding Transactions (Cont.)</h1>
+
+<pre><code class="language-ruby">b0 = Block.first(
+        { from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
+        { from: "Keukenhof",  to: "Anne",    what: "Tulip Semper Augustus",    qty: 7  } )
+
+b1 = Block.next( b0,
+        { from: "Flowers", to: "Ruben", what: "Tulip Admiral van Eijck",  qty: 5 },
+        { from: "Vicent",  to: "Anne",  what: "Tulip Bloemendaal Sunset", qty: 3 },
+        { from: "Anne",    to: "Julia", what: "Tulip Semper Augustus",    qty: 1 },
+        { from: "Julia",   to: "Luuk",  what: "Tulip Semper Augustus",    qty: 1 } )
+
+b2 = Block.next( b1,
+        { from: "Bloom &amp; Blossom", to: "Daisy",   what: "Tulip Admiral of Admirals", qty: 8 },
+        { from: "Vincent",         to: "Max",     what: "Tulip Bloemendaal Sunset",  qty: 2 },
+        { from: "Anne",            to: "Martijn", what: "Tulip Semper Augustus",     qty: 2 },
+        { from: "Ruben",           to: "Julia",   what: "Tulip Admiral van Eijck",   qty: 2 } )
+...
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="20">
+  <!-- _S9SLIDE_ -->
+<h1 id="tulips-on-the-blockchain-adding-transactions-cont-2">Tulips on the Blockchain! Adding Transactions (Cont.)</h1>
+
+<p>resulting in:</p>
+
+<pre><code>[#&lt;Block:0x2da3da0
+  @hash="32bd169baebba0b70491b748329ab631c85175be15e1672f924ca174f628cb66",
+  @index=0,
+  @previous_hash="0",
+  @timestamp=1637-09-25 17:39:21,
+  @transactions=
+   [{:from=&gt;"Dutchgrown", :to=&gt;"Vincent", :what=&gt;"Tulip Bloemendaal Sunset", :qty=&gt;10},
+    {:from=&gt;"Keukenhof",  :to=&gt;"Anne",    :what=&gt;"Tulip Semper Augustus",    :qty=&gt;7}],
+  @transactions_count=2&gt;,
+ #&lt;Block:0x2da2ff0
+  @hash="57b519a8903e45348ac8a739c788815e2bd90423663957f87e276307f77f1028",
+  @index=1,
+  @previous_hash=
+   "32bd169baebba0b70491b748329ab631c85175be15e1672f924ca174f628cb66",
+  @timestamp=1637-09-25 17:49:21,
+  @transactions=
+   [{:from=&gt;"Flowers", :to=&gt;"Ruben", :what=&gt;"Tulip Admiral van Eijck",  :qty=&gt;5},
+    {:from=&gt;"Vicent",  :to=&gt;"Anne",  :what=&gt;"Tulip Bloemendaal Sunset", :qty=&gt;3},
+    {:from=&gt;"Anne",    :to=&gt;"Julia", :what=&gt;"Tulip Semper Augustus",    :qty=&gt;1},
+    {:from=&gt;"Julia",   :to=&gt;"Luuk",  :what=&gt;"Tulip Semper Augustus",    :qty=&gt;1}],
+  @transactions_count=4&gt;,
+...
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="21">
+  <!-- _S9SLIDE_ -->
+<h1 id="whats-blockchain-lite---ruby-edition">What’s Blockchain Lite - Ruby Edition?</h1>
+
+<p>blockchain-lite library (gem: <a href="https://rubygems.org/gems/blockchain-lite"><code>blockchain-lite</code></a>) -
+build your own blockchain with crypto hashes -
+revolutionize the world with blockchains, blockchains, blockchains one block at a time</p>
+
+<p><strong>Usage</strong></p>
+
+<p>Let’s get started.  Build your own blockchain one block at a time.</p>
+
+<pre><code class="language-ruby">require 'blockchain-lite'
+
+b0 = Block.first( 'Genesis' )
+b1 = Block.next( b0, 'Transaction Data...' )
+b2 = Block.next( b1, 'Transaction Data......' )
+b3 = Block.next( b2, 'More Transaction Data...' )
+
+blockchain = [b0, b1, b2, b3]
+
+pp blockchainconsole.log( blockchain )
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="22">
+  <!-- _S9SLIDE_ -->
+<h1 id="case-study----dutch-gulden-on-the-blockchain">Case Study -  Dutch Gulden on the Blockchain!</h1>
+
+<p><img src="i/guldenmarket.png" alt="" /></p>
+
+<p>(Source: <a href="https://coinmarketcap.com/currencies/gulden">coinmarketcap.com/currencies/gulden</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="23">
+  <!-- _S9SLIDE_ -->
+<h1 id="schilling-schilling-on-the-blockchain-rock-solid-alpine-dollar-from-austria">Schilling! Schilling! on the Blockchain! Rock-Solid Alpine Dollar from Austria</h1>
+
+<p>Who’s in? Invest now!</p>
+
+<p>Crypto #Schilling on the #Blockchain in 324 Days 7 Hours 30 Minutes!</p>
+
+<p>Join the Rock-Solid Alpine Dollar Movement!</p>
+
+<p>Learn more @ <a href="https://github.com/blockchainaustria/schilling">blockchainaustria/schilling</a></p>
+
+
+
+</section>
+
+<section class="slide " id="24">
+  <!-- _S9SLIDE_ -->
+<h1 id="breaking-news-cryptokitties-yes-cute-little-cartoon-cats-on-the-blockchain">Breaking News: CryptoKitties (Yes, Cute Little Cartoon Cats) on the Blockchain!</h1>
+
+<p>Collectible. Breedable. Adorable.</p>
+
+<p>Collect and breed digital cats. Start meow. Buy! Sell! Hold!</p>
+
+<p>Learn more @ <a href="https://cryptokitties.co">cryptokitties.co</a></p>
+
+<p><img src="i/cryptokitties.png" alt="" /></p>
+
+
+
+</section>
+
+<section class="slide " id="25">
+  <!-- _S9SLIDE_ -->
+<h1 id="breaking-news-cryptokitties-yes-cute-little-cartoon-cats-on-the-blockchain-cont">Breaking News: CryptoKitties (Yes, Cute Little Cartoon Cats) on the Blockchain! (Cont.)</h1>
+
+<p>Latest (and Greatest) Investment Opportunity!</p>
+
+<blockquote>
+  <p>Blockchain has unlocked the magic of digital scarcity, and combining that with the power of
+making the digital goods persistent gives them a potential value that is only limited by how much
+prestige a wealthy person might place on ownership of the item.</p>
+
+  <p>– <a href="https://twitter.com/tokenizedcap/status/938460753589424128">Justin Poirier</a>‏</p>
+</blockquote>
+
+<blockquote>
+  <p>All I want for Christmas is a CryptoKitty.</p>
+
+  <p>– <a href="https://twitter.com/kaylaw/status/938590748655550464">Kayla Williams</a></p>
+</blockquote>
+
+<blockquote>
+  <p>I got a fever. And the only prescription is more CryptoKitties.</p>
+
+  <p>– <a href="https://twitter.com/ceduardosalazar/status/938558630663634944">Eduardo Salazar</a></p>
+</blockquote>
+
+<blockquote>
+  <p><a href="https://www.cryptokitties.co/kitty/104375">My Gen 7 CryptoKitty #104375</a>. The Future is Meow.</p>
+
+  <p>– <a href="https://twitter.com/TheAnshulDhawan/status/938551642202324993">Anshul Dhawan‏</a></p>
+</blockquote>
+
+<p><img src="i/cryptokitty46.png" alt="" /></p>
+
+
+
+</section>
+
+<section class="slide " id="26">
+  <!-- _S9SLIDE_ -->
+<h1 id="bonus-blockchain-articles">Bonus: Blockchain Articles</h1>
+
+<p><a href="http://rufuspollock.com/2016/07/02/reflections-on-the-blockchain"><strong>Reflections on the Blockchain</strong></a> by Rufus Pollock (Open Knowledge Foundation), July 2016 –
+<em>The DAO: Code is not Law - and It’s Dangerous to Think So ++
+The Internet changed the world - surely the Blockchain will too? ++
+Gold-rush or Internet-rush? ++
+Governance Matters in Bitcoin ++
+The Myth of a Costless, Ownerless Network ++
+Lessons from History</em></p>
+
+<p><a href="https://tonyarcieri.com/on-the-dangers-of-a-blockchain-monoculture"><strong>On the Dangers of a Blockchain Monoculture</strong></a> by Tony Arcieri, January 2016 –
+<em>The Bitcoin blockchain: the world’s worst database ++
+Next-generation protocols ++
+Decentralized ledger protocols ++
+Bitcoin-NG ++
+Blockchain! Blockchain! Blockchain! ++
+The great decentralized database in the sky</em></p>
+
+<p><a href="https://www.tbray.org/ongoing/When/201x/2017/05/13/Not-Believing-in-Blockchain"><strong>I Don’t Believe in Blockchain</strong></a> by Tim Bray, May 2017</p>
+
+<p><a href="https://www.igvita.com/2014/05/05/minimum-viable-block-chain/"><strong>Minimum Viable Blockchain</strong></a> by Ilya Grigorik, May 2014 –
+<em>Securing transactions with triple-entry bookkeeping ++
+Securing transactions with PKI ++
+Balance = Σ(receipts) ++
+Multi-party transfers &amp; verification ++
+Double-spending and distributed consensus -
+ Requirements for a distributed consensus network;
+ Protecting the network from Sybil attacks;
+Proof-of-work as a participation requirement ++
+Building the minimum viable blockchain -
+ Adding “blocks” &amp; transaction fee incentives;
+ Racing to claim the transaction fees;
+ Resolving chain conflicts;
+ Blocks are never final ++
+Properties of the (minimum viable) blockchain</em></p>
+
+<p><a href="https://www.oreilly.com/ideas/blockchains-by-analogies-and-applications"><strong>Blockchains by analogies and applications: How blockchain compares to Git, Raft, and other technologies.</strong></a>
+by Kieren James-Lubin, January 2016 –
+<em>Blockchains are databases ++
+Understanding transactions ++
+Persistent, replicated databases (related technology: Git) ++
+Peer-to-peer networks (related technology: BitTorrent) ++
+Distributed consensus (related technology: distributed databases, Raft) ++
+Minting new coins (mining) ++
+Embedded identities (related technology: TLS) ++
+Smart contracts: Like SQL expressions &amp; triggers ++
+What can we really do with blockchains?</em></p>
+
+
+
+</section>
+
+<section class="slide " id="27">
+  <!-- _S9SLIDE_ -->
+<h1 id="bonus-blockchain-books">Bonus: Blockchain Books</h1>
+
+<p><a href="https://davidgerard.co.uk/blockchain/table-of-contents/"><strong>Attack of the 50 Foot Blockchain: Bitcoin, Blockchain, Ethereum &amp; Smart Contracts</strong></a> by David Gerard, London, 2017 –
+<em>What is a bitcoin? ++
+The Bitcoin ideology ++
+The incredible promises of Bitcoin! ++
+Early Bitcoin: the rise to the first bubble ++
+How Bitcoin mining centralised ++
+Who is Satoshi Nakamoto? ++
+Spending bitcoins in 2017 ++
+Trading bitcoins in 2017: the second crypto bubble ++
+Altcoins ++
+Smart contracts, stupid humans ++
+Business bafflegab, but on the Blockchain ++
+Case study: Why you can’t put the music industry on a blockchain</em></p>
+
+<p><a href="https://github.com/bitcoinbook/bitcoinbook/blob/second_edition/ch09.asciidoc"><strong>Mastering Bitcoin - Programming the Open Blockchain</strong></a> 2nd Edition,
+by Andreas M. Antonopoulos, 2017 - FREE (Online Source Version) –
+<em>What Is Bitcoin? ++
+How Bitcoin Works ++
+Bitcoin Core: The Reference Implementation ++
+Keys, Addresses ++
+Wallets ++
+Transactions ++
+Advanced Transactions and Scripting ++
+The Bitcoin Network ++
+The Blockchain ++
+Mining and Consensus ++
+Bitcoin Security ++
+Blockchain Applications</em></p>
+
+<p><a href="https://www.ibm.com/blockchain/what-is-blockchain.html"><strong>Blockchain for Dummies, IBM Limited Edition</strong></a> by Manav Gupta, 2017 - FREE (Digital Download w/ Email) –
+<em>Grasping Blockchain Fundamentals ++
+Taking a Look at How Blockchain Works ++
+Propelling Business with Blockchains ++
+Blockchain in Action: Use Cases ++
+Hyperledger, a Linux Foundation Project ++
+Ten Steps to Your First Blockchain application</em></p>
+
+
+
+</section>
+
+<section class="slide " id="28">
+  <!-- _S9SLIDE_ -->
+<h1 id="bonus-awesome-blockchains">Bonus: Awesome Blockchains</h1>
+
+<p>A collection about awesome blockchains - open distributed public databases w/ crypto hashes incl. git ;-). Blockchains are the new tulips. Distributed is the new centralized.</p>
+
+<p>More @ <a href="https://github.com/openblockchains/awesome-blockchains">openblockchains/awesome-blockchains</a></p>
+
+
+
+</section>
+
+<section class="slide " id="29">
+  <!-- _S9SLIDE_ -->
+<h1 id="bonus-git-git-git---the-stupid-content-tracker-with-crypto-hashes">Bonus: Git, Git, Git - The Stupid Content Tracker with Crypto Hashes</h1>
+
+<p><em>Everything is local. Distributed is the new centralized.</em></p>
+
+<blockquote>
+  <p>Yep, that’s the joke. Nobody has been able to explain to me how the “blockchain” buzzword is significantly different to “git repo”.
+– <a href="https://twitter.com/yaakov_h/status/902659507255312384">Yaakov</a></p>
+
+  <p>But if you said “let’s build a currency where all transactions are stored in a git repo”
+you wouldn’t be taken seriously for even 24 hrs.
+– <a href="https://twitter.com/yaakov_h/status/902659847224664064">Yaakov</a></p>
+</blockquote>
+
+<blockquote>
+  <p>Soon explaining git like “a git repo is like a blockchain with commits instead of blocks”.
+– <a href="https://twitter.com/nicoberger/status/901776907418697729">Nicolás Berger</a></p>
+
+  <p>“A local branch is like a state channel. It can be pushed and merged into the master blockchain at any moment.”
+– <a href="https://twitter.com/nicoberger/status/901777571456614400">Nicolás Berger</a></p>
+</blockquote>
+
+<blockquote>
+  <p>The #Blockchain has changed the world. Here I make the argument that the #Blockchain is just like #git.
+– <a href="https://twitter.com/sjkelleyjr/status/901464041163341824">Jackson Kelley</a></p>
+</blockquote>
+
+<blockquote>
+  <p><code>git merge [-m REF] [-g BLOB] --push</code>
+ Merge and push all signed commits to the blockchain.
+– <a href="https://twitter.com/git_commands/status/935574015015612416">Git Commands</a></p>
+</blockquote>
+
+</section>
+
+
+</article> <!-- presentation -->
+</body>
+</html>
