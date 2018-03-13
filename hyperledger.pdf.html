@@ -1,0 +1,510 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Inside (Hyper) Ledger Lite - Add Transactions One Block at a Time and Balance the Accounts (Books)</title>
+
+   
+
+<style>
+html, body { margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; }
+
+a:link, a:visited { color: black; }
+
+h1 { font-size: 30pt;  }
+h2 { font-size: 28pt;  }
+h3 { font-size: 25pt;  }
+p, li, dt, dd, td, th { font-size: 18pt; }
+
+pre { font-size: 14pt;  }
+pre.small { font-size: 11pt; }
+
+pre.code {
+        background-color: azure;
+        padding: 5px;
+      }
+
+ul { list-style-type: square; }
+
+.center { text-align: center; }
+
+.slide { page-break-after: always;
+         min-height: 100mm;
+         padding: 40px;
+
+         border: 1px dotted black;
+
+/*
+  background: -moz-linear-gradient( top, maroon, red);
+*/
+       }
+
+
+
+/*
+for princexml (CSS3 paged media support)
+@page { size: A4 landscape }
+*/
+</style>
+
+</head>
+<body>
+
+<article id="presentation">
+
+
+<section class="slide " id="1">
+  
+<!-- _S9SLIDE_ -->
+<h1 id="blockchain-blockchain-blockchain-decentralize-payments-decentralize-transactions-decentralize-blockchains">Blockchain! Blockchain! Blockchain! Decentralize Payments. Decentralize Transactions. Decentralize Blockchains.</h1>
+
+<p>What’s Blockchain?</p>
+
+<ul>
+  <li>Distributed Database?</li>
+  <li>Hyper Ledger Book?</li>
+  <li>Consensus with Proof-of-Work or Proof-of-Stake?</li>
+  <li>Digital Fingerprints? Cryptographic Hashes?</li>
+  <li>Lottery? Central Bank?</li>
+  <li>Byzantine-Generals Solution?</li>
+</ul>
+
+<p>Yes. Yes. Yes. Blockchain! Blockchain! Blockchain!</p>
+
+<p>(Source: <a href="https://github.com/openblockchains/whatsblockchain">openblockchains/whatsblockchain</a>)</p>
+
+
+
+</section>
+
+<section class="slide " id="2">
+  <!-- _S9SLIDE_ -->
+<h1 id="inside-blockchains---inside-hyper-ledgers">Inside Blockchains - Inside (Hyper) Ledgers</h1>
+
+<p>Q: What’s the best way to understand and learn about blockchains
+and (hyper) ledgers?</p>
+
+<p>A: Do it yourself (DIY)! Build your own blockchains and (hyper) ledgers
+from scratch (zero)!</p>
+
+
+
+</section>
+
+<section class="slide " id="3">
+  <!-- _S9SLIDE_ -->
+<h1 id="lets-build-your-own-hyper-ledger-from-zero--scratch">Let’s Build Your Own (Hyper) Ledger (From Zero / Scratch)</h1>
+
+<p>Crypto God? Python Cowboy? Ruby Ninja? JavaScript Rockstar?</p>
+
+<p>Yes, you can.</p>
+
+<p><img src="i/fake-dilbert-blockchain.png" alt="" /></p>
+
+
+
+</section>
+
+<section class="slide " id="4">
+  <!-- _S9SLIDE_ -->
+<h1 id="awesome-blockchains">Awesome Blockchains</h1>
+
+<p>What’s Awesome Blockchains?</p>
+
+<p>A public page that collects articles on building your own
+blockchains and (hyper) ledgers from scratch (zero) -
+github: <a href="https://github.com/openblockchains/awesome-blockchains">openblockchains/awesome-blockchains</a>.</p>
+
+
+
+</section>
+
+<section class="slide " id="5">
+  <!-- _S9SLIDE_ -->
+<h1 id="whats-hyper-ledger-lite">What’s (Hyper) Ledger Lite?</h1>
+
+<p>ledger-lite library (github: <a href="https://github.com/openblockchains/ledger.lite.rb">openblockchains/ledger.lite.rb</a>) - (free, open source) hyper ledger book for the distributed blockchain internet era;
+add your transactions one block at a time; transfer crypto currencies or collectibles
+and balance the accounts.</p>
+
+
+
+</section>
+
+<section class="slide " id="6">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Q: What’s the Difference?</p>
+
+
+
+</section>
+
+<section class="slide " id="7">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference-1">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Blockchain - a list (chain) of blocks of transactions.</p>
+
+<p>Blockchain Lite Example:</p>
+
+<pre><code class="language-ruby">b0 = Block.first(
+        { from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
+        { from: "Keukenhof",  to: "Anne",    what: "Tulip Semper Augustus",    qty: 7  } )
+
+b1 = Block.next( b0,
+        { from: "Flowers", to: "Ruben", what: "Tulip Admiral van Eijck",  qty: 5 },
+        { from: "Vicent",  to: "Anne",  what: "Tulip Bloemendaal Sunset", qty: 3 },
+        { from: "Anne",    to: "Julia", what: "Tulip Semper Augustus",    qty: 1 },
+        { from: "Julia",   to: "Luuk",  what: "Tulip Semper Augustus",    qty: 1 } )
+
+b2 = Block.next( b1,
+        { from: "Bloom &amp; Blossom", to: "Daisy",   what: "Tulip Admiral of Admirals", qty: 8 },
+        { from: "Vincent",         to: "Max",     what: "Tulip Bloemendaal Sunset",  qty: 2 },
+        { from: "Anne",            to: "Martijn", what: "Tulip Semper Augustus",     qty: 2 },
+        { from: "Ruben",           to: "Julia",   what: "Tulip Admiral van Eijck",   qty: 2 } )
+...
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="8">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference-2">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Ledger Book = Accounting Book = Book of Accounts</p>
+
+<p>What’s an Account?</p>
+
+<p>Q: An account records …. ?</p>
+
+<p>A: Transactions, transaction, transactions.</p>
+
+<p><img src="i/ledger.jpg" alt="" /></p>
+
+
+
+</section>
+
+<section class="slide " id="9">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference-3">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Ledger Lite Example:</p>
+
+<pre><code class="language-ruby">ledger = Ledger.new
+
+ledger.write( Tx.new( from: "Keukenhof†",  to: "Vincent", qty: 11, name: "Tulip Admiral van Eijck" ))
+ledger.write( Tx.new( from: "Vincent",     to: "Anne",    qty:  3, name: "Tulip Admiral van Eijck" ))
+ledger.write( Tx.new( from: "Anne",        to: "Julia",   qty:  2, name: "Tulip Admiral van Eijck" ))
+ledger.write( Tx.new( from: "Julia",       to: "Luuk",    qty:  1, name: "Tulip Admiral van Eijck" ))
+
+ledger.write(
+   Tx.new( from: "Dutchgrown†", to: "Ruben",   qty: 11, name: "Tulip Semper Augustus" ),
+   Tx.new( from: "Vincent",     to: "Max",     qty:  3, name: "Tulip Admiral van Eijck" ),
+   Tx.new( from: "Ruben",       to: "Julia",   qty:  2, name: "Tulip Semper Augustus" ),
+   Tx.new( from: "Anne",        to: "Martijn", qty:  1, name: "Tulip Admiral van Eijck" ))
+...
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="10">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference-4">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Ledger Lite Example:</p>
+
+<pre><code class="language-ruby">ledger = Ledger.new
+
+ledger.write(
+   Block.new( Tx.new( from: "Keukenhof†",  to: "Vincent", qty: 11, name: "Tulip Admiral van Eijck" ),
+              Tx.new( from: "Vincent",     to: "Anne",    qty:  3, name: "Tulip Admiral van Eijck" ),
+              Tx.new( from: "Anne",        to: "Julia",   qty:  2, name: "Tulip Admiral van Eijck" ),
+              Tx.new( from: "Julia",       to: "Luuk",    qty:  1, name: "Tulip Admiral van Eijck" )),
+
+   Block.new( Tx.new( from: "Dutchgrown†", to: "Ruben",   qty: 11, name: "Tulip Semper Augustus" ),
+              Tx.new( from: "Vincent",     to: "Max",     qty:  3, name: "Tulip Admiral van Eijck" ),
+              Tx.new( from: "Ruben",       to: "Julia",   qty:  2, name: "Tulip Semper Augustus" ),
+              Tx.new( from: "Anne",        to: "Martijn", qty:  1, name: "Tulip Admiral van Eijck" )))
+...
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="11">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference-5">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Q: What’s the Difference?</p>
+
+
+
+</section>
+
+<section class="slide " id="12">
+  <!-- _S9SLIDE_ -->
+<h1 id="blockchain-vs-hyper-ledger-book---whats-the-difference-6">Blockchain vs (Hyper) Ledger (Book) - What’s the Difference?</h1>
+
+<p>Blockchain:</p>
+
+<ul>
+  <li>bundles transactions into blocks</li>
+  <li>transactions get added to the chain on block at a time</li>
+</ul>
+
+<p>=&gt; Is the transaction valid and the “consensus” / accepted “time-stamped” truth to be trusted?</p>
+
+<p>Ledger:</p>
+
+<ul>
+  <li>add one transaction at a time</li>
+  <li>balances your accounts!</li>
+  <li>double entry bookkeeping (or triple entry bookkeeping!)</li>
+</ul>
+
+<p>=&gt; Who owns what?</p>
+
+
+
+</section>
+
+<section class="slide " id="13">
+  <!-- _S9SLIDE_ -->
+<h1 id="double-entry-bookkeeping-accounting">Double Entry Bookkeeping (Accounting)</h1>
+
+<blockquote>
+  <p>Double-entry bookkeeping, in accounting,
+is a system of bookkeeping so named because every entry to an account
+requires a corresponding and opposite entry to a different account.
+The double entry has two equal and corresponding sides known as debit and credit.
+The left-hand side is debit and right-hand side is credit.</p>
+
+  <p>– <a href="https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">Wikipedia</a></p>
+</blockquote>
+
+<pre><code class="language-ruby">## apply/do single transaction - send payment - do transfer
+def send( from, to, amount )
+
+  if sufficient?( from, amount )
+     @addr[ from ] -= amount
+     @addr[ to   ] += amount
+  end
+
+end  # method send
+
+## note: transfer is an alias for send (payment)
+alias :transfer :send
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="14">
+  <!-- _S9SLIDE_ -->
+<h1 id="ledger-vs-hyper-ledger---whats-the-difference">Ledger vs Hyper Ledger - What’s the difference?</h1>
+
+<p>Hyper - Ledger (book) for the distributed blockchain internet era</p>
+
+<p>Coinbase! Create money out of … nothing one block at a time!</p>
+
+<pre><code class="language-ruby">Ledger.configure do |config|
+  config.coinbase = ['Keukenhof†']
+end
+
+# ...
+
+def send( from, to, amount )
+  if sufficient?( from, amount )
+    if Ledger.config.coinbase?( from )
+      # note: coinbase has unlimited funds!! ("virtual" built-in money printing address)
+    else
+      @addr[ from ] -= amount
+    end
+    @addr[ to ] += amount
+  end
+end  # method send
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="15">
+  <!-- _S9SLIDE_ -->
+<h1 id="inside-ledger-lite---currencies-commodities-collectibles-assets-and-more">Inside Ledger Lite - Currencies, Commodities, Collectibles, Assets and More</h1>
+
+<p>Ledger Lite lets you design / create your own transactions.</p>
+
+<p>For example, let’s use
+<code>from</code>, <code>to</code>, <code>qty</code> (quantity) and <code>name</code> (of commodity, collectible or asset).
+Override the <code>Ledger#unpack</code> method for “unpacking” arguments from transactions
+and the <code>Ledger#send</code> method for “committing” transactions:</p>
+
+<pre><code class="language-ruby">def unpack( tx )
+  ## "unpack" from, to, qty, name values
+  if tx.is_a?( Hash )   ## support hashes
+    from   = tx[:from]
+    to     = tx[:to]
+    qty    = tx[:qty]
+    name   = tx[:name]
+  else   ## assume it's a transaction (tx) struct/class
+    from   = tx.from
+    to     = tx.to
+    qty    = tx.qty
+    name   = tx.name
+  end
+  [from,to,qty,name]
+end
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="16">
+  <!-- _S9SLIDE_ -->
+<h1 id="inside-ledger-lite---currencies-commodities-collectibles-assets-and-more-cont">Inside Ledger Lite - Currencies, Commodities, Collectibles, Assets and More (Cont.)</h1>
+
+<pre><code class="language-ruby">def send( from, to, qty, name )
+  if sufficient?( from, qty, name )
+    if Ledger.config.coinbase?( from )
+      # note: coinbase has unlimited supply!! magic happens here
+    else
+      @addr[ from ][ name ] -= qty
+    end
+    @addr[ to ][ name ] += qty
+  end
+end
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="17">
+  <!-- _S9SLIDE_ -->
+<h1 id="inside-ledger-lite---currencies-commodities-collectibles-assets-and-more-cont-1">Inside Ledger Lite - Currencies, Commodities, Collectibles, Assets and More (Cont.)</h1>
+
+<p>Now use the ledger with the new transaction format like:</p>
+
+<pre><code class="language-ruby">ledger = Ledger.new
+
+ledger.send( "Keukenhof†",  "Vincent", 11, "Tulip Admiral van Eijck" )
+ledger.send( "Vincent",     "Anne",     3, "Tulip Admiral van Eijck" )
+ledger.send( "Anne",        "Julia",    2, "Tulip Admiral van Eijck" )
+ledger.send( "Julia",       "Luuk",     1, "Tulip Admiral van Eijck" )
+
+ledger.send( "Dutchgrown†", "Ruben",   11, "Tulip Semper Augustus"  )
+ledger.send( "Vincent",     "Max",      3, "Tulip Admiral van Eijck" )
+ledger.send( "Ruben",       "Julia",    2, "Tulip Semper Augustus" )
+ledger.send( "Anne",        "Martijn",  1, "Tulip Admiral van Eijck"
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="18">
+  <!-- _S9SLIDE_ -->
+<h1 id="do-it-yourself-diy---build-your-own-real-world-case-studies">Do-it-yourself (DIY) - Build Your Own Real-World Case Studies</h1>
+
+<p>Open source, free case studies using blockchain-lite, merkletree, p2p,
+and ledger-lite include:</p>
+
+<ul>
+  <li>Central Bank - github: <a href="https://github.com/openblockchains/centralbank">openblockchains/centralbank</a></li>
+  <li>Tulipmania - github: <a href="https://github.com/openblockchains/tulipmania">openblockchains/tulipmania</a></li>
+</ul>
+
+<p>And last but not least:</p>
+
+<ul>
+  <li>Shilling (or Schilling) also known as Bitshilling - github: <a href="https://github.com/bitshilling">bitshilling</a></li>
+</ul>
+
+
+
+</section>
+
+<section class="slide " id="19">
+  <!-- _S9SLIDE_ -->
+<h1 id="do-it-yourself-diy---build-your-own-real-world-case-studies---central-bank">Do-it-yourself (DIY) - Build Your Own Real-World Case Studies - Central Bank</h1>
+
+<p>Central Bank - centralbank command line tool (and core library) -
+print your own money / cryptocurrency;
+run your own federated central bank nodes on the blockchain peer-to-peer over HTTP;
+revolutionize the world one block at a time</p>
+
+<p>Command Line. Use the <code>centralbank</code> command line tool. Try:</p>
+
+<pre><code>$ centralbank -h     
+</code></pre>
+
+<p>resulting in:</p>
+
+<pre><code>Usage: centralbank [options]
+
+  Wallet options:
+    -n, --name=NAME                  Address name (default: Alice)
+
+  Server (node) options:
+    -o, --host HOST                  listen on HOST (default: 0.0.0.0)
+    -p, --port PORT                  use PORT (default: 4567)
+    -h, --help                       Prints this help
+</code></pre>
+
+
+
+</section>
+
+<section class="slide " id="20">
+  <!-- _S9SLIDE_ -->
+<h1 id="do-it-yourself-diy---build-your-own-real-world-case-studies---central-bank-cont">Do-it-yourself (DIY) - Build Your Own Real-World Case Studies - Central Bank (Cont.)</h1>
+
+<p>To start a new (network) node using the default wallet
+address (that is, Alice) and the default server host and port settings
+use:</p>
+
+<pre><code>$ centralbank
+</code></pre>
+
+<p>Stand back ten feets :-) while starting up the machinery.
+Ready to print (mine) money on the blockchain?
+In your browser open up the page e.g. <code>http://localhost:4567</code>. Voila!</p>
+
+<p><img src="i/centralbank.png" alt="" /></p>
+
+
+
+</section>
+
+<section class="slide " id="21">
+  <!-- _S9SLIDE_ -->
+<h1 id="do-it-yourself-diy---build-your-own-real-world-case-studies---shilling-or-schilling">Do-it-yourself (DIY) - Build Your Own Real-World Case Studies - Shilling (or Schilling)</h1>
+
+<p>Shilling (or Schilling) on the Blockchain! -
+Rock-Solid Alpine Dollar from Austria -
+BTS is the new ATS - Bitcoin Sidechain</p>
+
+<p>Find out more @ github: <a href="https://github.com/bitshilling">bitshilling</a>.</p>
+
+</section>
+
+
+</article> <!-- presentation -->
+</body>
+</html>
